@@ -6,7 +6,7 @@
 
 One Paragraph of project description goes here.
 
-Quick Links
+## Quick Links
 
 * [Staging Server Link](#)
 * [Live Server Link](#)
