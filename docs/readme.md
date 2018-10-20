@@ -54,16 +54,7 @@ Link to issues filtered to the label "[user story](#)".
 
 ### Sitemap
 
-Create and label a hierarchical diagram that identifies all user facing screens. This will be the road map your instructors and you will use to converse about various screens and to examine user flows between screens.
-
-### Interface
-
-#### Information Architecture
-
-Using your sitemap as a base structure, use this section to house ALL of your text content. This is a great place to develop all of the content that will appear on your pages, components, and sub sections outside of the constraints of code. In MVC we separate views from controllers and models, while in the Information Architecture section of your project spec you will separate your content from your code.
-
-
-### Infrastructure
+Create and label a hierarchical diagram that identifies all user facing screens. This will be the road map for you and your instructors will use to converse about various screens and to examine user flows between screens.
 
 ### Technical Requirements
 
@@ -72,21 +63,13 @@ Define the server software and hardware, virtualized or not, that your applicati
 > Example: Technical Requirement - FFMPEG
 > Server side service to handle video. Needed to extract single frames to turn into thumbnails.
 
-> Example: Issue - Thumbnail Generate:
-> Detailed description of the usage I intend to do... how exactly that will work for the user.
-> Technical Requirement: FFMPEG
-
 ### Programming Languages
 
 Identify what programming languages you are using. Provide links to their respective documentation sites.
 
 ### Integrations
 
-Identify what 3rd party packages, libraries, or external integrations you are using. Provide links to their respective documentation sites.
-
-### Deployment Workflow
-
-Document the release process for your application from new feature creation through live deployment. This will be heavily focused on this week's research.
+Identify what 3rd party packages, libraries, or external integrations you are using. Provide links to their respective documentation.
 
 ### Web Host
 
