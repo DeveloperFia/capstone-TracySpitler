@@ -7,7 +7,8 @@ about: Describe this issue template's purpose here.
 > **Label**: Should be labeled as `feedback`
 
 **General Notes**
-* Summerized notes of the feedback given point by point.
+* Summarized notes of the feedback provided.
+* Repeated for each point by point.
 
 **Action Items**
 * [ ] Items that should be acted upon. The developer should check the box 
