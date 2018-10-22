@@ -3,18 +3,18 @@
 <!-- TOC -->
 
 - [1. Application Definition Statement](#1-application-definition-statement)
-        - [1.0.1. Audience](#101-audience)
-            - [1.0.1.1. Demographics](#1011-demographics)
-        - [1.0.2. Problem](#102-problem)
-        - [1.0.3. Solution](#103-solution)
-        - [1.0.4. Unique Value Proposition](#104-unique-value-proposition)
-        - [1.0.5. User Stories](#105-user-stories)
-            - [1.0.5.1. Functional Requirements (Features)](#1051-functional-requirements-features)
+    - [1.1. Audience](#11-audience)
+        - [1.2. Demographics](#12-demographics)
+    - [1.3. Problem](#13-problem)
+    - [1.4. Solution](#14-solution)
+    - [1.5. Unique Value Proposition](#15-unique-value-proposition)
+    - [1.6. User Stories](#16-user-stories)
+        - [1.7. Functional Requirements (Features)](#17-functional-requirements-features)
 - [2. Spec](#2-spec)
-        - [2.0.6. Sitemap](#206-sitemap)
-        - [2.0.7. Programming Languages](#207-programming-languages)
-        - [2.0.8. Technical Requirements](#208-technical-requirements)
-        - [2.0.9. Integrations](#209-integrations)
+    - [2.1. Sitemap](#21-sitemap)
+    - [2.2. Programming Languages](#22-programming-languages)
+    - [2.3. Technical Requirements](#23-technical-requirements)
+    - [2.4. Integrations](#24-integrations)
 
 <!-- /TOC -->
 
@@ -22,23 +22,23 @@
 
 The Application Definition Statement is a clear and concise explanation of how your solution proposes to solve the problem that your audience is having. The audience, their demographics, their problem and your solution will be explore in their respective sections in more detail.
 
-### 1.0.1. Audience
+## 1.1. Audience
 
 Define the primary as well as any secondary audiences. The more specific the better. Identify any defining characteristics that will influence design considerations. 
 
 When selecting a Primary Audience consider that yes, *anyone* could use your service, but who is your ideal user and why. If you are running a convenience store are you targeting *everyone* as a customer, or have you researched the products that a specific age and income bracket are interested in.
 
-#### 1.0.1.1. Demographics
+### 1.2. Demographics
 
 The defining characteristics of the audiences chosen should be explore with research. Demographics are not overly broad as to encompass people of any age, gender, income, or educational background. Research was done to provide relevant information for the demographic such as, but not limited to, gender, age, education, employment, and income. Secondary demographics are considered and include the same level of detail.
 
-### 1.0.2. Problem
+## 1.3. Problem
 
 Clearly and succinctly define the problem your audience is having, for which you intend to develop a web-based solution.
 
 > Cite research or feedback from interviews with your audience. 
 
-### 1.0.3. Solution
+## 1.4. Solution
 
 Identify any competition operating in this market space and summarize how they are addressing the problem, as defined.
 
@@ -46,11 +46,11 @@ Define your solution and how it will directly address the problem your audience 
 
 > Define your the competition operating within this market.
 
-### 1.0.4. Unique Value Proposition
+## 1.5. Unique Value Proposition
 
 What separates you from the competition? How are you able to better solve this defined problem for your audience than your competition? Why is your idea smarter, more efficient, or better? This is the key to make your solution marketable.
 
-### 1.0.5. User Stories
+## 1.6. User Stories
 
 All application requirements are captured as user stories. The application may contain for several kinds of different users or personas. Each persona has several stories that follow the correct format:
 
@@ -58,7 +58,7 @@ All application requirements are captured as user stories. The application may c
 
 Each story should correctly and clearly demonstrates a user's needs to achieve a goal which is relevant to the application definition statement.
 
-#### 1.0.5.1. Functional Requirements (Features)
+### 1.7. Functional Requirements (Features)
 
 Functional Requirements match the expected feature set and user stories for the application definition. Each feature is thoroughly defined in clear detail and has a clear purpose in the application. The level of detail provided leaves little or no questions in each features intentions and how it will satisfy the application definition statement and user stories.
 
@@ -79,21 +79,21 @@ Functional Requirements match the expected feature set and user stories for the 
 
 # 2. Spec
 
-### 2.0.6. Sitemap
+## 2.1. Sitemap
 
 Create and label a hierarchical diagram that identifies all user facing screens. This will be the road map for you and your instructors will use to converse about various screens and to examine user flows between screens.
 
-### 2.0.7. Programming Languages
+## 2.2. Programming Languages
 
 Identify what programming languages you are using. Provide links to their respective documentation sites.
 
-### 2.0.8. Technical Requirements
+## 2.3. Technical Requirements
 
 Define the server software and hardware, virtualized or not, that your application requires to run. These should be in a format of Title: Brief description of my usage. If a feature as defined in the issues requires a specific technology, that issue should cite this as well. 
 
 > Example: Technical Requirement - FFMPEG
 > Server side service to handle video. Needed to extract single frames to turn into thumbnails.
 
-### 2.0.9. Integrations
+## 2.4. Integrations
 
 Identify what 3rd party APIs, datasets, or external integrations you are using. Provide links to their respective documentation.
