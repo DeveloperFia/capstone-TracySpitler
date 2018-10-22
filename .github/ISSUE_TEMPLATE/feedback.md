@@ -1,6 +1,6 @@
 ---
-name: Capture Feedback
-about: Describe this issue template's purpose here.
+name: Feedback
+about: Capture feedback provided from any source.
 
 ---
 
@@ -15,6 +15,8 @@ about: Describe this issue template's purpose here.
 
 **Follow up**
 When the action items are completed, what follow up is expected? Review a pull request?
+
+> Close this issue after **all** action items and follow up has been completed.
 
 **Team Members Involved**
 
