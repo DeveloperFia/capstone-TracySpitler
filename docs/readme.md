@@ -4,12 +4,12 @@
 
 - [1. Application Definition Statement](#1-application-definition-statement)
     - [1.1. Audience](#11-audience)
-        - [1.2. Demographics](#12-demographics)
-    - [1.3. Problem](#13-problem)
-    - [1.4. Solution](#14-solution)
-    - [1.5. Unique Value Proposition](#15-unique-value-proposition)
-    - [1.6. User Stories](#16-user-stories)
-        - [1.7. Functional Requirements (Features)](#17-functional-requirements-features)
+        - [1.1.1. Demographics](#111-demographics)
+    - [1.2. Problem](#12-problem)
+    - [1.3. Solution](#13-solution)
+    - [1.4. Unique Value Proposition](#14-unique-value-proposition)
+    - [1.5. User Stories](#15-user-stories)
+        - [1.5.1. Functional Requirements (Features)](#151-functional-requirements-features)
 - [2. Spec](#2-spec)
     - [2.1. Sitemap](#21-sitemap)
     - [2.2. Programming Languages](#22-programming-languages)
@@ -28,17 +28,17 @@ Define the primary as well as any secondary audiences. The more specific the bet
 
 When selecting a Primary Audience consider that yes, *anyone* could use your service, but who is your ideal user and why. If you are running a convenience store are you targeting *everyone* as a customer, or have you researched the products that a specific age and income bracket are interested in.
 
-### 1.2. Demographics
+### 1.1.1. Demographics
 
 The defining characteristics of the audiences chosen should be explore with research. Demographics are not overly broad as to encompass people of any age, gender, income, or educational background. Research was done to provide relevant information for the demographic such as, but not limited to, gender, age, education, employment, and income. Secondary demographics are considered and include the same level of detail.
 
-## 1.3. Problem
+## 1.2. Problem
 
 Clearly and succinctly define the problem your audience is having, for which you intend to develop a web-based solution.
 
 > Cite research or feedback from interviews with your audience. 
 
-## 1.4. Solution
+## 1.3. Solution
 
 Identify any competition operating in this market space and summarize how they are addressing the problem, as defined.
 
@@ -46,11 +46,11 @@ Define your solution and how it will directly address the problem your audience 
 
 > Define your the competition operating within this market.
 
-## 1.5. Unique Value Proposition
+## 1.4. Unique Value Proposition
 
 What separates you from the competition? How are you able to better solve this defined problem for your audience than your competition? Why is your idea smarter, more efficient, or better? This is the key to make your solution marketable.
 
-## 1.6. User Stories
+## 1.5. User Stories
 
 All application requirements are captured as user stories. The application may contain for several kinds of different users or personas. Each persona has several stories that follow the correct format:
 
@@ -58,7 +58,7 @@ All application requirements are captured as user stories. The application may c
 
 Each story should correctly and clearly demonstrates a user's needs to achieve a goal which is relevant to the application definition statement.
 
-### 1.7. Functional Requirements (Features)
+### 1.5.1. Functional Requirements (Features)
 
 Functional Requirements match the expected feature set and user stories for the application definition. Each feature is thoroughly defined in clear detail and has a clear purpose in the application. The level of detail provided leaves little or no questions in each features intentions and how it will satisfy the application definition statement and user stories.
 
