@@ -1,4 +1,4 @@
-> Replace the template content below with your own project documentation.
+> Replace the template content below with your own project documentation. 
 
 <!-- TOC -->
 
