@@ -1,6 +1,6 @@
 # [Setlist]
 
-This Setlist app will keep track of varying set lists, or songbooks, filled with as many songs as you desire. Archiving the songs you play in a list will not only help you remember which songs to play and when to play them but will also let you see important details at a glance. Practice what you know, create a list for what you don't, and keep playing.
+This Setlist app will keep track of varying set lists, or songbooks, filled with as many songs as you desire. Archiving the songs you play in a list will not only help you remember which songs to play and when to play them but will also let you see important details at a glance, and practice sessions help you retain what you've learned. Practice what you know, create a list for what you don't, and keep playing.
 
 ## Quick Links
 
@@ -14,10 +14,12 @@ __No Authorization:__
 
 * Sign Up/Login
 * Search for chords (API)
+* Metronome (input for BPM)
 
 __User's Can:__
 
 * Search for chords (API)
+* Metronome (input for BPM)
 * Create and manipulate set lists/songbooks (CRUD)
 
     _Lists Include:_
@@ -29,16 +31,44 @@ __User's Can:__
 
     _Songs Include:_
     * Add manually or search and select with the Spotify API
-    * Details:
+    * Details (some display on click expansion):
         * Title
         * Artist
         * Length
         * Instrument (guitar - could include others later)
         * BPM (beats per minute)
         * Key
-        * Chords (multiple)
+        * Chords (multiple - including SVG display with finger placement)
+        * Difficulty level
     * Option to edit/remove song
     * Save to list (text input or chosen value from dropdown)
+    * Button to start/stop metronome (uses song BPM)
+
+* Practice Session (with a visual display of progress based on goal)
+
+    * Set a goal
+        * Number of songs - by difficulty level
+        * Amount of time
+        * Deliberate practice of a single song
+        * Single chord or chord progression
+    * Keeps track of time the user has spent practicing (length of songs, timer data)
+
+
+
+## API Uses
+
+__Spotify API__
+
+* Retrieves song data based on query
+    * BPM used for metronome
+    * Song key gets sent to UberChord API
+    * Other data is used to populate info fields
+
+__UberChord__
+
+* Retrieves chord data based on query
+    * Chord data used to make SVG image
+    * Uses the key from Spotify song data to retrieve all chords in that key (then display SVG)
 
 ## Technology Stack
 
@@ -53,3 +83,7 @@ __User's Can:__
 ## Importance Summary
 
 I play a little music, and unfortunately, I always forget more than I remember. Those I know who also play an instrument try to either commit everything to memory, which we all know doesn't work as well as we would like, or they write it down. Writing it down has its issues as well; it becomes easily misplaced or unavailable when you need it most. These are the problems I want this web app to solve.
+
+I could use the data from Spotify's API to get the key of the song, then display the chords for that song using the UberChord API. I could also potentially create a metronome based on the tempo (BPM) data from Spotify so the user can make sure they're in time.
+
+An SVG pattern is exactly what I had in mind for displaying the chords. I plan to include finger placement as well. What about practice sessions as suggested? The user could add a difficulty level to the song when it's added to a list. The practice session can be by difficulty level, a play for 'x' time (with a timer), or deliberate practice of an individual song. I can also have it keep track of time based on data from the practice session (length of songs, time played) and display that to the user.  Perhaps it can be goal oriented - settings for a certain number of songs, or an amount of time with a visual display of progress. Sorry it's so late. Any feedback would be appreciated.
