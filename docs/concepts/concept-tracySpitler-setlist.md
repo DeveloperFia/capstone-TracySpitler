@@ -53,8 +53,6 @@ __User's Can:__
         * Single chord or chord progression
     * Keeps track of time the user has spent practicing (length of songs, timer data)
 
-
-
 ## API Uses
 
 __Spotify API__
@@ -83,7 +81,3 @@ __UberChord__
 ## Importance Summary
 
 I play a little music, and unfortunately, I always forget more than I remember. Those I know who also play an instrument try to either commit everything to memory, which we all know doesn't work as well as we would like, or they write it down. Writing it down has its issues as well; it becomes easily misplaced or unavailable when you need it most. These are the problems I want this web app to solve.
-
-I could use the data from Spotify's API to get the key of the song, then display the chords for that song using the UberChord API. I could also potentially create a metronome based on the tempo (BPM) data from Spotify so the user can make sure they're in time.
-
-An SVG pattern is exactly what I had in mind for displaying the chords. I plan to include finger placement as well. What about practice sessions as suggested? The user could add a difficulty level to the song when it's added to a list. The practice session can be by difficulty level, a play for 'x' time (with a timer), or deliberate practice of an individual song. I can also have it keep track of time based on data from the practice session (length of songs, time played) and display that to the user.  Perhaps it can be goal oriented - settings for a certain number of songs, or an amount of time with a visual display of progress. Sorry it's so late. Any feedback would be appreciated.
