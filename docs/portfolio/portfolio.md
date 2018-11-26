@@ -6,7 +6,7 @@ __Did you do any independent research outside of what was required?​__
 
 I play music so research this week was particularly enlightening for me. I watched a video this week titled [Lessons Learned from a Decade of Audio Programming​](https://www.youtube.com/watch?v=Vjm--AqG04Y). During this video, one thing Somberg said that really struck me was when he was talking about lowering sounds that are less important. This could be extremely useful for the song playback part of the app - getting rid of vocals and perhaps even tuning some other noises down to make it easier to play along with, kind of like background music.
 
-​__How can you improve based on your experiences this week? What were your strengths and weaknesses? How was your experience with your assignments? Did you manage time wisely?​​__
+__How can you improve based on your experiences this week? What were your strengths and weaknesses? How was your experience with your assignments? Did you manage time wisely?__
 
 Time wasn't on my side this week. Or perhaps I wasn't on time's side. Either way, next week will be more productive. The hardest part of building a project for me is the starting point. There are a lot of decisions to be made in the first week. I'm not always sure about the details until a bit later. However, this class' workflow with GitHub has helped me clarify what I expect out of the project. The evolution of the project over the next few weeks gets a bit easier.
 
