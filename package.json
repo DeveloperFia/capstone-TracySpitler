@@ -1,0 +1,25 @@
+{
+  "name": "capstone-tracyspitler",
+  "version": "1.0.0",
+  "description": "**Capstone Project**",
+  "main": "bin/www",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fullsail/capstone-TracySpitler.git"
+  },
+  "author": "TS",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/fullsail/capstone-TracySpitler/issues"
+  },
+  "homepage": "https://github.com/fullsail/capstone-TracySpitler#readme",
+  "dependencies": {
+    "express": "^4.16.4"
+  }
+}
