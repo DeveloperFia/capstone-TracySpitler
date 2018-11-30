@@ -1,2 +1,6 @@
 // include the app
 const app = require('../app');
+
+// setup the port
+const port = 3000;
+app.set('port', port)
