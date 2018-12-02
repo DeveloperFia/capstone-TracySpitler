@@ -8,6 +8,18 @@ router.get('/', (req, res, next) => {
     res.render('landing');
 })
 
+// login page
+router.get('/login', (req, res, next) => {
+    // render pug template - login
+    res.render('login');
+})
+
+// sign-up page
+router.get('/signup', (req, res, next) => {
+    // render pug template - signup
+    res.render('signup');
+})
+
 // 404 error handling
 router.use(function(req, res, next) {
     // if the route doesn't exist..
