@@ -5,6 +5,15 @@ const request = require('supertest');
 
 // test routes
 describe('Routes', function() {
+    // non-existant route
+    describe('non-existant route', function() {
+        // test
+        it('should return a 404 response', function(done) {
+            request(app)
+                .get('/nope')
+                .expect(404, done)
+        });
+    });
 
     // index.js
     describe('index.js', function() {
@@ -13,8 +22,8 @@ describe('Routes', function() {
             // test
             it('should return a 200 response', function(done) {
                 request(app)
-                .get('/')
-                .expect(200, done)
+                    .get('/')
+                    .expect(200, done)
             });
         });
         // '/login'
@@ -22,8 +31,8 @@ describe('Routes', function() {
             // test
             it('should return a 200 response', function(done) {
                 request(app)
-                .get('/login')
-                .expect(200, done)
+                    .get('/login')
+                    .expect(200, done)
             });
         });
         // '/signup'
@@ -31,8 +40,8 @@ describe('Routes', function() {
             // test
             it('should return a 200 response', function(done) {
                 request(app)
-                .get('/signup')
-                .expect(200, done)
+                    .get('/signup')
+                    .expect(200, done)
             });
         });
     });
