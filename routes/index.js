@@ -4,8 +4,20 @@ const router = express.Router()
 
 // default page
 router.get('/', (req, res, next) => {
-    // send hello world
-    res.send('<h1>Hello World</h1>');
+    // render pug template - landing
+    res.render('landing');
+})
+
+// login page
+router.get('/login', (req, res, next) => {
+    // render pug template - login
+    res.render('login');
+})
+
+// sign-up page
+router.get('/signup', (req, res, next) => {
+    // render pug template - signup
+    res.render('signup');
 })
 
 // 404 error handling

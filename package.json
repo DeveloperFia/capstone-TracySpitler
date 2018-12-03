@@ -20,7 +20,8 @@
   },
   "homepage": "https://github.com/fullsail/capstone-TracySpitler#readme",
   "dependencies": {
-    "express": "^4.16.4"
+    "express": "^4.16.4",
+    "pug": "^2.0.3"
   },
   "devDependencies": {
     "chai": "^4.2.0",

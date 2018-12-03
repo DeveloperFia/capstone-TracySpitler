@@ -1,0 +1,49 @@
+/******************* main sections *******************/
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+main {
+    flex: 1 0 auto;
+}
+
+#landing {
+    background-image: url("/images/guitarist.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.page-footer {
+    padding: 1rem;
+    background-color: #0A0C27;
+}
+
+/******************* navigation *******************/
+
+nav {
+    background-color: #0A0C27;
+}
+
+a:hover {
+    color: #4FF7EA;
+}
+
+.btn {
+    background-color: #6B6C7D;
+}
+
+.btn:hover {
+    background-color: #0A0C27;
+    opacity: 1;
+}
+
+/******************* content *******************/
+
+.card {
+    min-width: 350px;
+    width: 50vw;
+    margin-top: 2rem;
+}
