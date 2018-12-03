@@ -26,3 +26,16 @@ main {
 nav {
     background-color: #0A0C27;
 }
+
+a:hover {
+    color: #4FF7EA;
+}
+
+.btn {
+    background-color: #6B6C7D;
+}
+
+.btn:hover {
+    background-color: #0A0C27;
+    opacity: 1;
+}
