@@ -1,3 +1,4 @@
+/******************* main sections *******************/
 body {
     display: flex;
     min-height: 100vh;
@@ -6,4 +7,11 @@ body {
 
 main {
     flex: 1 0 auto;
+}
+
+#landing {
+    background-image: url("/images/guitarist.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
