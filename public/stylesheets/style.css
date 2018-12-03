@@ -39,3 +39,11 @@ a:hover {
     background-color: #0A0C27;
     opacity: 1;
 }
+
+/******************* content *******************/
+
+.card {
+    min-width: 350px;
+    width: 50vw;
+    margin-top: 2rem;
+}
