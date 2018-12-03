@@ -1,0 +1,12 @@
+// include
+const app = require('../app');
+const http = require('http');
+
+// setup the port
+const port = 3000;
+app.set('port', port)
+
+// create HTTP server - once up, print to console
+const server = http.createServer(app);
+server.listen(port)
+server.on('listening', () => console.log('Server running on: '+port))
