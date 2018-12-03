@@ -22,6 +22,15 @@ body.grey.lighten-5
     main#landing
         .container
             block content
+                div.valign-wrapper.align-center
+                    .row
+                        .col
+                        if (!user)
+                            div.card
+                                div.card-content.center-align
+                                    h2 Welcome to SetList!
+                                    p Please log in or sign up below:
+                                
 
     footer
         .page-footer.center-align
