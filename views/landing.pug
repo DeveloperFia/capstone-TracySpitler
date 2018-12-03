@@ -46,7 +46,18 @@ body.grey.lighten-5
                                                 label(for="password") Password
                                             .input-field
                                                 input.btn(type='submit', value='Log In!')
-                                    
+                                    div#signup
+                                        form.card-content(method='post', action='/signup')
+                                            span.card-title Sign Up!
+                                            .input-field
+                                                input(type='email', name='email', id="email")
+                                                label(for="email") Email
+                                            .input-field
+                                                input(type='password', name='password', id="password")
+                                                label(for="password") Password
+                                            .input-field
+                                                input.btn(type='submit', value='Sign Up!')
+
     footer
         .page-footer.center-align
             p a project by Tracy Spitler
