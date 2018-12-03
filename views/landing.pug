@@ -34,8 +34,19 @@ body.grey.lighten-5
                                     ul.tabs.tabs-fixed-width
                                         li.tab #[a(href="#login") Log In]
                                         li.tab #[a(class="active" href="#signup") Sign Up]
-                                
-
+                                div.card-content.grey.lighten-4
+                                    div#login
+                                        form.card-content(method='post', action='/login')
+                                            span.card-title Log In!
+                                            .input-field
+                                                input(type='email', name='email', id="email")
+                                                label(for="email") Email
+                                            .input-field
+                                                input(type='password', name='password', id="password")
+                                                label(for="password") Password
+                                            .input-field
+                                                input.btn(type='submit', value='Log In!')
+                                    
     footer
         .page-footer.center-align
             p a project by Tracy Spitler
