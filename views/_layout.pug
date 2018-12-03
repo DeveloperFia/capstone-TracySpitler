@@ -3,28 +3,28 @@ html(lang="en")
 head
     meta(charset="UTF-8")
     title SetList
-    <!-- Compiled and minified CSS-->
+    <!-- jQuery -->
+    script(src="https://code.jquery.com/jquery-3.1.1.min.js")
+    <!-- Compiled and minified CSS -->
     link(rel='stylesheet', href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css")
     link(rel='stylesheet', href='/stylesheets/style.css', type='text/css')
 
 body.grey.lighten-5
     header
-        nav.deep-purple.darken-4
+        nav
             .nav-wrapper.container
                 a.brand-logo(href="/") SetList
                 ul.nav-mobile.right.hide-on-med-and-down
                     li
-                        a(href="/login") Login
+                        a(href="/login") Log In
                     li
                         a(href="/signup") Sign Up
     main
         .container
             block content
-                <!-- Compiled and minified JavaScript-->
-                script(src='https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js')
 
     footer
-        .page-footer.deep-purple.darken-4
-            .footer-copyright.container
-                p a project by Tracy Spitler
-                a(href='#') GitHub
+        .page-footer.center-align
+            p a project by Tracy Spitler
+            a(href='#') GitHub
+    
