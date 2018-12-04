@@ -4,6 +4,10 @@ const app = express();
 
 // require
 const path = require('path');
+const mongoose = require('mongoose');
+
+// connect to the database
+mongoose.connect('mongodb://'+process.env.MONGO_HOST+'/'+process.env.MONGO_DATABASE);
 
 // pug - template engine
 app.set('views', __dirname + '/views');
