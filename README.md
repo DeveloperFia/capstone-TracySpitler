@@ -2,48 +2,87 @@
 > Below are various sections of content that will need to be filled for various milestones. Fill out what you can now, and enhance this content later.
 
 
-# [Project Title]
+# [SetList]
 
-One Paragraph of project description goes here.
+SetList is a web app that provides guitar players, novice and experienced alike, with the ability to look up chords on the fly, save songs to specific lists of their creation, play along with a metronome to perfect their timing, and hone their skills to play the songs they love with practice sessions based on customized goals.
 
 ## Quick Links
 
 * [Staging Server Link](#)
 * [Live Server Link](#)
-* [Full Project Spec](./docs)
+* [Full Project Spec](./docs/readme.md)
 
 ## Installing
 
-Instructions on how to obtain **all** of the project's code for running on local environment. In most cases this is just how to `git clone` your repo and any special instructions for creating additional required files.
+Clone the repo:
 
->Typically sensitive information like passwords and tokens are stored with `.env` or `.config` files and not stored in the repo and need to be created manually.
+```
+$ git clone https://github.com/FullSail/capstone-TracySpitler.git
+```
 
 ### Prerequisites
 
-What packages and services are needed to run your repo's codebase and what are the commands to install them.
+__Packages and services needed to run this repo's codebase and commands to install them.__
+
+_Install from link:_
+
+* [Node](https://nodejs.org/en/) (v10.12.0)
+* [NPM](https://www.npmjs.com/get-npm) (6.4.1)
+* [Git](https://git-scm.com/) (2.13.1)
+
+_Check installation versions:_
 
 ```
-Give Examples
+$ node -v
+```
+```
+$ npm -v
+```
+```
+$ git --version
+```
+
+_Install from terminal or command line:_
+
+* [Nodemon](https://nodemon.io/) (1.18.4)
+
+```
+$ npm install -g nodemon
 ```
 
 ### Development Environment
 
-Examples of the step by step commands that are needed to get the codebase's development env running.
-
-Description of step.
+After cloning the repo, cd into project folder
 
 ```
-Give the example
+$ cd capstone-TracySpitler
 ```
 
-And repeat
+Install npm (this will also install dependencies)
 
 ```
-until finished
+$ npm install
 ```
 
-What output is expected that indicates the system is running normally.
+Start the server
+
+```
+$ nodemon bin/www
+```
+
+_Terminal output:_
+
+```
+your@computer:~$ nodemon bin/www
+[nodemon] 1.18.4
+[nodemon] to restart at any time, enter `rs`
+[nodemon] watching: *.*
+[nodemon] starting `node bin/www`
+Server running on: 3000
+```
+
+__The site is now available in your browser at localhost:3000__
 
 ## Versioning
 
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags). 
+We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags).
