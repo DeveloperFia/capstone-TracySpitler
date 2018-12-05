@@ -19,6 +19,8 @@ body.grey.lighten-5
                         a(href="/login") Log In
                     li
                         a(href="/signup") Sign Up
+                    li
+                        a(href="/lists") Lists
     main#landing
         .container
             block content
@@ -26,7 +28,7 @@ body.grey.lighten-5
                     .row
                         .col
                         if (!user)
-                            div.card
+                            div#landing-card.card
                                 div.card-content.center-align
                                     h2 Welcome to SetList!
                                     p Please log in or sign up below:
