@@ -4,20 +4,20 @@ const router = express.Router()
 
 // default page
 router.get('/', (req, res, next) => {
-    // render pug template - landing
-    res.render('landing');
+    // if user is signed in - take them to all-lists
+    if (typeof user !== 'undefined' && user) {
+        return res.redirect('/lists');
+    }
+    // otherwise take them to sign up/log in
+    else {
+        return res.redirect('/lists');
+    }
 })
 
-// login page
-router.get('/login', (req, res, next) => {
-    // render pug template - login
-    res.render('login');
-})
-
-// sign-up page
-router.get('/signup', (req, res, next) => {
-    // render pug template - signup
-    res.render('signup');
+// authorization page
+router.get('/auth', (req, res, next) => {
+    // render pug template - auth
+    res.render('auth');
 })
 
 // set up router
