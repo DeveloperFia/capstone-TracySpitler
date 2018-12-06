@@ -15,6 +15,7 @@ body {
     display: flex;
     min-height: 100vh;
     flex-direction: column;
+    background-color: #F6F7F9;
 }
 
 main {
@@ -57,6 +58,10 @@ a:hover {
 }
 
 /******************* content *******************/
+
+.card {
+    border: none;
+}
 
 #landing-card.card {
     min-width: 350px;
@@ -104,6 +109,8 @@ a:hover {
 #list-card {
     min-width: 200px;
     min-height: 200px;
+    display: flex;
+    flex-direction: column;
 }
 
 #list-card:hover a.dark {
@@ -134,10 +141,6 @@ a:hover {
     top: 7px;
 }
 
-.push-title {
-    padding-top: 1rem;
-}
-
 .collection-item {
     justify-content: space-between;
 }
@@ -149,4 +152,14 @@ a.dark {
 span.new.badge {
     background-color: #0A0C27;
     opacity: .2;
+}
+
+div.card-content.valign-wrapper {
+    flex-grow: 3;
+}
+
+div.card-action.collection-item.valign-wrapper {
+    height: 2rem;
+    flex-grow: 1;
+
 }
