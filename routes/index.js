@@ -10,12 +10,12 @@ router.get('/', (req, res, next) => {
     }
     // otherwise take them to sign up/log in
     else {
-        return res.redirect('/lists');
+        return res.redirect('/start');
     }
 })
 
 // authorization page
-router.get('/auth', (req, res, next) => {
+router.get('/start', (req, res, next) => {
     // render pug template - auth
     res.render('auth');
 })
