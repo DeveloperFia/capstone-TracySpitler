@@ -20,20 +20,5 @@ router.get('/signup', (req, res, next) => {
     res.render('signup');
 })
 
-// all lists page
-router.get('/lists', (req, res, next) => {
-    // render pug template - signup
-    res.render('all-lists');
-})
-
-// 404 error handling
-router.use(function(req, res, next) {
-    // if the route doesn't exist..
-    if (!req.route)
-        // let the user know
-        res.status(404).send('<h1>Uh oh! 404 error: page not found</h1><br><a href="/">Go Home</a>');
-    next();
-});
-
 // set up router
 module.exports = router;
