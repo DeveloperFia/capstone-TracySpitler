@@ -98,3 +98,55 @@ a:hover {
 .tabs .indicator {
     background-color: #4FF7EA;
 }
+
+/******************* lists *******************/
+
+#list-card {
+    min-width: 200px;
+    min-height: 200px;
+}
+
+#list-card:hover a.dark {
+    opacity: 1;
+    color: #0A0C27;
+}
+
+#list-card:hover i.dark {
+    opacity: 1;
+    color: #4FF7EA !important;
+}
+
+.card-badge {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    text-align: left;
+    text-transform: uppercase;
+    font-size: 0.9em;
+    padding: 0.2em 24px 0.8em 24px;
+    color: #fff;
+    z-index: 2;
+}
+
+.difficulty {
+    position:relative;
+    margin-right: 8px;
+    top: 7px;
+}
+
+.push-title {
+    padding-top: 1rem;
+}
+
+.collection-item {
+    justify-content: space-between;
+}
+
+a.dark {
+    opacity: 0;
+}
+
+span.new.badge {
+    background-color: #0A0C27;
+    opacity: .2;
+}
