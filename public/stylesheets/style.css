@@ -22,7 +22,7 @@ main {
     flex: 1 0 auto;
 }
 
-#landing {
+#auth {
     background-image: url("/images/guitarist.jpg");
     background-position: center;
     background-repeat: no-repeat;
@@ -63,7 +63,7 @@ a:hover {
     border: none;
 }
 
-#landing-card.card {
+#auth-card.card {
     min-width: 350px;
     width: 50vw;
     margin-top: 2rem;
