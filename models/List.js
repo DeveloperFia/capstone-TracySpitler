@@ -5,7 +5,7 @@ var listSchema = mongoose.Schema({
     // and custom error message if missing
     name: {type: String, required: [true, 'a list needs a name'], unique: true},
     difficulty: {type: String, default: 'not set', enum: ['not set', 'very easy', 'easy', 'moderate', 'hard', 'goodbye fingers']},
-    play_date: {type: Date, default: null},
+    play_date: Date,
     created_at: Date,
     updated_at: Date,
     // for library (wouldn't want to get rid of that!) and maybe others
