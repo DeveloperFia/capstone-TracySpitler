@@ -19,30 +19,42 @@ describe('Routes', function() {
     describe('index.js', function() {
         // '/'
         describe('\'/\'', function() {
-            // test
-            it('should return a 200 response', function(done) {
+            // test for 200
+            it('should return a \'302 found\' response', function(done) {
                 request(app)
                     .get('/')
-                    .expect(200, done)
+                    .expect(302, done)
+            });
+            // test redirect
+            it('no user - should redirect to /start', function(done) {
+                request(app)
+                    .get('/')
+                    .expect('Location', '/start')
+                    .expect(302, done)
             });
         });
-        // '/login'
-        describe('\'/login\'', function() {
+        // '/start'
+        describe('\'/start\'', function() {
             // test
             it('should return a 200 response', function(done) {
                 request(app)
-                    .get('/login')
+                    .get('/start')
                     .expect(200, done)
             });
         });
-        // '/signup'
-        describe('\'/signup\'', function() {
+    }); // end index.js
+
+    // lists.js
+    describe('lists.js', function() {
+        // '/lists'
+        describe('\'/lists\'', function() {
             // test
             it('should return a 200 response', function(done) {
                 request(app)
-                    .get('/signup')
+                    .get('/lists')
                     .expect(200, done)
             });
         });
-    });
+    }); // end lists.js
+
 });
