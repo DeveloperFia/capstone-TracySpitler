@@ -1,13 +1,13 @@
 extends _layout
 
 block main
-    main#landing
+    main#auth
         .container
             div.valign-wrapper.align-center
                 .row
                     .col
                     if (!user)
-                        div#landing-card.card
+                        div#auth-card.card
                             div.card-content.center-align
                                 h2 Welcome to SetList!
                                 p Please log in or sign up below:
