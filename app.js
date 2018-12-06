@@ -24,5 +24,17 @@ app.use(express.static(path.join(__dirname, "public")));
 const index = require('./routes/index');
 app.use('/', index);
 
+const lists = require('./routes/lists');
+app.use('/', lists);
+
+// 404 error handling
+app.use(function(req, res, next) {
+    // if the route doesn't exist..
+    if (!req.route)
+        // let the user know
+        res.status(404).send('<h1>Uh oh! 404 error: page not found</h1><br><a href="/">Go Home</a>');
+    next();
+});
+
 // export the app
 module.exports = app;
