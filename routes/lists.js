@@ -1,43 +1,35 @@
 // include
 const express = require('express');
 const router = express.Router()
+const path = require('path');
 
 // models
 const List = require('../models/List');
 const Song = require('../models/Song');
 
-// all lists page
-router.get('/lists', (req, res, next) => {
-    // list test
-    let list = new List({name: 'Library', deletable: false});
-    // validate
-    list.validate((err) => {
+// function that gets all of the lists from the database
+let getLists = (req, res, next) => {
+    // get all the users
+    List.find({}, function(err, lists) {
+        // if there is an error, throw it
         if (err)
             console.log('err', err);
-    })
-    // // save to the database
-    // list.save(function(err) {
-    //     if (err)
-    //         console.log('err', err);
-    //     else console.log('List saved successfully!');
-    // });
+        // add a list of films to the request object to be used in different routes
+        req.lists = lists;
+        // run the next function
+        next()
+    });
+}
 
-    // song test
-    let song = new Song({title: 'Dirty Paws', artist: 'Of Monsters and Men', lists: '5c098659425abb9e0a17aab4', capo: 3});
-    // validate
-    song.validate((err) => {
-        if (err)
-            console.log('err', err);
-    })
-    // // save to the database
-    // song.save(function(err) {
-    //     if (err)
-    //         console.log('err', err);
-    //     else console.log('Song saved successfully!');
-    // });
+// create route to get and render person.pug and pass data
+router.get('/lists', getLists, (req, res, next) => {
 
-    // render pug template - all-lists
-    res.render('all-lists');
+    // render the page with the lists passed as data
+    res.render(path.join(__dirname, '/../views/all-lists.pug'), {
+        name: "Tracy Spitler",
+        github: "https://github.com/TracySpitler",
+        lists: req.lists,
+    });
 })
 
 // set up router
