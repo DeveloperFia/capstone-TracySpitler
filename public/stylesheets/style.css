@@ -1,12 +1,30 @@
 /*blue: rgb(79,247,234)*/
 /*dark: rgb(10,12,39)*/
 
+/******************* custom color classes *******************/
+
 .dark {
     color: #0A0C27 !important;
 }
 
 .dark-bg {
     background-color: #0A0C27;
+}
+
+.purple-bg {
+    background-color: #311B92;
+}
+
+.blue-bg {
+    background-color: #01d4fe;
+}
+
+.btn-floating:hover {
+    background-color: #4FF7EA !important;
+}
+
+.btn-floating:focus {
+    background-color: #311B92 !important;
 }
 
 /******************* main sections *******************/
@@ -22,6 +40,12 @@ main {
     flex: 1 0 auto;
 }
 
+.container.body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 #auth {
     background-image: url("/images/guitarist.jpg");
     background-position: center;
@@ -30,8 +54,7 @@ main {
 }
 
 .page-footer {
-    padding: 1rem;
-    background-color: #0A0C27;
+    padding: .5rem;
 }
 
 /******************* navigation *******************/
@@ -161,5 +184,8 @@ div.card-content.valign-wrapper {
 div.card-action.collection-item.valign-wrapper {
     height: 2rem;
     flex-grow: 1;
+}
 
+.card:hover .dark-bg {
+    background-color: #311B92;
 }
