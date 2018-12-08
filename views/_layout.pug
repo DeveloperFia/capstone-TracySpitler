@@ -6,25 +6,25 @@ head
     <!-- jQuery -->
     script(src="https://code.jquery.com/jquery-3.1.1.min.js")
     <!-- Compiled and minified CSS -->
+    link(href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet")
     link(rel='stylesheet', href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css")
     link(rel='stylesheet', href='/stylesheets/style.css', type='text/css')
 
-body.grey.lighten-5
+body
     header
         nav
             .nav-wrapper.container
                 a.brand-logo(href="/") SetList
                 ul.nav-mobile.right.hide-on-med-and-down
                     li
-                        a(href="/login") Log In
+                        a(href="/start") Start Here
                     li
-                        a(href="/signup") Sign Up
-    main
-        .container
-            block content
+                        a(href="/lists") Lists
+    block main
 
     footer
         .page-footer.center-align
             p a project by Tracy Spitler
             a(href='#') GitHub
     
+    script(type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.2/js/materialize.js")
