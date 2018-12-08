@@ -32,5 +32,16 @@ router.get('/lists', getLists, (req, res, next) => {
     });
 })
 
+// create route to get and render person.pug and pass data
+router.get('/lists/create', getLists, (req, res, next) => {
+
+    // render the page with the lists passed as data
+    res.render(path.join(__dirname, '/../views/create-list.pug'), {
+        name: "Tracy Spitler",
+        github: "https://github.com/TracySpitler",
+        lists: req.lists,
+    });
+})
+
 // set up router
 module.exports = router;
