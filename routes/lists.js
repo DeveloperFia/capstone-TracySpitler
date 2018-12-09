@@ -9,41 +9,53 @@ const Song = require('../models/Song');
 
 // function that gets all of the lists from the database
 let getLists = (req, res, next) => {
-    // get all the users
+    // get all the lists
     List.find({}, function(err, lists) {
         // if there is an error, throw it
         if (err)
             console.log('err', err);
-        // add a list of films to the request object to be used in different routes
+        // add a list of lists to the request object to be used in different routes
         req.lists = lists;
         // run the next function
         next()
     });
 }
 
-// create route to get and render person.pug and pass data
+// function that gets all of the songs from the database
+let getSongs = (req, res, next) => {
+    // get all the songs
+    Song.find({}, function(err, songs) {
+        // if there is an error, throw it
+        if (err)
+            console.log('err', err);
+        // add a list of songs to the request object to be used in different routes
+        req.songs = songs;
+        // run the next function
+        next()
+    });
+}
+
+// GET ** create route to get and render person.pug and pass data
 router.get('/lists', getLists, (req, res, next) => {
 
     // render the page with the lists passed as data
     res.render(path.join(__dirname, '/../views/all-lists.pug'), {
-        name: "Tracy Spitler",
         github: "https://github.com/TracySpitler",
         lists: req.lists,
     });
 })
 
-// create route to get and render person.pug and pass data
+// GET ** create route to get and render person.pug and pass data
 router.get('/expand', getLists, (req, res, next) => {
 
     // render the page with the lists passed as data
     res.render(path.join(__dirname, '/../views/expand-library.pug'), {
-        name: "Tracy Spitler",
         github: "https://github.com/TracySpitler",
         lists: req.lists,
     });
 })
 
-// route to save a new list - a POST request to /lists
+// POST ** route to save a new list - a POST request to /lists
 router.post('/lists', getLists, (req, res, next) => {
 
     // check for empty values
@@ -55,7 +67,6 @@ router.post('/lists', getLists, (req, res, next) => {
         // render the form with errors
         res.render(path.join(__dirname, '/../views/expand-library.pug'), {
             list_errors: errors,
-            name: "Tracy Spitler",
             github: "https://github.com/TracySpitler" });
             return;
     }
@@ -74,7 +85,6 @@ router.post('/lists', getLists, (req, res, next) => {
                 res.render(path.join(__dirname, '/../views/expand-library.pug'), {
                     list_errors: err,
                     db_error: "The list \'" + newList.name + "\' already exists! Please rename it.",
-                    name: "Tracy Spitler",
                     github: "https://github.com/TracySpitler" });
             }
             else {
@@ -84,6 +94,37 @@ router.post('/lists', getLists, (req, res, next) => {
             }
         });
     }
+})
+
+// GET ** get single list details
+router.get('/lists/:id', getLists, getSongs, (req, res, next) => {
+    // get the list by the params id
+    List.find({ _id: req.params.id }, function(err, film) {
+        if (err) {
+            // render the lists page with errors
+            res.render(path.join(__dirname, '/../views/all-lists.pug'), {
+                errors: err,
+                github: "https://github.com/TracySpitler" });
+        }
+
+        // find songs in this list
+        Song.find({lists: req.params.id }, function(err, songs) {
+            if (err) {
+                // render the lists page with errors
+                res.render(path.join(__dirname, '/../views/all-lists.pug'), {
+                    errors: err,
+                    github: "https://github.com/TracySpitler" });
+            }
+
+            // render the page with both lists and songs passed as data
+            res.render(path.join(__dirname, '/../views/list.pug'), {
+                github: "https://github.com/TracySpitler",
+                list: req.params.id,
+                songs: req.songs,
+                lists: req.lists,
+            });
+        });
+    });
 })
 
 // set up router
