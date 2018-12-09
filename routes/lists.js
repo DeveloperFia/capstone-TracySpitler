@@ -73,7 +73,7 @@ router.post('/lists', getLists, (req, res, next) => {
                 // render the form with errors
                 res.render(path.join(__dirname, '/../views/expand-library.pug'), {
                     list_errors: err,
-                    db_error: "This list already exists! Please give it a different name.",
+                    db_error: "The list \'" + newList.name + "\' already exists! Please rename it.",
                     name: "Tracy Spitler",
                     github: "https://github.com/TracySpitler" });
             }
