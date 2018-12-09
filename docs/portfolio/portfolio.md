@@ -4,6 +4,7 @@
 
 * [Sprint 1](#sprint-1)
 * [Sprint 2](#sprint-2)
+* [Sprint 3](#sprint-3)
 
 ## Sprint 1
 
@@ -47,3 +48,25 @@ I am assuredly getting better at managing my time wisely. The difference between
 __Did you see anything cool this week? Learn about a new rock star in the industry? Attend a meetup? Learning a new language or technique?__
 
 Sometimes templating in Pug can be difficult because it's easy to miss indentations and it is pretty unforgiving when that happens. I use Atom for my editor, and I found a package that beautifies a bunch of different coding languages, including Pug. This package helps to ensure that my application won't break because of a simple overlook of spacing. The package has an option to Beautify on Save, which is another great perk. _Check it out:_ https://atom.io/packages/atom-beautify​.
+
+## Sprint 3
+
+__What have you learned this week?__
+
+This week I have learned quite a bit about the Materialize framework and how to best implement it into my project. With the built-in CSS, sometimes it's difficult to maneuver elements around. Since I created the "create a list" form which CRUD's to the database, I have had practice manipulating and passing data which has also taught me a tremendous amount.
+
+__Did you do any independent research outside of what was required?__
+
+This week I mostly researched the Spotify API. When I get to coding the authentication part of my project, I want the users to have the option of signing up/logging in with either their own credentials or through Spotify's authorization flow. This type of login flow would be great for extra features down the line as well.
+
+_Spotify Auth:_ https://developer.spotify.com/documentation/general/guides/authorization-guide/
+
+__How can you improve based on your experiences this week? What were your strengths and weaknesses? How was your experience with your assignments? Did you manage time wisely?__
+
+Life was a bit on the hectic side this week, so I didn't get as much done as I would have liked. I still have a long way to go. I'm hoping to get a full day in tomorrow so I can catch up on my code. I have yet to implement an API.  Hopefully, I can keep the panic at bay! My main focus will be to implement the Spotify API, and from there I'll really be able to get the ball rolling.
+
+__Did you see anything cool this week? Learn about a new rock star in the industry? Attend a meetup? Learn a new language or technique?__
+
+I didn't do very much research outside of what I needed for a deeper understanding of what I'm doing while building this project. I did, however, need a change of music; or at least my brain felt like it did. I found an article on Medium with a few great YouTube playlists that were picked out for the sole purpose of coding and programming. Check it out:
+
+_Music Playlists:_ https://medium.com/level-up-web/youtube-background-music-for-coding-99b592a74dc8
