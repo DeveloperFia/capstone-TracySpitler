@@ -4,7 +4,7 @@ var listSchema = mongoose.Schema({
     // set the name of a property and the datatype, requirement, and force each record to have a unique list name
     // and custom error message if missing
     name: {type: String, required: [true, 'a list needs a name'], unique: true},
-    difficulty: {type: String, default: 'not set', enum: ['not set', 'very easy', 'easy', 'moderate', 'hard', 'goodbye fingers']},
+    difficulty: {type: Number, default: 0, enum: [0, 1, 2, 3]},
     play_date: Date,
     created_at: Date,
     updated_at: Date,
