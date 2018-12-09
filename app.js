@@ -4,11 +4,15 @@ const app = express();
 
 // turns data into js object
 const bodyParser = require('body-parser');
+// mount express validator (this goes after bodyParser)
+var validator = require('express-validator');
 
 // JSON data and converted and added to req.body
 app.use(bodyParser.json());
 // convert GET url
 app.use(bodyParser.urlencoded({extended: false}));
+//use express validator
+app.use(validator());
 
 // require
 const path = require('path');
