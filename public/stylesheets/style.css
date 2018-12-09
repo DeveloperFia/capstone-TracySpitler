@@ -189,3 +189,7 @@ div.card-action.collection-item.valign-wrapper {
 .card:hover .dark-bg {
     background-color: #311B92;
 }
+
+#errors {
+    background-color: #4FF7EA !important;
+}
