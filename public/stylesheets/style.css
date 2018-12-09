@@ -201,3 +201,20 @@ div.card-action.collection-item.valign-wrapper {
 #errors {
     background-color: #4FF7EA !important;
 }
+
+.collapsible-header {
+    justify-content: space-between;
+}
+
+.sm {
+    width: 50px;
+    padding-left: 1rem;
+}
+
+.hidden {
+    opacity: 0;
+}
+
+tr:hover .hidden{
+    opacity: 1;
+}
