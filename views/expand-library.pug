@@ -1,7 +1,7 @@
 extends _layout
 
 block main
-    main#auth
+    main.dark-bg
         .container.body
             div.valign-wrapper
                 .row
@@ -12,7 +12,7 @@ block main
                             div.card-tabs
                                 ul.tabs.tabs-fixed-width
                                     li.tab #[a(href="#song") Add a Song]
-                                    li.tab #[a(class="active" href="#list") Create a List]
+                                    li.tab #[a(href="#list") Create a List]
                             div.card-content.grey.lighten-4
                                 div#song
                                     form.card-content(method='post', action='/songs')

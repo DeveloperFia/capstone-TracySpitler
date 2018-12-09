@@ -146,6 +146,12 @@ a:hover {
     color: #4FF7EA !important;
 }
 
+.lists {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
 .card-badge {
     position: absolute;
     top: 0;
@@ -169,7 +175,7 @@ a:hover {
 }
 
 a.dark {
-    opacity: 0;
+    opacity: .2;
 }
 
 span.new.badge {
@@ -189,6 +195,8 @@ div.card-action.collection-item.valign-wrapper {
 .card:hover .dark-bg {
     background-color: #311B92;
 }
+
+/******************* feedback *******************/
 
 #errors {
     background-color: #4FF7EA !important;
