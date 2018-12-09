@@ -22,10 +22,7 @@ body
     block float
         if (!user)
             div.fixed-action-btn
-                a.btn-floating.btn-large.blue-bg #[i.large.material-icons add]]
-                ul
-                    li #[a.btn-floating.purple-bg(href="/songs/add") #[i.material-icons music_note]]
-                    li #[a.btn-floating.purple-bg(href="/lists/create") #[i.material-icons queue_music]]
+                a.btn-floating.btn-large.blue-bg(href="/expand") #[i.large.material-icons add]
 
     block main
 
@@ -36,3 +33,7 @@ body
 
     script(type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.js")
     script(src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.1/js/materialize.min.js")
+    script.
+        $(document).ready(function() {
+            $('select').material_select();
+        });
