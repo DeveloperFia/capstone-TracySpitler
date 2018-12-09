@@ -4,16 +4,42 @@ block main
     main#all-lists
         .container
 
-            h1 Set Lists
-            
-            div.left
-                div.col
-                    div#list-card.card.hoverable.collection
-                        div.card-image
-                            span.z-depth-2.card-badge.dark-bg #[i.material-icons.md-light.difficulty library_music] Library
-                        div.card-content.valign-wrapper
-                            h3.card-title All songs
-                        div.card-action.collection-item.valign-wrapper
-                            div.underline
-                                a.dark.valign-wrapper(href="/lists") #[i.material-icons.dark graphic_eq] GO
-                            span.new.badge.right(data-badge-caption="songs") 6
+            h1 Lists
+
+            //- display lists
+            div.container
+            if lists
+                ul.lists
+                    for list in lists
+                        if list.name == "Library"
+                            li.col.s3
+                                div#list-card.card.hoverable.collection
+                                    div.card-image
+                                        span.z-depth-2.card-badge.dark-bg #[i.material-icons.md-light.difficulty library_music] #{list.name}
+                                    div.card-content.valign-wrapper
+                                        h3.card-title All Songs
+                                    div.card-action.collection-item.valign-wrapper
+                                        div.underline
+                                            a.dark.valign-wrapper(href="/lists") #[i.material-icons.dark graphic_eq] GO
+                                        span.new.badge.right(data-badge-caption="songs") 6
+                            
+                        else 
+                            li.col.s3
+                                div#list-card.card.hoverable.collection
+                                    div.card-image
+                                        span.z-depth-2.card-badge.dark-bg 
+                                            if list.difficulty
+                                                -var i = list.difficulty
+                                                while (i--)
+                                                    i.material-icons.md-light.difficulty star
+                                            else
+                                                span #[i.material-icons.md-light.difficulty not_interested] not set
+                                    div.card-content.valign-wrapper
+                                        h3.card-title #{list.name}
+                                    div.card-action.collection-item.valign-wrapper
+                                        div.underline
+                                            a.dark.valign-wrapper(href="/lists") #[i.material-icons.dark graphic_eq] GO
+                                        span.new.badge.right(data-badge-caption="songs") #{list.songs.length}
+                            
+
+                        
