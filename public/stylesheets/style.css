@@ -1,15 +1,52 @@
+/*blue: rgb(79,247,234)*/
+/*dark: rgb(10,12,39)*/
+
+/******************* custom color classes *******************/
+
+.dark {
+    color: #0A0C27 !important;
+}
+
+.dark-bg {
+    background-color: #0A0C27;
+}
+
+.purple-bg {
+    background-color: #311B92;
+}
+
+.blue-bg {
+    background-color: #01d4fe;
+}
+
+.btn-floating:hover {
+    background-color: #4FF7EA !important;
+}
+
+.btn-floating:focus {
+    background-color: #311B92 !important;
+}
+
 /******************* main sections *******************/
+
 body {
     display: flex;
     min-height: 100vh;
     flex-direction: column;
+    background-color: #F6F7F9;
 }
 
 main {
     flex: 1 0 auto;
 }
 
-#landing {
+.container.body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#auth {
     background-image: url("/images/guitarist.jpg");
     background-position: center;
     background-repeat: no-repeat;
@@ -18,7 +55,6 @@ main {
 
 .page-footer {
     padding: 1rem;
-    background-color: #0A0C27;
 }
 
 /******************* navigation *******************/
@@ -27,8 +63,12 @@ nav {
     background-color: #0A0C27;
 }
 
+nav.a {
+    color: white;
+}
+
 a:hover {
-    color: #4FF7EA;
+    color: #4FF7EA !important;
 }
 
 .btn {
@@ -43,7 +83,121 @@ a:hover {
 /******************* content *******************/
 
 .card {
+    border: none;
+}
+
+#auth-card.card {
     min-width: 350px;
     width: 50vw;
     margin-top: 2rem;
+}
+
+/******************* tab modifications *******************/
+
+/* default */
+.tabs .tab a {
+   color: rgba(10, 12, 39, .2);
+}
+
+/* default and active */
+.tabs .tab a.active {
+    background-color: rgba(79, 247, 234, .2);
+    color: #0A0C27;
+}
+
+/* hover */
+.tabs .tab a:hover{
+   color: #0A0C27 !important;
+}
+
+/* focused */
+.tabs .tab a:focus{
+    background-color: rgba(79, 247, 234, .2);
+    color: #0A0C27;
+}
+
+/* focused and active */
+.tabs .tab a:focus.active {
+    background-color: rgba(79, 247, 234, .2);
+    color: #0A0C27;
+}
+
+/* indicator line  */
+.tabs .indicator {
+    background-color: #4FF7EA;
+}
+
+/******************* lists *******************/
+
+#list-card {
+    min-width: 200px;
+    min-height: 200px;
+    display: flex;
+    flex-direction: column;
+}
+
+#list-card:hover a.dark {
+    opacity: 1;
+    color: #0A0C27;
+}
+
+#list-card:hover i.dark {
+    opacity: 1;
+    color: #4FF7EA !important;
+}
+
+.lists {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.card-badge {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    text-align: left;
+    text-transform: uppercase;
+    font-size: 0.9em;
+    padding: 0.2em 24px 0.8em 24px;
+    color: #fff;
+    z-index: 2;
+}
+
+.difficulty {
+    position:relative;
+    margin-right: 8px;
+    top: 7px;
+}
+
+.collection-item {
+    justify-content: space-between;
+}
+
+a.dark {
+    opacity: .2;
+}
+
+span.new.badge {
+    background-color: #0A0C27;
+    opacity: .2;
+}
+
+div.card-content.valign-wrapper {
+    flex-grow: 3;
+}
+
+div.card-action.collection-item.valign-wrapper {
+    height: 2rem;
+    flex-grow: 1;
+}
+
+.card:hover .dark-bg {
+    background-color: #311B92;
+}
+
+/******************* feedback *******************/
+
+#errors {
+    background-color: #4FF7EA !important;
 }

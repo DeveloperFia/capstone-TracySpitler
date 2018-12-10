@@ -3,28 +3,39 @@ html(lang="en")
 head
     meta(charset="UTF-8")
     title SetList
-    <!-- jQuery -->
-    script(src="https://code.jquery.com/jquery-3.1.1.min.js")
     <!-- Compiled and minified CSS -->
-    link(rel='stylesheet', href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css")
+    link(href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet")
+    link(rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.1/css/materialize.min.css")
     link(rel='stylesheet', href='/stylesheets/style.css', type='text/css')
 
-body.grey.lighten-5
+body
     header
         nav
             .nav-wrapper.container
                 a.brand-logo(href="/") SetList
                 ul.nav-mobile.right.hide-on-med-and-down
                     li
-                        a(href="/login") Log In
+                        a(href="/start") Start Here
                     li
-                        a(href="/signup") Sign Up
-    main
-        .container
-            block content
+                        a(href="/lists") Lists
+
+    block float
+        if (!user)
+            div.fixed-action-btn
+                a.btn-floating.btn-large.blue-bg(href="/expand/#list") #[i.large.material-icons add]
+                ul
+                    li.card.pink.darken-1.white-text add
+
+    block main
 
     footer
-        .page-footer.center-align
+        .page-footer.center-align.dark-bg
             p a project by Tracy Spitler
             a(href='#') GitHub
-    
+
+    script(type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.js")
+    script(src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.1/js/materialize.min.js")
+    script.
+        $(document).ready(function() {
+            $('select').material_select();
+        });

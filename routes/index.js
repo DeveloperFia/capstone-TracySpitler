@@ -4,30 +4,21 @@ const router = express.Router()
 
 // default page
 router.get('/', (req, res, next) => {
-    // render pug template - landing
-    res.render('landing');
+    // if user is signed in - take them to all-lists
+    if (typeof user !== 'undefined' && user) {
+        return res.redirect('/lists');
+    }
+    // otherwise take them to sign up/log in
+    else {
+        return res.redirect('/start');
+    }
 })
 
-// login page
-router.get('/login', (req, res, next) => {
-    // render pug template - login
-    res.render('login');
+// authorization page
+router.get('/start', (req, res, next) => {
+    // render pug template - auth
+    res.render('auth');
 })
-
-// sign-up page
-router.get('/signup', (req, res, next) => {
-    // render pug template - signup
-    res.render('signup');
-})
-
-// 404 error handling
-router.use(function(req, res, next) {
-    // if the route doesn't exist..
-    if (!req.route)
-        // let the user know
-        res.status(404).send('<h1>Uh oh! 404 error: page not found</h1><br><a href="/">Go Home</a>');
-    next();
-});
 
 // set up router
 module.exports = router;
