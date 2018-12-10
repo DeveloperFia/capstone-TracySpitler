@@ -1,0 +1,48 @@
+extends _layout
+
+block main
+    main.dark-bg
+        .container.body
+            div.valign-wrapper
+                .row
+                    .col            
+                        div#auth-card.card
+                            div.card-content.center-align
+                                h2 Expand Your Library
+                            div.card-tabs
+                                ul.tabs.tabs-fixed-width
+                                    li.tab #[a(href="#song") Add a Song]
+                                    li.tab #[a(href="#list") Create a List]
+                            div.card-content.grey.lighten-4
+                                div#song
+                                    form.card-content(method='post', action='/songs')
+                                        span.card-title Add a Song.
+                                        div#errors
+                                        if song_errors
+                                            ul
+                                                for error in song_errors
+                                                    li.pink-text.text-darken-1!= error.msg
+                                        p Coming Soon
+                                div#list
+                                    form.card-content(method='post', action='/lists')
+                                        span.card-title Create a List.
+                                        //- display errors
+                                        div#errors
+                                        if list_errors
+                                            ul
+                                                for error in list_errors
+                                                    li.pink-text.text-darken-1!= error.msg
+                                        if db_error
+                                            p.pink-text.text-darken-1 #{db_error}
+                                        .input-field
+                                            input(type='text', name='list_name', id="list_name")
+                                            label(for="list_name") List Name
+                                        .input-field
+                                            select(name="list_difficulty" id="list_difficulty")
+                                                option(value="0" disabled selected) Choose a difficulty
+                                                option(value="1") Easy
+                                                option(value="2") Moderate
+                                                option(value="3") Hard
+                                            label(for="list_difficulty") List Difficulty (optional)
+                                        .input-field
+                                            input.btn(type='submit', value='Create!')
