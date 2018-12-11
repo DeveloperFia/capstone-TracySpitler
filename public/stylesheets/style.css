@@ -59,6 +59,10 @@ main {
 
 /******************* navigation *******************/
 
+a, button {
+    cursor: pointer !important;
+}
+
 nav {
     background-color: #0A0C27;
 }
