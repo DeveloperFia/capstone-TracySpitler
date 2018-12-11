@@ -127,5 +127,28 @@ router.get('/lists/:id', getLists, getSongs, (req, res, next) => {
     });
 })
 
+// delete a list
+router.delete('/lists/:id', getLists, (req, res, next) => {
+    // as long as the list is not the Library
+    if (req.params.id != '5c099a54c410459ebce5ef1c') {
+        // find the list with id
+        List.findByIdAndDelete(req.params.id, function(err) {
+            if (err) throw err;
+            // the list has been deleted
+            console.log('List deleted!');
+        });
+
+        // render the page with the lists passed as data
+        res.render(path.join(__dirname, '/../views/all-lists.pug'), {
+            github: "https://github.com/TracySpitler",
+            lists: req.lists,
+        });
+    }
+    else {
+        console.log("The Library cannot be deleted.");
+    }
+})
+
+
 // set up router
 module.exports = router;
