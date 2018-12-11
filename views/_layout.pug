@@ -18,6 +18,8 @@ body
                         a(href="/start") Start Here
                     li
                         a(href="/lists") Lists
+                    li
+                        a(href="/chords") Chords
 
     block float
         if (!user)
@@ -38,4 +40,18 @@ body
     script.
         $(document).ready(function() {
             $('select').material_select();
+            
+            // delete a list
+            $("#deleteList").click(function(){
+                var r = confirm("WAIT! This action can not be undone. Are you sure you want to delete this list?");
+                if (r == true) {
+                    $.ajax({
+                        url: window.location.href,
+                        method: 'delete'
+                    }).done(function()  {
+                        // redirect
+                        window.location.href = "/lists";
+                    }) 
+                } 
+            });
         });
