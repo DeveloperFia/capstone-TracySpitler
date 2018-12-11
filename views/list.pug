@@ -4,11 +4,16 @@ block main
     main#one-list
         .container
             p.pink-text.darken-1 #[i.material-icons.left warning] #[strong Under Construction]
+            if errors 
+                p.pink-text.darken-1 errors
             for item in lists
                 if item._id == list
                     h1 #{item.name}
+                    span 
+                        button#deleteList(class="btn new badge" data-badge-caption="delete" style="opacity: .6;") Delete
+                        
                     p List ID: #{item._id}
-
+            
                     div(class="card-body")
                         h5(class="card-title") Songs:
                         if item.songs != 0
