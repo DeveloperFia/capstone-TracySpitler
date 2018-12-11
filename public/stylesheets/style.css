@@ -222,3 +222,11 @@ div.card-action.collection-item.valign-wrapper {
 tr:hover .hidden{
     opacity: 1;
 }
+
+.modify {
+    opacity: .3;
+}
+
+.modify:hover {
+    opacity: 1 !important;
+}

@@ -4,13 +4,12 @@ block main
     main#one-list
         .container
             p.pink-text.darken-1 #[i.material-icons.left warning] #[strong Under Construction]
-            if errors 
-                p.pink-text.darken-1 errors
             for item in lists
                 if item._id == list
                     h1 #{item.name}
-                    span 
-                        button#deleteList(class="btn new badge" data-badge-caption="delete" style="opacity: .6;") Delete
+                    if item._id != "5c099a54c410459ebce5ef1c"
+                        span 
+                            button#deleteList(class="modify btn new badge pink darken-1 white-text" data-badge-caption="delete") Delete
                         
                     p List ID: #{item._id}
             
