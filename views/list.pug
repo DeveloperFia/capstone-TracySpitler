@@ -1,0 +1,84 @@
+extends _layout
+
+block main
+    main#one-list
+        .container
+            p.pink-text.darken-1 #[i.material-icons.left warning] #[strong Under Construction]
+            for item in lists
+                if item._id == list
+                    h1 #{item.name}
+                    if item.name != "Library"
+                        span 
+                            button#deleteList(class="modify btn new badge pink darken-1 white-text" data-badge-caption="delete") Delete
+                            button#editList(class="modify btn new badge amber" data-badge-caption="edit") Edit
+                        
+                    p List ID: #{item._id}
+                    -var url = '/lists/' + item._id
+                    if item.difficulty == 0
+                        -var diff = "Not Set"
+                    if item.difficulty == 1
+                        -var diff = "Easy"
+                    if item.difficulty == 2
+                        -var diff = "Moderate"
+                    if item.difficulty == 3
+                        -var diff = "Hard"
+                    div#listUpdate.card.initiallyHidden
+                        form.card-content(method='post', action='/lists/' + item._id)
+                            span.card-title Edit this list.
+                            //- display errors
+                            div#errors
+                            if list_errors
+                                ul
+                                    for error in list_errors
+                                        li.pink-text.text-darken-1!= error.msg
+                            if db_error
+                                p.pink-text.text-darken-1 #{db_error}
+                            .input-field
+                                input(type='text', name='list_name', id="list_name" placeholder=item.name value=item.name)
+                                label(for="list_name") List Name
+                            .input-field
+                                select(name="list_difficulty" id="list_difficulty")
+                                    option(disabled selected) #{diff}
+                                    option(value="0") Not Set
+                                    option(value="1") Easy
+                                    option(value="2") Moderate
+                                    option(value="3") Hard
+                                label(for="list_difficulty") List Difficulty (optional)
+                            .input-field
+                                input.btn.modify(type='submit', value='Update!')
+
+            
+                    div(class="card-body")
+                        h5(class="card-title") Songs:
+                        if item.songs != 0
+                            table.highlight.collapsible.white
+                                thead.dark-bg.white-text
+                                    tr
+                                        th.sm #[i.material-icons.left.play-song play_circle_outline]
+                                        th Title and Artist
+                                        th Key
+                                        th BPM
+                                        th.sm More
+                                tbody
+                                    for item in {songs}
+                                        for song in item
+                                            tr
+                                                div 
+                                                    td.sm.hidden #[i.material-icons.left.play-song play_circle_outline] 
+                                                    td #[strong #{song.title}] 
+                                                        div #[em by #{song.artist}]
+                                                    td Am
+                                                    td 92
+                                                    td.sm #[i.material-icons.right more_vert]
+                                            
+                                            ul.collapsible
+                                                li
+                                                    div.collapsible-header
+                                                        span #[i.material-icons.left.play-song play_circle_outline] #[strong #{song.title}] #[em by #{song.artist}]
+                                                        span Key
+                                                        span BPM
+                                                        span #[i.material-icons.right more_vert]
+                                                    div.collapsible-body #[span Chords would go here.]
+
+                        else 
+                            p(class="card-text") No songs in this list. Add a song! #[a(href="/expand").btn-floating.btn-small.purple-bg.darken-1 #[i.material-icons music_note]]

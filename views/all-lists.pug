@@ -20,7 +20,7 @@ block main
                                         h3.card-title All Songs
                                     div.card-action.collection-item.valign-wrapper
                                         div.underline
-                                            a.dark.valign-wrapper(href="/lists") #[i.material-icons.dark graphic_eq] GO
+                                            a.dark.valign-wrapper(href="/lists/" + list._id) #[i.material-icons.dark graphic_eq] GO
                                         span.new.badge.right(data-badge-caption="songs") 6
                             
                         else 
@@ -38,7 +38,7 @@ block main
                                         h3.card-title #{list.name}
                                     div.card-action.collection-item.valign-wrapper
                                         div.underline
-                                            a.dark.valign-wrapper(href="/lists") #[i.material-icons.dark graphic_eq] GO
+                                            a.dark.valign-wrapper(href="/lists/" + list._id) #[i.material-icons.dark graphic_eq] GO
                                         span.new.badge.right(data-badge-caption="songs") #{list.songs.length}
                             
 
