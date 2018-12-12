@@ -7,11 +7,46 @@ block main
             for item in lists
                 if item._id == list
                     h1 #{item.name}
-                    if item._id != "5c099a54c410459ebce5ef1c"
+                    if item.name != "Library"
                         span 
                             button#deleteList(class="modify btn new badge pink darken-1 white-text" data-badge-caption="delete") Delete
+                            button#editList(class="modify btn new badge amber" data-badge-caption="edit") Edit
                         
                     p List ID: #{item._id}
+                    -var url = '/lists/' + item._id
+                    if item.difficulty == 0
+                        -var diff = "Not Set"
+                    if item.difficulty == 1
+                        -var diff = "Easy"
+                    if item.difficulty == 2
+                        -var diff = "Moderate"
+                    if item.difficulty == 3
+                        -var diff = "Hard"
+                    div#listUpdate.card.initiallyHidden
+                        form.card-content(method='post', action='/lists/' + item._id)
+                            span.card-title Edit this list.
+                            //- display errors
+                            div#errors
+                            if list_errors
+                                ul
+                                    for error in list_errors
+                                        li.pink-text.text-darken-1!= error.msg
+                            if db_error
+                                p.pink-text.text-darken-1 #{db_error}
+                            .input-field
+                                input(type='text', name='list_name', id="list_name" placeholder=item.name value=item.name)
+                                label(for="list_name") List Name
+                            .input-field
+                                select(name="list_difficulty" id="list_difficulty")
+                                    option(disabled selected) #{diff}
+                                    option(value="0") Not Set
+                                    option(value="1") Easy
+                                    option(value="2") Moderate
+                                    option(value="3") Hard
+                                label(for="list_difficulty") List Difficulty (optional)
+                            .input-field
+                                input.btn.modify(type='submit', value='Update!')
+
             
                     div(class="card-body")
                         h5(class="card-title") Songs:
