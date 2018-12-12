@@ -35,7 +35,7 @@ let getSongs = (req, res, next) => {
     });
 }
 
-// GET ** create route to get and render person.pug and pass data
+// GET ** get /lists route and send lists as data
 router.get('/lists', getLists, (req, res, next) => {
 
     // render the page with the lists passed as data
@@ -45,7 +45,7 @@ router.get('/lists', getLists, (req, res, next) => {
     });
 })
 
-// GET ** create route to get and render person.pug and pass data
+// GET ** get /expand route
 router.get('/expand', getLists, (req, res, next) => {
 
     // render the page with the lists passed as data
@@ -99,7 +99,7 @@ router.post('/lists', getLists, (req, res, next) => {
 // GET ** get single list details
 router.get('/lists/:id', getLists, getSongs, (req, res, next) => {
     // get the list by the params id
-    List.find({ _id: req.params.id }, function(err, film) {
+    List.find({ _id: req.params.id }, function(err, list) {
         if (err) {
             // render the lists page with errors
             res.render(path.join(__dirname, '/../views/all-lists.pug'), {
@@ -127,28 +127,65 @@ router.get('/lists/:id', getLists, getSongs, (req, res, next) => {
     });
 })
 
-// delete a list
-router.delete('/lists/:id', getLists, (req, res, next) => {
-    // as long as the list is not the Library
-    if (req.params.id != '5c099a54c410459ebce5ef1c') {
-        // find the list with id
-        List.findByIdAndDelete(req.params.id, function(err) {
-            if (err) throw err;
-            // the list has been deleted
-            console.log('List deleted!');
-        });
+// POST ** update a list
+router.post('/lists/:id', getLists, (req, res, next) => {
 
-        // render the page with the lists passed as data
-        res.render(path.join(__dirname, '/../views/all-lists.pug'), {
-            github: "https://github.com/TracySpitler",
-            lists: req.lists,
+    // get a list with ID parameter
+    List.findById(req.params.id, function(err, list) {
+        if (err) throw err;
+
+        // update the list
+        list.name = req.body.list_name;
+        // if the difficulty was changed
+        if (req.body.list_difficulty >= 0) {
+            list.difficulty = req.body.list_difficulty;
+        }
+        else {
+            list.difficulty = list.difficulty;
+        }
+
+        // save the list
+        list.save(function(err) {
+            if (err) throw err;
+            console.log('List successfully updated!');
         });
-    }
-    else {
-        console.log("The Library cannot be deleted.");
-    }
+    });
+    // redirect
+    res.redirect('/lists/' + req.params.id);
 })
 
+// DELETE ** delete a list
+router.delete('/lists/:id', getLists, (req, res, next) => {
+    // get the library
+    List.find({ name: "Library" }, function(err, library) {
+        if (err) {
+            // render the lists page with errors
+            res.render(path.join(__dirname, '/../views/all-lists.pug'), {
+                errors: err,
+                github: "https://github.com/TracySpitler" });
+        }
+        else {
+            // as long as the list is not the Library
+            if (req.params.id != library[0]._id) {
+                // find the list with id
+                List.findByIdAndDelete(req.params.id, function(err) {
+                    if (err) throw err;
+                    // the list has been deleted
+                    console.log('List deleted!');
+                });
+
+                // render the page with the lists passed as data
+                res.render(path.join(__dirname, '/../views/all-lists.pug'), {
+                    github: "https://github.com/TracySpitler",
+                    lists: req.lists,
+                });
+            }
+            else {
+                console.log("The Library cannot be deleted.");
+            }
+        }
+    })
+})
 
 // set up router
 module.exports = router;
