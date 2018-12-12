@@ -206,6 +206,8 @@ div.card-action.collection-item.valign-wrapper {
     background-color: #4FF7EA !important;
 }
 
+/******************* tables *******************/
+
 .collapsible-header {
     justify-content: space-between;
 }
@@ -223,10 +225,21 @@ tr:hover .hidden{
     opacity: 1;
 }
 
+/******************* edit info *******************/
+
 .modify {
     opacity: .3;
 }
 
 .modify:hover {
     opacity: 1 !important;
+}
+
+#listUpdate {
+    padding: 1rem;
+    margin: 3rem;
+}
+
+.initiallyHidden {
+    display: none;
 }
