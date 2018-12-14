@@ -22,6 +22,23 @@ router.get('/start', (req, res, next) => {
     res.render('auth');
 })
 
+// POST ** sign up
+router.post('/signup', (req, res, next) => {
+    require('bcrypt').hash(req.body.password, 10, (err, pass) => {
+        const user = new User({
+            username: req.body.username,
+            name: req.body.name,
+            password: pass
+        })
+        user.save((err, user) => {
+            if (err) return res.rediect('/');
+            passportLocal.authenticate('local', {failuserRedirect: '/start'})(req, res, () => {
+                res.redirect('/profile');
+            })
+        })
+    })
+});
+
 // POST ** log in
 router.post('/login', passportLocal.authenticate('local', {failureRedirect: '/start'}), (req, res, next) => {
     res.redirect('/profile');
