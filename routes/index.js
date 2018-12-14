@@ -3,6 +3,7 @@ const express = require('express');
 const router = express.Router()
 const User = require('../models/User');
 const passportLocal = require('../auth/local');
+const protect = require('connect-ensure-login').ensureLoggedIn;
 
 // default page
 router.get('/', (req, res, next) => {
@@ -51,7 +52,7 @@ router.get('/logout', (req, res, next) => {
 });
 
 // user profile
-router.get('/profile', (req, res, next) => {
+router.get('/profile', protect(), (req, res, next) => {
     res.render('profile', {user: req.user});
 });
 
