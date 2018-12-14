@@ -2,6 +2,7 @@
 const express = require('express');
 const router = express.Router()
 const path = require('path');
+const protect = require('connect-ensure-login').ensureLoggedIn;
 
 // models
 const List = require('../models/List');
@@ -36,22 +37,24 @@ let getSongs = (req, res, next) => {
 }
 
 // GET ** get /lists route and send lists as data
-router.get('/lists', getLists, (req, res, next) => {
+router.get('/lists', protect(), getLists, (req, res, next) => {
 
     // render the page with the lists passed as data
     res.render(path.join(__dirname, '/../views/all-lists.pug'), {
         github: "https://github.com/TracySpitler",
         lists: req.lists,
+        user: req.user
     });
 })
 
 // GET ** get /expand route
-router.get('/expand', getLists, (req, res, next) => {
+router.get('/expand', protect(), getLists, (req, res, next) => {
 
     // render the page with the lists passed as data
     res.render(path.join(__dirname, '/../views/expand-library.pug'), {
         github: "https://github.com/TracySpitler",
         lists: req.lists,
+        user: req.user
     });
 })
 
@@ -67,8 +70,9 @@ router.post('/lists', getLists, (req, res, next) => {
         // render the form with errors
         res.render(path.join(__dirname, '/../views/expand-library.pug'), {
             list_errors: errors,
-            github: "https://github.com/TracySpitler" });
-            return;
+            github: "https://github.com/TracySpitler",
+            user: req.user,
+        });
     }
     // otherwise save the list to the db
     else {
@@ -85,7 +89,9 @@ router.post('/lists', getLists, (req, res, next) => {
                 res.render(path.join(__dirname, '/../views/expand-library.pug'), {
                     list_errors: err,
                     db_error: "The list \'" + newList.name + "\' already exists! Please rename it.",
-                    github: "https://github.com/TracySpitler" });
+                    github: "https://github.com/TracySpitler",
+                    user: req.user,
+                });
             }
             else {
                 console.log('List saved successfully!')
@@ -97,14 +103,16 @@ router.post('/lists', getLists, (req, res, next) => {
 })
 
 // GET ** get single list details
-router.get('/lists/:id', getLists, getSongs, (req, res, next) => {
+router.get('/lists/:id', protect(), getLists, getSongs, (req, res, next) => {
     // get the list by the params id
     List.find({ _id: req.params.id }, function(err, list) {
         if (err) {
             // render the lists page with errors
             res.render(path.join(__dirname, '/../views/all-lists.pug'), {
                 errors: err,
-                github: "https://github.com/TracySpitler" });
+                github: "https://github.com/TracySpitler",
+                user: req.user,
+            });
         }
 
         // find songs in this list
@@ -113,7 +121,9 @@ router.get('/lists/:id', getLists, getSongs, (req, res, next) => {
                 // render the lists page with errors
                 res.render(path.join(__dirname, '/../views/all-lists.pug'), {
                     errors: err,
-                    github: "https://github.com/TracySpitler" });
+                    github: "https://github.com/TracySpitler",
+                    user: req.user,
+                });
             }
 
             // render the page with both lists and songs passed as data
@@ -122,6 +132,7 @@ router.get('/lists/:id', getLists, getSongs, (req, res, next) => {
                 list: req.params.id,
                 songs: req.songs,
                 lists: req.lists,
+                user: req.user,
             });
         });
     });
@@ -162,7 +173,9 @@ router.delete('/lists/:id', getLists, (req, res, next) => {
             // render the lists page with errors
             res.render(path.join(__dirname, '/../views/all-lists.pug'), {
                 errors: err,
-                github: "https://github.com/TracySpitler" });
+                github: "https://github.com/TracySpitler",
+                user: req.user,
+            });
         }
         else {
             // as long as the list is not the Library
@@ -178,6 +191,7 @@ router.delete('/lists/:id', getLists, (req, res, next) => {
                 res.render(path.join(__dirname, '/../views/all-lists.pug'), {
                     github: "https://github.com/TracySpitler",
                     lists: req.lists,
+                    user: req.user,
                 });
             }
             else {
