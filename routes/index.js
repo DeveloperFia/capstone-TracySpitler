@@ -1,11 +1,13 @@
 // include
 const express = require('express');
 const router = express.Router()
+const User = require('../models/User');
+const passportLocal = require('../auth/local');
 
 // default page
 router.get('/', (req, res, next) => {
     // if user is signed in - take them to all-lists
-    if (typeof user !== 'undefined' && user) {
+    if (req.user) {
         return res.redirect('/lists');
     }
     // otherwise take them to sign up/log in
