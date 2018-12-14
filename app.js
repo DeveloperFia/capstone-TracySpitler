@@ -1,6 +1,9 @@
 // include the express dependency then instantiate it
 const express = require('express');
 const app = express();
+const mongoose = require('mongoose');
+const db = require('./config/mongoose');
+const path = require('path');
 
 // turns data into js object
 const bodyParser = require('body-parser');
@@ -13,9 +16,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 //use express validator
 app.use(validator());
-
-// require
-const path = require('path');
 
 // pug - template engine
 app.set('views', __dirname + '/views');
