@@ -11,18 +11,9 @@ block content
                                 h2 Expand Your Library
                             div.card-tabs
                                 ul.tabs.tabs-fixed-width
-                                    li.tab #[a(href="#song") Add a Song]
                                     li.tab #[a(href="#list") Create a List]
+                                    li.tab #[a(href="#song") Add a Song]
                             div.card-content.grey.lighten-4
-                                div#song
-                                    form.card-content(method='post', action='/songs')
-                                        span.card-title Add a Song.
-                                        div#errors
-                                        if song_errors
-                                            ul
-                                                for error in song_errors
-                                                    li.pink-text.text-darken-1!= error.msg
-                                        p Coming Soon
                                 div#list
                                     form.card-content(method='post', action='/lists')
                                         span.card-title Create a List.
@@ -46,3 +37,12 @@ block content
                                             label(for="list_difficulty") List Difficulty (optional)
                                         .input-field
                                             input.btn(type='submit', value='Create!')
+                                div#song
+                                    form.card-content(method='post', action='/songs')
+                                        span.card-title Add a Song.
+                                        div#errors
+                                        if song_errors
+                                            ul
+                                                for error in song_errors
+                                                    li.pink-text.text-darken-1!= error.msg
+                                        p Coming Soon
