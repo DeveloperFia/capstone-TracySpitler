@@ -10,6 +10,11 @@ const bodyParser = require('body-parser');
 // mount express validator (this goes after bodyParser)
 var validator = require('express-validator');
 
+// auth packages
+const passport = require('./config/passport');
+const expressSession = require('express-session');
+const MongoStore = require('connect-mongo')(expressSession);
+
 // JSON data and converted and added to req.body
 app.use(bodyParser.json());
 // convert GET url
