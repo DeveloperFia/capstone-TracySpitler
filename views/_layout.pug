@@ -14,21 +14,25 @@ body
             .nav-wrapper.container
                 a.brand-logo(href="/") SetList
                 ul.nav-mobile.right.hide-on-med-and-down
-                    li
-                        a(href="/start") Start Here
-                    li
-                        a(href="/lists") Lists
-                    li
-                        a(href="/chords") Chords
+                    if !user
+                        li
+                            a(href="/start") Start Here
+                    else
+                        li
+                            a(href="/lists") Lists
+                        li
+                            a(href="/profile") Profile
+                        li
+                            a(href="/logout") Logout
 
     block float
-        if (!user)
+        if (user)
             div.fixed-action-btn
                 a.btn-floating.btn-large.blue-bg(href="/expand/#list") #[i.large.material-icons add]
                 ul
                     li.card.pink.darken-1.white-text add
 
-    block main
+    block content
 
     footer
         .page-footer.center-align.dark-bg
