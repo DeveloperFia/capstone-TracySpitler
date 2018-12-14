@@ -15,6 +15,16 @@ const passport = require('./config/passport');
 const expressSession = require('express-session');
 const MongoStore = require('connect-mongo')(expressSession);
 
+// express-session setup
+app.use(expressSession({
+    // random string from .env (for signing cookie)
+    secret: process.env.SECRET,
+    resave: false,
+    saveUninitialized: false,
+    // store to mongo (no need to login after every save)
+    store: new MongoStore({mongooseConnection: db})
+}))
+
 // JSON data and converted and added to req.body
 app.use(bodyParser.json());
 // convert GET url
