@@ -25,6 +25,10 @@ app.use(expressSession({
     store: new MongoStore({mongooseConnection: db})
 }))
 
+// passport middleware
+app.use(passport.initialize())
+app.use(passport.session());
+
 // JSON data and converted and added to req.body
 app.use(bodyParser.json());
 // convert GET url
