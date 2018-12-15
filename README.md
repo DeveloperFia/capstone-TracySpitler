@@ -50,6 +50,11 @@ _Install from terminal or command line:_
 $ npm install -g nodemon
 ```
 
+_Database (For Mac: you must have Homebrew installed first. For Windows: download MongoDB from the link.)_
+* [Mac Install Tutorial](https://treehouse.github.io/installation-guides/mac/mongo-mac.html)
+* [Homebrew](https://brew.sh/) (1.8.0)
+* __[MongoDB](https://www.mongodb.com/)__
+
 ### Development Environment
 
 After cloning the repo, cd into project folder
@@ -64,7 +69,18 @@ Install npm (this will also install dependencies)
 $ npm install
 ```
 
+Set up the environment variables
+
+_.env_
+
+```
+MONGO_HOST=localhost
+MONGO_DATABASE=setlist
+```
+
 Start the server
+
+**_with Nodemon:_**
 
 ```
 $ nodemon bin/www
@@ -79,6 +95,21 @@ your@computer:~$ nodemon bin/www
 [nodemon] watching: *.*
 [nodemon] starting `node bin/www`
 Server running on: 3000
+DATABASE CONNECTED SUCCESSFULLY
+```
+
+**_with NPM:_**
+
+```
+$ npm start
+```
+
+_Terminal output:_
+
+```
+your@computer:~$ npm start
+Server running on: 3000
+DATABASE CONNECTED SUCCESSFULLY
 ```
 
 __The site is now available in your browser at localhost:3000__

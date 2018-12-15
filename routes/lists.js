@@ -10,15 +10,40 @@ const Song = require('../models/Song');
 
 // function that gets all of the lists from the database
 let getLists = (req, res, next) => {
-    // get all the lists
-    List.find({}, function(err, lists) {
-        // if there is an error, throw it
-        if (err)
+    List.find({ name: "Library"}, function(err, library) {
+        if (err) {
             console.log('err', err);
-        // add a list of lists to the request object to be used in different routes
-        req.lists = lists;
-        // run the next function
-        next()
+        }
+        else if (!library[0]) {
+            console.log("library is empty");
+            // create the library
+            var library = List({
+                name: "Library",
+            });
+            // save list to the database
+            library.save(function(err) {
+                if (err) {
+                    console.log('err', err);
+                }
+                else {
+                    console.log('Library saved successfully!')
+                    next();
+                }
+            });
+        }
+        else {
+            console.log("library exists!");
+            // get all the lists
+            List.find({}, function(err, lists) {
+                // if there is an error, throw it
+                if (err)
+                    console.log('err', err);
+                // add a list of lists to the request object to be used in different routes
+                req.lists = lists;
+                // run the next function
+                next()
+            });
+        }
     });
 }
 
@@ -38,8 +63,7 @@ let getSongs = (req, res, next) => {
 
 // GET ** get /lists route and send lists as data
 router.get('/lists', protect(), getLists, (req, res, next) => {
-
-    // render the page with the lists passed as data
+// render the page with the lists passed as data
     res.render(path.join(__dirname, '/../views/all-lists.pug'), {
         github: "https://github.com/TracySpitler",
         lists: req.lists,
