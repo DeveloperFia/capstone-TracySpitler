@@ -130,7 +130,7 @@ router.get('/lists/:id', protect(), getLists, getSongs, (req, res, next) => {
             res.render(path.join(__dirname, '/../views/list.pug'), {
                 github: "https://github.com/TracySpitler",
                 list: req.params.id,
-                songs: req.songs,
+                songs: songs,
                 lists: req.lists,
                 user: req.user,
             });
