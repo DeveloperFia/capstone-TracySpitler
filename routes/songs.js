@@ -121,55 +121,40 @@ router.post('/songs', getLists, getSongs, (req, res, next) => {
             }
             // if custom list has a value..
             if (req.body.customList) {
-                // check for empty values
-                req.checkBody('customList', 'Please give the list a name.').notEmpty();
 
-                // if there are errors..
-                var errors = req.validationErrors();
-                if (errors){
-                    // render the form with errors
-                    res.render(path.join(__dirname, '/../views/expand-library.pug'), {
-                        list_errors: errors,
-                        github: "https://github.com/TracySpitler",
-                        user: req.user,
-                    });
-                }
-                // otherwise save the list to the db
-                else {
-                    // create a custom list object
-                    var customList = List({
-                        name: req.body.customList,
-                    });
+                // create a custom list object
+                var customList = List({
+                    name: req.body.customList,
+                });
 
-                    // push the song id into the list
-                    customList.songs.push(newSong._id);
+                // push the song id into the list
+                customList.songs.push(newSong._id);
 
-                    // save list to the database
-                    customList.save(function(err) {
-                        if (err) {
-                            // render the form with errors
-                            res.render(path.join(__dirname, '/../views/expand-library.pug'), {
-                                list_errors: err,
-                                db_error: "The list \'" + customList.name + "\' already exists! Please rename it.",
-                                github: "https://github.com/TracySpitler",
-                                user: req.user,
+                // save list to the database
+                customList.save(function(err) {
+                    if (err) {
+                        // render the form with errors
+                        res.render(path.join(__dirname, '/../views/expand-library.pug'), {
+                            list_errors: err,
+                            db_error: "The list \'" + customList.name + "\' already exists! Please rename it.",
+                            github: "https://github.com/TracySpitler",
+                            user: req.user,
+                        });
+                    }
+                    else {
+                        console.log('Custom list saved successfully!')
+                        // find song to update the lists
+                        Song.findOne({_id: newSong._id}, function(err, song) {
+                            // push the list id into the song's lists
+                            song.lists.push(customList._id);
+                            //save the song
+                            song.save(function(err) {
+                                if (err) throw err;
+                                console.log('Lists in this song have been updated!');
                             });
-                        }
-                        else {
-                            console.log('Custom list saved successfully!')
-                            // find song to update the lists
-                            Song.findOne({_id: newSong._id}, function(err, song) {
-                                // push the list id into the song's lists
-                                song.lists.push(customList._id);
-                                //save the song
-                                song.save(function(err) {
-                                    if (err) throw err;
-                                    console.log('Lists in this song have been updated!');
-                                });
-                            });
-                        }
-                    });
-                }
+                        });
+                    }
+                });
             }
 
             // go back to the home page
