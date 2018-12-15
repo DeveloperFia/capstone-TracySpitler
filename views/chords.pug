@@ -1,0 +1,12 @@
+extends _layout
+
+block content
+    main
+        .container.body
+            div.valign-wrapper
+                h1 Chords:
+                if chords
+                    p #{chords[0].chordName}
+
+                button#testing(type="button" class="btn") Click me!
+                p.text chords go here
