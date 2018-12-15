@@ -14,6 +14,8 @@ body
             .nav-wrapper.container
                 a.brand-logo(href="/") SetList
                 ul.nav-mobile.right.hide-on-med-and-down
+                    li
+                        a(href="/chords") Chords
                     if !user
                         li
                             a(href="/start") Start Here
@@ -77,5 +79,28 @@ body
             // expand options
             $("#soptionsbtn").click(function(){
                 $("#extraOptions").toggle();
+            });
+            
+            // uberchord
+            $('#testing').click(function() {
+
+                $('.text').text('loading . . .');
+                
+                $.getJSON(
+                    "https://api.uberchord.com/v1/chords?nameLike=F_maj7",
+                    function(data) {
+                        // Success! Do stuff with data.
+                        $('.text').text(data);
+                    }
+                );
+
+                $.ajax({
+                    type:"GET",
+                    url:"https://api.uberchord.com/v1/chords?nameLike=F_maj7",
+                    success: function(data) {
+                        $('.text').text(JSON.stringify(data));
+                    },
+                    dataType: 'json',
+                });
             });
         });
