@@ -53,6 +53,9 @@ app.use('/', lists);
 const songs = require('./routes/songs');
 app.use('/', songs);
 
+const chords = require('./routes/uberchord');
+app.use('/', chords);
+
 // 404 error handling
 app.use(function(req, res, next) {
     // if the route doesn't exist..
