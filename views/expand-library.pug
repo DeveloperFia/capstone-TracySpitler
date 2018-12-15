@@ -1,6 +1,6 @@
 extends _layout
 
-block main
+block content
     main.dark-bg
         .container.body
             div.valign-wrapper
@@ -11,18 +11,9 @@ block main
                                 h2 Expand Your Library
                             div.card-tabs
                                 ul.tabs.tabs-fixed-width
-                                    li.tab #[a(href="#song") Add a Song]
                                     li.tab #[a(href="#list") Create a List]
+                                    li.tab #[a(href="#song") Add a Song]
                             div.card-content.grey.lighten-4
-                                div#song
-                                    form.card-content(method='post', action='/songs')
-                                        span.card-title Add a Song.
-                                        div#errors
-                                        if song_errors
-                                            ul
-                                                for error in song_errors
-                                                    li.pink-text.text-darken-1!= error.msg
-                                        p Coming Soon
                                 div#list
                                     form.card-content(method='post', action='/lists')
                                         span.card-title Create a List.
@@ -35,7 +26,7 @@ block main
                                         if db_error
                                             p.pink-text.text-darken-1 #{db_error}
                                         .input-field
-                                            input(type='text', name='list_name', id="list_name")
+                                            input(type='text', name='list_name', id="list_name", required="true")
                                             label(for="list_name") List Name
                                         .input-field
                                             select(name="list_difficulty" id="list_difficulty")
@@ -46,3 +37,64 @@ block main
                                             label(for="list_difficulty") List Difficulty (optional)
                                         .input-field
                                             input.btn(type='submit', value='Create!')
+                                div#song
+                                    form.card-content(method='post', action='/songs')
+                                        span.card-title Add a Song.
+                                        div#errors
+                                        if song_errors
+                                            ul
+                                                for error in song_errors
+                                                    li.pink-text.text-darken-1!= error.msg
+                                        p.deep-purple-text #[span.pink-text.daken-1 *] #[strong REQUIRED]
+                                        if db_error
+                                            p.pink-text.text-darken-1 #{db_error}
+                                        .input-field
+                                            input(type='text', name='title', id="title", required="true")
+                                            label(for="title") Title
+                                        .input-field
+                                            input(type='text', name='artist', id="artist", required="true")
+                                            label(for="artist") Artist
+                                        div#listChoice
+                                            p.deep-purple-text #[strong LIST CHOICE] (all songs will be added to Library automatically)
+                                            br
+                                            p.center-align #[a#lchoicebtn Choose List] or #[a#lcustombtn Create New List]
+                                            br
+                                            .input-field#inList.initiallyHidden
+                                                select(name="inList", id="inList", multiple)
+                                                    option(value="Library", selected, disabled) Library
+                                                    for list in lists
+                                                        if list.name != "Library"
+                                                            option(value=list.name) #{list.name}
+                                                label(for="inList") Select a List
+                                            .input-field#customList.initiallyHidden
+                                                input(type='text', name='customList', id="customList")
+                                                label(for="customList") Create a New List
+                                        
+                                        div
+                                            p.deep-purple-text #[strong EXTRA SONG OPTIONS]
+                                            br
+                                            a#soptionsbtn Expand Options
+                                            div#extraOptions.initiallyHidden
+                                                br
+                                                .input-field
+                                                    select(name="mode" id="mode")
+                                                        option(value="0") Minor
+                                                        option(value="1") Major
+                                                    label(for="list_difficulty") Mode (major or minor)
+                                                .input-field
+                                                    input(type="number", min="1", max="11", name='key', id="key")
+                                                    label(for="key") Key
+                                                .input-field
+                                                    input(type="number", min="0", max="10", name='capo', id="capo")
+                                                    label(for="capo") Capo
+                                                .input-field
+                                                    input(type="number", min="0", max="500", name='tempo', id="tempo")
+                                                    label(for="tempo") Tempo (BPM)
+                                                .input-field
+                                                    input(type="number", min="0", name='duration', id="duration")
+                                                    label(for="duration") Duration
+                                                .input-field
+                                                    input(type="number", min="0", name='time_sig', id="time_sig")
+                                                    label(for="time_sig") Time Signature
+                                                .input-field
+                                                    input.btn(type='submit', value='Add Song!')

@@ -5,6 +5,7 @@
 * [Sprint 1](#sprint-1)
 * [Sprint 2](#sprint-2)
 * [Sprint 3](#sprint-3)
+* [Sprint 4](#sprint-4)
 
 ## Sprint 1
 
@@ -70,3 +71,25 @@ __Did you see anything cool this week? Learn about a new rock star in the indust
 I didn't do very much research outside of what I needed for a deeper understanding of what I'm doing while building this project. I did, however, need a change of music; or at least my brain felt like it did. I found an article on Medium with a few great YouTube playlists that were picked out for the sole purpose of coding and programming. Check it out:
 
 _Music Playlists:_ https://medium.com/level-up-web/youtube-background-music-for-coding-99b592a74dc8
+
+## Sprint 4
+
+__What have you learned this week?__
+
+I have learned so much over the past five days. I have realized after struggling with Materialize that it is not for me. Bootstrap is a little better, but the reality is at the end of the day I still have to fix so much. I would have been better off just setting up sass and writing everything myself. Unit testing is something I've learned a lot about as well. I didn't do very well in ASL with TDD, so I'm grateful to have had time to catch up and really learn about testing.
+
+__Did you do any independent research outside of what was required?__
+
+Since time was a factor here, I did not get to do very much research. However, I did read about coding metronomes and how to work with sounds a little bit. It's interesting, but man! I didn't realize how little I actually knew about music. This also led me to research how Spotify uses the 'key' attribute for the songs.    
+
+__How can you improve based on your experiences this week? What were your strengths and weaknesses? How was your experience with your assignments? Did you manage time wisely?__
+
+It was an especially busy week, and because of this, I wasn't able to finish my project on time. With every completed course, I can tell I learn a lot. Things that used to be difficult for me now make sense, but I still have an extremely long way to go. I really enjoyed utilizing Express and MongoDB for this project.   
+
+__Did you see anything cool this week? Learn about a new rock star in the industry? Attend a meetup? Learning a new language or technique?__
+
+Spotify uses pitch notation for the tracks' 'key' attribute, and it seems pretty straightforward, but there is something off. Either pitch notation itself has quite a few flaws, but the keys don't match all the time. This might also have to do with how Spotify calculates the key from the start.
+
+https://developer.spotify.com/documentation/web-api/reference/tracks/get-audio-features/
+
+https://en.wikipedia.org/wiki/Pitch_class

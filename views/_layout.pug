@@ -14,21 +14,25 @@ body
             .nav-wrapper.container
                 a.brand-logo(href="/") SetList
                 ul.nav-mobile.right.hide-on-med-and-down
-                    li
-                        a(href="/start") Start Here
-                    li
-                        a(href="/lists") Lists
-                    li
-                        a(href="/chords") Chords
+                    if !user
+                        li
+                            a(href="/start") Start Here
+                    else
+                        li
+                            a(href="/lists") Lists
+                        li
+                            a(href="/profile") Profile
+                        li
+                            a(href="/logout") Logout
 
     block float
-        if (!user)
+        if (user)
             div.fixed-action-btn
                 a.btn-floating.btn-large.blue-bg(href="/expand/#list") #[i.large.material-icons add]
                 ul
                     li.card.pink.darken-1.white-text add
 
-    block main
+    block content
 
     footer
         .page-footer.center-align.dark-bg
@@ -40,12 +44,12 @@ body
     script.
         $(document).ready(function() {
             $('select').material_select();
-            
+
             // update list
             $("#editList").click(function(){
                 $("#listUpdate").toggle();
             });
-            
+
             // delete a list
             $("#deleteList").click(function(){
                 var r = confirm("WAIT! This action can not be undone. Are you sure you want to delete this list?");
@@ -58,5 +62,20 @@ body
                         window.location.href = "/lists";
                     }) 
                 } 
+            });
+            
+            // list choice
+            $("#lchoicebtn").click(function(){
+                $("#inList").toggle();
+            });
+            
+            // custom list
+            $("#lcustombtn").click(function(){
+                $("#customList").toggle();
+            });
+            
+            // expand options
+            $("#soptionsbtn").click(function(){
+                $("#extraOptions").toggle();
             });
         });
