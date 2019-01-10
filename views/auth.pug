@@ -1,6 +1,6 @@
 extends _layout
 
-block main
+block content
     main#auth
         .container.body
             div.valign-wrapper
@@ -20,8 +20,8 @@ block main
                                     form.card-content(method='post', action='/login')
                                         span.card-title Log In!
                                         .input-field
-                                            input(type='email', name='email', id="email")
-                                            label(for="email") Email
+                                            input(type='text', name='username', id="username")
+                                            label(for="username") Username
                                         .input-field
                                             input(type='password', name='password', id="password")
                                             label(for="password") Password
@@ -31,10 +31,13 @@ block main
                                     form.card-content(method='post', action='/signup')
                                         span.card-title Sign Up!
                                         .input-field
-                                            input(type='email', name='email', id="email")
-                                            label(for="email") Email
+                                            input(type='text', name='name', id="name")
+                                            label(for="name") Name
                                         .input-field
-                                            input(type='password', name='password', id="password")
+                                            input(type='text', name='username', id="username", required="true")
+                                            label(for="username") Username
+                                        .input-field
+                                            input(type='password', name='password', id="password", required="true")
                                             label(for="password") Password
                                         .input-field
                                             input.btn(type='submit', value='Sign Up!')
