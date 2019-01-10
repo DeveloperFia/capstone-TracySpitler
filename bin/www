@@ -1,5 +1,5 @@
 // if the app environment is not set, default to development
-var NODE_ENV = process.env.NODE_ENV || 'development';
+var NODE_ENV = process.env.NODE_ENV || process.env.PORT || 'development';
 
 // use dotenv to load our env vars in the .env, into process.env
 if (NODE_ENV === 'development') {
