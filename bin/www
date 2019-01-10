@@ -11,7 +11,7 @@ const app = require('../app');
 const http = require('http');
 
 // setup the port
-const port = 3000;
+const port = process.env.PORT || 3000;
 app.set('port', port)
 
 // create HTTP server - once up, print to console
