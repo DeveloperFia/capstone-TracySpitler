@@ -59,6 +59,10 @@ main {
 
 /******************* navigation *******************/
 
+a, button {
+    cursor: pointer !important;
+}
+
 nav {
     background-color: #0A0C27;
 }
@@ -200,4 +204,46 @@ div.card-action.collection-item.valign-wrapper {
 
 #errors {
     background-color: #4FF7EA !important;
+}
+
+/******************* tables *******************/
+
+.collapsible-header {
+    justify-content: space-between;
+}
+
+.sm {
+    width: 50px;
+    padding-left: 1rem;
+}
+
+.hidden {
+    opacity: 0;
+}
+
+tr:hover .hidden{
+    opacity: 1;
+}
+
+/******************* edit info *******************/
+
+.modify {
+    opacity: .3;
+}
+
+.modify:hover {
+    opacity: 1 !important;
+}
+
+#listUpdate {
+    padding: 1rem;
+    margin: 3rem;
+}
+
+.initiallyHidden {
+    display: none;
+}
+
+#listChoice a {
+    margin: 1rem;
 }

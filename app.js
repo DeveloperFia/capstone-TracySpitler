@@ -1,11 +1,33 @@
 // include the express dependency then instantiate it
 const express = require('express');
 const app = express();
+const mongoose = require('mongoose');
+const db = require('./config/mongoose');
+const path = require('path');
 
 // turns data into js object
 const bodyParser = require('body-parser');
 // mount express validator (this goes after bodyParser)
 var validator = require('express-validator');
+
+// auth packages
+const passport = require('./config/passport');
+const expressSession = require('express-session');
+const MongoStore = require('connect-mongo')(expressSession);
+
+// express-session setup
+app.use(expressSession({
+    // random string from .env (for signing cookie)
+    secret: process.env.SECRET,
+    resave: false,
+    saveUninitialized: false,
+    // store to mongo (no need to login after every save)
+    store: new MongoStore({mongooseConnection: db})
+}))
+
+// passport middleware
+app.use(passport.initialize())
+app.use(passport.session());
 
 // JSON data and converted and added to req.body
 app.use(bodyParser.json());
@@ -13,22 +35,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 //use express validator
 app.use(validator());
-
-// require
-const path = require('path');
-const mongoose = require('mongoose');
-
-// connect to the database
-mongoose.connect('mongodb://'+process.env.MONGO_HOST+'/'+process.env.MONGO_DATABASE);
-
-// get default connection
-var db = mongoose.connection;
-
-// bind connection to error event (to get notification of connection errors)
-db.on('error', console.error.bind(console, 'MongoDB connection error:'));
-
-// bind connection to connection event (to get notification of connection)
-db.once('open', () => console.log('DATABASE CONNECTED SUCCESSFULLY') );
 
 // pug - template engine
 app.set('views', __dirname + '/views');
@@ -43,6 +49,9 @@ app.use('/', index);
 
 const lists = require('./routes/lists');
 app.use('/', lists);
+
+const songs = require('./routes/songs');
+app.use('/', songs);
 
 // 404 error handling
 app.use(function(req, res, next) {
