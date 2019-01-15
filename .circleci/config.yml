@@ -1,14 +1,19 @@
 version: 2
 jobs:
-    build:
-        working_directory: ~/capstone-TracySpitler
-        docker:
-            - image: "circleci/node:10.12.0"
-        branches:
-            only:
-                - master
-                - release
-        steps:
-            - checkout
-            - run: npm install
-            - run: npm test
+  build:
+    working_directory: ~/capstone-TracySpitler
+    docker:
+      - image: circleci/node:10.12.0
+    branches:
+      only:
+        - master
+        - release
+    steps:
+      - checkout
+      - run: npm install
+      - run: npm test
+    deployment:
+      staging:
+      branch: master
+      heroku:
+        appname: ts-capstone-setlist-live
