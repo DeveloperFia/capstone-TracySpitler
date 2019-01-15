@@ -1,19 +1,9 @@
-version: 2
-jobs:
-  build:
-    working_directory: ~/capstone-TracySpitler
-    docker:
-      - image: circleci/node:10.12.0
-    branches:
-      only:
-        - master
-        - release
-    steps:
-      - checkout
-      - run: npm install
-      - run: npm test
-    deployment:
-      staging:
-      branch: master
-      heroku:
-        appname: ts-capstone-setlist-live
+version: 2.1
+
+orbs:
+    hello: circleci/hello-build@0.0.7 # uses the circleci/buildpack-deps Docker image
+
+workflows:
+    "Hello Workflow":
+        jobs:
+          - hello/hello-build
