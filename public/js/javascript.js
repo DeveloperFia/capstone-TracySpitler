@@ -35,4 +35,28 @@ $(document).ready(function() {
         $("#extraOptions").toggle();
     });
 
+    // search lists
+    $('#searchLists').keyup(function() {
+        alert("Handler for .keyup(2) called.");
+        // Declare variables
+        var input, filter, ul, li, h3, i, txtValue;
+        input = document.getElementById("searchLists");
+        filter = input.value.toUpperCase();
+        ul = document.getElementById("allLists");
+        li = ul.getElementsByTagName("li");
+
+        // Loop through all ul rows, and hide those who don't match the search query
+        for (i = 0; i < li.length; i++) {
+            h3 = li[i].getElementsByTagName("h3")[0];
+            if (h3) {
+                txtValue = h3.textContent || h3.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    li[i].style.display = "";
+                } else {
+                    li[i].style.display = "none";
+                }
+            }
+        }
+    });
+
 });
