@@ -9,8 +9,10 @@ block content
             //- display lists
             div.container
             if lists
-                ul.lists
+                input(type="search" id="searchLists" placeholder="Search for a specific list..")
+                ul.lists#allLists
                     for list in lists
+                        
                         if list.name == "Library"
                             li.col.s3
                                 div#list-card.card.hoverable.collection
