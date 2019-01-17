@@ -37,7 +37,6 @@ $(document).ready(function() {
 
     // search lists
     $('#searchLists').keyup(function() {
-        alert("Handler for .keyup(2) called.");
         // Declare variables
         var input, filter, ul, li, h3, i, txtValue;
         input = document.getElementById("searchLists");
