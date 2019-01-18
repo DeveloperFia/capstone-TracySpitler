@@ -9,7 +9,17 @@ block content
             //- display lists
             div.container
             if lists
+                strong FILTER LISTS
                 input(type="search" id="searchLists" placeholder="Search for a specific list..")
+                button#filters(class="modify btn new badge purple-bg" data-badge-caption="filter") Filters
+                div#filter_difficulty_div(class="initiallyHidden input-field")
+                    select(name="filter_difficulty" id="filter_difficulty")
+                        option(value="0" disabled selected) Filter by difficulty
+                        option(value="0") Clear
+                        option(value="1") Easy
+                        option(value="2") Moderate
+                        option(value="3") Hard
+                    label(class="filter-label" for="filter_difficulty") List Difficulty
                 ul.lists#allLists
                     for list in lists
                         
@@ -23,7 +33,7 @@ block content
                                     div.card-action.collection-item.valign-wrapper
                                         div.underline
                                             a.dark.valign-wrapper(href="/lists/" + list._id) #[i.material-icons.dark graphic_eq] GO
-                                        span.new.badge.right(data-badge-caption="songs") 6
+                                        span.new.badge.right.number-of-songs(data-badge-caption="songs") 6
                             
                         else 
                             li.col.s3
@@ -33,7 +43,8 @@ block content
                                             if list.difficulty
                                                 -var i = list.difficulty
                                                 while (i--)
-                                                    i.material-icons.md-light.difficulty star
+                                                    h5.difficulty-filter(style="display: none;") #{list.difficulty}
+                                                    i.material-icons.md-light.difficulty.filter star
                                             else
                                                 span #[i.material-icons.md-light.difficulty not_interested] not set
                                     div.card-content.valign-wrapper
@@ -41,7 +52,7 @@ block content
                                     div.card-action.collection-item.valign-wrapper
                                         div.underline
                                             a.dark.valign-wrapper(href="/lists/" + list._id) #[i.material-icons.dark graphic_eq] GO
-                                        span.new.badge.right(data-badge-caption="songs") #{list.songs.length}
+                                        span.new.badge.right.number-of-songs(data-badge-caption="songs") #{list.songs.length}
                             
 
                         
