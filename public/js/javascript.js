@@ -41,7 +41,7 @@ $(document).ready(function() {
         var input = document.getElementById("searchLists");
         var str = input.value.toUpperCase();
         // send data to filterLists function
-        filterLists("h3", "search", str);
+        filterLists("allLists", "h3", "search", str);
     });
 
     // filter choice toggle
@@ -55,13 +55,36 @@ $(document).ready(function() {
         $("select option:selected").each(function() {
             str += $(this).val() + " ";
         });
-        filterLists("h5", "difficulty", str);
+        filterLists("allLists", "h5", "difficulty", str);
+    });
+
+    // filter songs toggle
+    $("#song_filters").click(function() {
+        $("#song_filters_div").toggle();
+    });
+
+    // search songs
+    $('#searchSongs').keyup(function() {
+        // Declare variables
+        var input = document.getElementById("searchSongs");
+        var str = input.value.toUpperCase();
+        // send data to filterLists function
+        filterLists("allSongs", "strong", "search", str);
+    });
+
+    // search artists
+    $('#searchArtists').keyup(function() {
+        // Declare variables
+        var input = document.getElementById("searchArtists");
+        var str = input.value.toUpperCase();
+        // send data to filterLists function
+        filterLists("allSongs", "em", "search", str);
     });
 });
 
-function filterLists(eTag, filter, str) {
+function filterLists(id, eTag, filter, str) {
     // get all lists
-    var ul = document.getElementById("allLists");
+    var ul = document.getElementById(id);
     var li = ul.getElementsByTagName("li");
 
     // Loop through all ul rows, and hide those who don't match the search query
