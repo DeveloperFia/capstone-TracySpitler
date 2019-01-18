@@ -1,3 +1,4 @@
+# https://circleci.com/docs/2.0/language-javascript/#config-walkthrough
 version: 2.1
 jobs:
   build:
