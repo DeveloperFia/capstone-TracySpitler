@@ -58,3 +58,5 @@ describe('Routes', function() {
     // }); // end lists.js
 
 });
+
+process.exit();
