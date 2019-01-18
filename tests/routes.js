@@ -11,7 +11,7 @@ describe('Routes', function() {
         it('should return a 404 response', function(done) {
             request(app)
                 .get('/nope')
-                .expect(404, end())
+                .expect(404, done)
         });
     });
 
@@ -23,14 +23,14 @@ describe('Routes', function() {
             it('should return a \'302 found\' response', function(done) {
                 request(app)
                     .get('/')
-                    .expect(302, end())
+                    .expect(302, done)
             });
             // test redirect
             it('no user - should redirect to /start', function(done) {
                 request(app)
                     .get('/')
                     .expect('Location', '/start')
-                    .expect(302, end())
+                    .expect(302, done)
             });
         });
         // '/start'
@@ -39,7 +39,7 @@ describe('Routes', function() {
             it('should return a 200 response', function(done) {
                 request(app)
                     .get('/start')
-                    .expect(200, end())
+                    .expect(200, done)
             });
         });
     }); // end index.js
