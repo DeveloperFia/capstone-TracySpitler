@@ -38,24 +38,64 @@ $(document).ready(function() {
     // search lists
     $('#searchLists').keyup(function() {
         // Declare variables
-        var input, filter, ul, li, h3, i, txtValue;
-        input = document.getElementById("searchLists");
-        filter = input.value.toUpperCase();
-        ul = document.getElementById("allLists");
-        li = ul.getElementsByTagName("li");
-
-        // Loop through all ul rows, and hide those who don't match the search query
-        for (i = 0; i < li.length; i++) {
-            h3 = li[i].getElementsByTagName("h3")[0];
-            if (h3) {
-                txtValue = h3.textContent || h3.innerText;
-                if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                    li[i].style.display = "";
-                } else {
-                    li[i].style.display = "none";
-                }
-            }
-        }
+        var input = document.getElementById("searchLists");
+        var str = input.value.toUpperCase();
+        // send data to filterLists function
+        filterLists("h3", "search", str);
     });
 
+    // filter choice toggle
+    $("#filters").click(function() {
+        $("#filter_difficulty_div").toggle();
+    });
+
+    // filter lists by difficulty
+    $('#filter_difficulty').change(function() {
+        var str = "";
+        $("select option:selected").each(function() {
+            str += $(this).val() + " ";
+        });
+        filterLists("h5", "difficulty", str);
+    });
 });
+
+function filterLists(eTag, filter, str) {
+    // get all lists
+    var ul = document.getElementById("allLists");
+    var li = ul.getElementsByTagName("li");
+
+    // Loop through all ul rows, and hide those who don't match the search query
+    for (i = 0; i < li.length; i++) {
+        // if value is 0 or undefined then clear the filter
+        if (parseInt(str) === 0) {
+            li[i].style.display = "";
+        }
+        else {
+            element = li[i].getElementsByTagName(eTag)[0];
+            // filter lists
+            if (element) {
+                var txtValue = element.textContent || element.innerText;
+                // filter by difficulty
+                if (filter === "difficulty") {
+                    if (parseInt(txtValue) == parseInt(str)){
+                        li[i].style.display = "";
+                    }
+                    else {
+                        li[i].style.display = "none";
+                    }
+                }
+                // filter by search query
+                if (filter === "search") {
+                    if (txtValue.toUpperCase().indexOf(str) > -1) {
+                        li[i].style.display = "";
+                    } else {
+                        li[i].style.display = "none";
+                    }
+                }
+            }
+            else {
+                li[i].style.display = "none";
+            }
+        }
+    }
+}
