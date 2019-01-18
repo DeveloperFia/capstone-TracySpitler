@@ -40,6 +40,7 @@ describe('Routes', function() {
                 request(app)
                     .get('/start')
                     .expect(200, done)
+                    .end();
             });
         });
     }); // end index.js
@@ -58,3 +59,5 @@ describe('Routes', function() {
     // }); // end lists.js
 
 });
+
+//process.exitCode();
