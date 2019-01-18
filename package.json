@@ -7,7 +7,7 @@
     "doc": "docs"
   },
   "scripts": {
-    "test": "mocha ./tests --recursive",
+    "test": "mocha ./tests",
     "start": "node bin/www"
   },
   "repository": {
