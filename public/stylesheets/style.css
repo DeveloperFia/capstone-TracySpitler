@@ -12,7 +12,7 @@
 }
 
 .purple-bg {
-    background-color: #311B92;
+    background-color: #311B92 !important;
 }
 
 .blue-bg {
@@ -138,6 +138,7 @@ a:hover {
     min-height: 200px;
     display: flex;
     flex-direction: column;
+    margin: .7rem;
 }
 
 #list-card:hover a.dark {
@@ -153,7 +154,10 @@ a:hover {
 .lists {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: flex-start;
+    margin-left: -.7rem;
+    margin-right: -1rem;
+    margin-top: 3rem;
 }
 
 .card-badge {
@@ -246,4 +250,28 @@ tr:hover .hidden{
 
 #listChoice a {
     margin: 1rem;
+}
+
+#deleteList {
+    margin-right: 1rem;
+}
+
+/******************* searches *******************/
+
+#filter_difficulty_div {
+    padding-top: 1rem;
+    width: 25%;
+}
+
+.filter-label {
+    padding-top: 1rem;
+}
+
+#song_filters_div {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+}
+
+#allSongs {
+    margin-bottom: 10%;
 }

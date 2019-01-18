@@ -32,7 +32,7 @@ router.post('/signup', (req, res, next) => {
             password: pass
         })
         user.save((err, user) => {
-            if (err) return res.rediect('/');
+            //if (err) return res.rediect('/');
             passportLocal.authenticate('local', {failuserRedirect: '/start'})(req, res, () => {
                 res.redirect('/profile');
             })
