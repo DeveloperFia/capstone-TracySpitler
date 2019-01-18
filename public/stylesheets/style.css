@@ -252,6 +252,10 @@ tr:hover .hidden{
     margin: 1rem;
 }
 
+#deleteList {
+    margin-right: 1rem;
+}
+
 /******************* searches *******************/
 
 #filter_difficulty_div {
@@ -261,4 +265,13 @@ tr:hover .hidden{
 
 .filter-label {
     padding-top: 1rem;
+}
+
+#song_filters_div {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+}
+
+#allSongs {
+    margin-bottom: 10%;
 }
