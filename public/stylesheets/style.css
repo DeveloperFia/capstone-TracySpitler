@@ -96,6 +96,11 @@ a:hover {
     margin-top: 2rem;
 }
 
+#login, #signup {
+    max-height: 375px;
+    min-height: 375px;
+}
+
 /******************* tab modifications *******************/
 
 /* default */
