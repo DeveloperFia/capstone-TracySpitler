@@ -8,8 +8,8 @@ SetList is a web app that provides guitar players, novice and experienced alike,
 
 ## Quick Links
 
-* [Staging Server Link](#)
-* [Live Server Link](#)
+* [Staging Server Link](https://ts-capstone-setlist-staging.herokuapp.com/start)
+* [Live Server Link](https://ts-capstone-setlist-live.herokuapp.com/start)
 * [Full Project Spec](./docs/readme.md)
 
 ## Installing
@@ -113,6 +113,37 @@ DATABASE CONNECTED SUCCESSFULLY
 ```
 
 __The site is now available in your browser at localhost:3000__
+
+## Live Deployment with Heroku
+
+Set up a MongoDB database or use a service like [mLab](https://mlab.com/)
+
+Log in or sign up with [Heroku](https://www.heroku.com/)
+
+Create an app for the both the staging (release) and master branches. (_You can create a [pipeline](https://devcenter.heroku.com/articles/pipelines) for auto deployment_)
+
+Under the ```Settings``` tab, set the necessary config vars:
+```
+MONGO_HOST
+MONGO_DATABASE
+SECRET
+```
+
+*__Using mLab:__*
+
+The Mongo URI will look like this: mongodb://<dbuser>:<dbpassword>@ds151814.mlab.com:51814/setlist-staging
+
+_Examples:_
+
+* ```MONGO_HOST``` would equal ```<dbuser>:<dbpassword>@ds151814.mlab.com:51814```
+* ``` MONGO_DATABASE``` would equal ```setlist-staging```
+* ```SECRET``` needs to be a secure and randomized string.
+
+Under the ```Deploy``` tab, connect to GitHub and set and up the respective branch deployment.
+
+For the initial deployment, you can push a change to your staging (release) or master branch, or manually deploy a branch on Heroku.
+
+__Your app should now be up and running on Heroku__
 
 ## Versioning
 
