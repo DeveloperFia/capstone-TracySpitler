@@ -1,4 +1,8 @@
 $(document).ready(function() {
+
+    // create a metronome
+    var metronome = new Pendulum();
+
     $('select').material_select();
 
     // update list
@@ -90,6 +94,47 @@ $(document).ready(function() {
         // render svg chords
         jtab.render($('#Chords'), chord);
     });
+
+    // bpm change
+    // start/stop metronome based on input
+    $('.metronome').click(function(){
+        var $this = $(this);
+        $this.toggleClass('metronome');
+        // get user input
+        var input = document.getElementById("bpm");
+        var bpm = input.value;
+        // find the ms per beat
+        metronome.set(bpm);
+
+        //alert(bpm);
+        //alert(ms_per_beat);
+
+        //const myTicker = new Ticker(1000, sayTick);
+
+        // create a new metronome
+        //const myTicker = new Ticker(ms_per_beat, sayTick)
+        //const myTicker = new Ticker();
+        //myTicker.setInterval(ms_per_beat);
+        // default is true.
+        //myTicker.tickOnStart = false;
+
+        if($this.hasClass('metronome')){
+            metronome.stop();
+            $this.text('Start');
+        } else {
+            metronome.start();
+            $this.text('Stop');
+        }
+
+        metronome.on('tick', function() {
+            // get dot
+            var dot = document.getElementById("dot");
+            $(dot).toggleClass('purple');
+        	console.log("Tick! " + bpm);
+        });
+    });
+
+
 
 });
 

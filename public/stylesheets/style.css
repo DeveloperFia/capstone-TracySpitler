@@ -282,3 +282,14 @@ tr:hover .hidden{
 svg {
     margin-top: 2rem;
 }
+
+/******************* metronome *******************/
+
+#dot {
+  height: 50px;
+  width: 50px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+  margin-top: 2rem;
+}
