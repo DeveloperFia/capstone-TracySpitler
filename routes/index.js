@@ -56,5 +56,10 @@ router.get('/profile', protect(), (req, res, next) => {
     res.render('profile', {user: req.user});
 });
 
+// chords
+router.get('/chords', (req, res, next) => {
+    res.render('chords');
+});
+
 // set up router
 module.exports = router;

@@ -80,6 +80,18 @@ $(document).ready(function() {
         // send data to filterLists function
         filterLists("allSongs", "em", "search", str);
     });
+
+    // search for chords
+    $('#search-chords').keyup(function() {
+        // get user input
+        var input = document.getElementById("search-chords");
+        var query = input.value.toUpperCase();
+        var s = input.value.charAt(0).toUpperCase();
+        var q = input.value.slice(1);
+        var chord = s + q;
+        jtab.render($('#Chords'), chord);
+    });
+
 });
 
 function filterLists(id, eTag, filter, str) {
@@ -121,4 +133,19 @@ function filterLists(id, eTag, filter, str) {
             }
         }
     }
+}
+
+function dump(obj) {
+    var out = '';
+    for (var i in obj) {
+        out += i + ": " + obj[i] + "\n";
+    }
+
+    alert(out);
+
+    // or, if you wanted to avoid alerts...
+
+    var pre = document.createElement('pre');
+    pre.innerHTML = out;
+    document.body.appendChild(pre)
 }
