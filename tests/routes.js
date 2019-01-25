@@ -44,17 +44,6 @@ describe('Routes', function() {
         });
     }); // end index.js
 
-    // lists.js
-    describe('lists.js', function() {
-        // '/lists'
-        describe('\'/lists\'', function() {
-            // test
-            it('should return a 200 response', function(done) {
-                request(app)
-                    .get('/lists')
-                    .expect(200, done)
-            });
-        });
-    }); // end lists.js
-
 });
+
+process.exit();
