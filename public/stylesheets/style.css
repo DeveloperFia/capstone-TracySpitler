@@ -276,3 +276,9 @@ tr:hover .hidden{
     padding-top: 3rem;
     padding-bottom: 3rem;
 }
+
+/******************* chords *******************/
+
+svg {
+    margin-top: 2rem;
+}
