@@ -103,20 +103,8 @@ $(document).ready(function() {
         // get user input
         var input = document.getElementById("bpm");
         var bpm = input.value;
-        // find the ms per beat
+        // set the bpm
         metronome.set(bpm);
-
-        //alert(bpm);
-        //alert(ms_per_beat);
-
-        //const myTicker = new Ticker(1000, sayTick);
-
-        // create a new metronome
-        //const myTicker = new Ticker(ms_per_beat, sayTick)
-        //const myTicker = new Ticker();
-        //myTicker.setInterval(ms_per_beat);
-        // default is true.
-        //myTicker.tickOnStart = false;
 
         if($this.hasClass('metronome')){
             metronome.stop();
@@ -130,12 +118,8 @@ $(document).ready(function() {
             // get dot
             var dot = document.getElementById("dot");
             $(dot).toggleClass('purple');
-        	console.log("Tick! " + bpm);
         });
     });
-
-
-
 });
 
 function filterLists(id, eTag, filter, str) {
