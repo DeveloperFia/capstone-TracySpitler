@@ -116,11 +116,11 @@ __The site is now available in your browser at localhost:3000__
 
 ## Live Deployment with Heroku
 
-Set up a MongoDB database or use a service like [mLab](https://mlab.com/)
+### Initial Setup
 
 Log in or sign up with [Heroku](https://www.heroku.com/)
 
-Create an app for the both the staging (release) and master branches. (_You can create a [pipeline](https://devcenter.heroku.com/articles/pipelines) for auto deployment_)
+Create an app for the both the staging (release) and master branches.
 
 Under the ```Settings``` tab, set the necessary config vars:
 ```
@@ -128,6 +128,10 @@ MONGO_HOST
 MONGO_DATABASE
 SECRET
 ```
+
+### Connecting a Database
+
+Set up a MongoDB database or use a service like [mLab](https://mlab.com/)
 
 *__Using mLab:__*
 
@@ -139,11 +143,33 @@ _Examples:_
 * ``` MONGO_DATABASE``` would equal ```setlist-staging```
 * ```SECRET``` needs to be a secure and randomized string.
 
+### Pipelines and Automated Deployment
+
 Under the ```Deploy``` tab, connect to GitHub and set and up the respective branch deployment.
+
+If you have Continuous Integration set up, such as [CircleCI](https://circleci.com/), you can check the box to require CI to pass before deployment.
+
+For your changes on GitHub to be automatically deployed to Heroku, click the _'Enable Automatic Deploys'_ button.
 
 For the initial deployment, you can push a change to your staging (release) or master branch, or manually deploy a branch on Heroku.
 
 __Your app should now be up and running on Heroku__
+
+_For further automation, you can create a [pipeline](https://devcenter.heroku.com/articles/pipelines)_
+
+## Tests
+
+Tests were created with Mocha, Chai, and Supertest. They are located in the ```tests``` folder.
+
+___Locally___
+
+In your terminal in the project folder, run ```npm install mocha chai supertest --save-dev``` to install the required packages.
+
+Now run ```npm test``` in your terminal and watch the passing or failing of the unit tests.
+
+___Continuous Integration with CircleCI___
+
+To set up CI for automation and better deployment, get started with this [CircleCI](https://circleci.com/docs/2.0/getting-started/) walkthrough.
 
 ## Versioning
 
