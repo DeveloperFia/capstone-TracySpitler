@@ -1,0 +1,21 @@
+// include
+const express = require('express');
+const router = express.Router()
+const passportSpotify = require('../auth/spotify');
+const protect = require('connect-ensure-login').ensureLoggedIn;
+var request = require("request");
+
+// spotify authentication
+router.get('/auth/spotify', passportSpotify.authenticate('spotify', {
+  scope: ['user-read-email'],
+  showDialog: true
+}));
+
+// spotify callback
+router.get('/auth/spotify/callback', passportSpotify.authenticate('spotify', {failureRedirect: '/login'}), (req, res, next) => {
+  // successful auth - redirect to profile
+  res.redirect('/profile');
+});
+
+// set up router
+module.exports = router;
