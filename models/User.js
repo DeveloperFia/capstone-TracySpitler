@@ -2,7 +2,9 @@ let mongoose = require('mongoose');
 var userSchema = mongoose.Schema({
     name: String,
     username: {type: String, required: true, unique: true},
-    password: String
+    password: String,
+    accessToken: String,
+    refreshToken: String
 })
 
 userSchema.statics.findOneOrCreate = function findOneOrCreate(condition, doc, callback) {
