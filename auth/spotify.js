@@ -7,9 +7,10 @@ passport.use(new SpotifyStrategy({
     clientSecret: process.env.SPOTIFY_CLIENT_SECRET,
     callbackURL: 'http://localhost:3000/auth/spotify/callback'
 }, (accessToken, refreshToken, profile, next) => {
-  //console.log(profile);
     User.findOneOrCreate({username: profile.emails[0].value}, {
         username: profile.emails[0].value,
+        accessToken: accessToken,
+        refreshToken: refreshToken
     }, (err, user) => {
         if (err) return next(err);
         if (!user) return next(null, false);
