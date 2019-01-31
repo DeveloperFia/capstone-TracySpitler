@@ -97,15 +97,15 @@ a:hover {
 }
 
 #login, #signup {
-    max-height: 375px;
-    min-height: 375px;
+    max-height: 450px;
+    min-height: 450px;
 }
 
 /******************* tab modifications *******************/
 
 /* default */
 .tabs .tab a {
-   color: rgba(10, 12, 39, .2);
+    color: rgba(10, 12, 39, .2);
 }
 
 /* default and active */
@@ -115,12 +115,12 @@ a:hover {
 }
 
 /* hover */
-.tabs .tab a:hover{
-   color: #0A0C27 !important;
+.tabs .tab a:hover {
+    color: #0A0C27 !important;
 }
 
 /* focused */
-.tabs .tab a:focus{
+.tabs .tab a:focus {
     background-color: rgba(79, 247, 234, .2);
     color: #0A0C27;
 }
@@ -178,7 +178,7 @@ a:hover {
 }
 
 .difficulty {
-    position:relative;
+    position: relative;
     margin-right: 8px;
     top: 7px;
 }
@@ -230,7 +230,7 @@ div.card-action.collection-item.valign-wrapper {
     opacity: 0;
 }
 
-tr:hover .hidden{
+tr:hover .hidden {
     opacity: 1;
 }
 
@@ -286,10 +286,20 @@ svg {
 /******************* metronome *******************/
 
 #dot {
-  height: 50px;
-  width: 50px;
-  background-color: #bbb;
-  border-radius: 50%;
-  display: inline-block;
-  margin-top: 2rem;
+    height: 50px;
+    width: 50px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+    margin-top: 2rem;
+}
+
+/******************* social media buttons *******************/
+
+.spotify-btn {
+    color: #fff;
+    text-decoration: none;
+    font-size: 18px;
+    padding: 10px;
+    background: #1dd05d;
 }
