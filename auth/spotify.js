@@ -5,7 +5,7 @@ const SpotifyStrategy = require('passport-spotify').Strategy;
 passport.use(new SpotifyStrategy({
     clientID: process.env.SPOTIFY_CLIENT_ID,
     clientSecret: process.env.SPOTIFY_CLIENT_SECRET,
-    callbackURL: 'http://localhost:3000/auth/spotify/callback'
+    callbackURL: process.env.SPOTIFY_REDIRECT_URI
 }, (accessToken, refreshToken, profile, next) => {
     var query = { username: profile.emails[0].value },
         update = { accessToken: accessToken },
