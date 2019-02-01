@@ -24,19 +24,9 @@ $(document).ready(function() {
         }
     });
 
-    // list choice
-    $("#lchoicebtn").click(function() {
-        $("#inList").toggle();
-    });
-
-    // custom list
-    $("#lcustombtn").click(function() {
-        $("#customList").toggle();
-    });
-
-    // expand options
-    $("#soptionsbtn").click(function() {
-        $("#extraOptions").toggle();
+    // add song - popout form
+    $('.popout').click(function(){
+        $('#pop').toggle();
     });
 
     // search lists
@@ -95,7 +85,6 @@ $(document).ready(function() {
         jtab.render($('#Chords'), chord);
     });
 
-    // bpm change
     // start/stop metronome based on input
     $('.metronome').click(function(){
         var $this = $(this);
@@ -103,20 +92,8 @@ $(document).ready(function() {
         // get user input
         var input = document.getElementById("bpm");
         var bpm = input.value;
-        // find the ms per beat
+        // set the bpm
         metronome.set(bpm);
-
-        //alert(bpm);
-        //alert(ms_per_beat);
-
-        //const myTicker = new Ticker(1000, sayTick);
-
-        // create a new metronome
-        //const myTicker = new Ticker(ms_per_beat, sayTick)
-        //const myTicker = new Ticker();
-        //myTicker.setInterval(ms_per_beat);
-        // default is true.
-        //myTicker.tickOnStart = false;
 
         if($this.hasClass('metronome')){
             metronome.stop();
@@ -134,8 +111,38 @@ $(document).ready(function() {
         });
     });
 
+    $("#spotSearchInput").change(function () {
+      // variables
+      var token = document.getElementById("token").innerText;
+      var input = $('#spotSearchInput').val();
+      if (input) {
+        var query = input.split(' ').join('%20');
+        var url = 'https://api.spotify.com/v1/search?q=' + query + '&type=track';
 
-
+        // ajax call to spotify
+        $.ajax({
+            url: url,
+            type: 'GET',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'Authorization': 'Bearer ' + token
+            },
+            success: function (result) {
+               var name = result.tracks.items[0].name;
+               var artist = result.tracks.items[0].artists[0].name
+               var tracks = result.tracks.items;
+               $('#spotifyData').html('');
+               // render the top 5 results
+               for (var i = 0; i < 10; i++) {
+                 $('#spotifyData').append("<li><strong>Name: "+ tracks[i].name +"</strong><br>Artist: "+ tracks[i].artists[0].name +"</li><br>");
+               }
+            },
+            error: function (error) {
+              console.log('error: ' + error);
+            }
+        });
+      }
+    })
 });
 
 function filterLists(id, eTag, filter, str) {
