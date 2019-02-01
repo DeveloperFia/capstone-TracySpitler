@@ -107,7 +107,6 @@ $(document).ready(function() {
             // get dot
             var dot = document.getElementById("dot");
             $(dot).toggleClass('purple');
-        	console.log("Tick! " + bpm);
         });
     });
 
