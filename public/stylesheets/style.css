@@ -209,6 +209,10 @@ div.card-action.collection-item.valign-wrapper {
     background-color: #311B92;
 }
 
+.popout {
+  margin: 1rem 0 1.5rem 0;
+}
+
 /******************* feedback *******************/
 
 #errors {
@@ -294,7 +298,7 @@ svg {
     margin-top: 2rem;
 }
 
-/******************* social media buttons *******************/
+/******************* spotify *******************/
 
 .spotify-btn {
     color: #fff;
@@ -302,4 +306,8 @@ svg {
     font-size: 18px;
     padding: 10px;
     background: #1dd05d;
+}
+
+#spotifyData {
+  margin: 1rem 0 1rem 0;
 }
