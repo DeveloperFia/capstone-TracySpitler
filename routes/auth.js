@@ -7,7 +7,7 @@ var request = require("request");
 
 // spotify authentication
 router.get('/spotify', passportSpotify.authenticate('spotify', {
-  scope: ['user-read-email'],
+  scope: ['user-read-email', 'user-read-recently-played'],
   showDialog: true
 }));
 
