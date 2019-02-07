@@ -53,6 +53,9 @@ app.use('/', lists);
 const songs = require('./routes/songs');
 app.use('/', songs);
 
+const auth = require('./routes/auth');
+app.use('/auth', auth);
+
 // 404 error handling
 app.use(function(req, res, next) {
     // if the route doesn't exist..
