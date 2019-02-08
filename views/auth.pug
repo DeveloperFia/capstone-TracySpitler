@@ -18,7 +18,9 @@ block content
                             div.card-content.grey.lighten-4
                                 div#login
                                     form.card-content(method='post', action='/login')
-                                        span.card-title Log In!
+                                        div.center #[a(class="spotify-btn" href="/auth/spotify") Login with Spotify]
+                                        h3.card-title.center or
+                                        p Fill out the form below
                                         .input-field
                                             input(type='text', name='username', id="username")
                                             label(for="username") Username
@@ -29,7 +31,9 @@ block content
                                             input.btn(type='submit', value='Log In!')
                                 div#signup
                                     form.card-content(method='post', action='/signup')
-                                        span.card-title Sign Up!
+                                        div.center #[a(class="spotify-btn" href="/auth/spotify") Sign Up with Spotify]
+                                        h3.card-title.center or
+                                        p Fill out the form below
                                         .input-field
                                             input(type='text', name='name', id="name")
                                             label(for="name") Name
