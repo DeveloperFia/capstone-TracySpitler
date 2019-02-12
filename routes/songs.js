@@ -45,8 +45,11 @@ let getSongs = (req, res, next) => {
 }
 
 // all songs - GET
-router.get('/', protect, (req, res) => {
-    res.send("All of the users songs will be here.");
+router.get('/', protect, getSongs, (req, res) => {
+  res.render('songs', {
+    msg:'All of the users songs will be here.',
+    songs: req.songs,
+  });
 });
 
 // new song - GET
