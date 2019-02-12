@@ -8,6 +8,9 @@ var userSchema = mongoose.Schema({
   refreshToken: String,
   resetPasswordToken: String,
   resetPasswordExpires: Date,
+  // relationship
+  // an array of list ids that the song is in
+  lists: [{type: mongoose.Schema.Types.ObjectId, ref: 'list'}],
 })
 
 userSchema.pre('save', function(next){
