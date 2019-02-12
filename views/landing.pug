@@ -1,0 +1,15 @@
+extends __layout
+block content
+  div(class="text-center card container p-4 mt-3")
+    != messages('./includes/messages', locals)
+    h1 Welcome to SetList!
+    p #{msg}
+    
+    if !user
+      div(class="text-center")
+        a(href="" class="btn blue-gradient btn-rounded" data-toggle="modal" data-target="#signupModalForm") Sign Up
+        a(href="" class="btn btn-outline-info waves-effect btn-rounded" data-toggle="modal" data-target="#loginModalForm") Login
+    
+    else 
+      div(class="text-center")
+        p logged in as: #[span(class="blue-text") #{user.username}]

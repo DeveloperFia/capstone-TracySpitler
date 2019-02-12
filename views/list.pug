@@ -1,0 +1,65 @@
+extends __layout
+block content
+  
+  -var url = '/list/update/' + list._id
+  if list.difficulty == 0
+      -var diff = "Not Set"
+  if list.difficulty == 1
+      -var diff = "Easy"
+  if list.difficulty == 2
+      -var diff = "Moderate"
+  if list.difficulty == 3
+      -var diff = "Hard"
+      
+  div(class="text-center card container p-4 mt-3")
+    h1 #{list.name}
+    small(class="cyan-text") #{diff}
+    hr
+    div(class="text-center")
+      button#deleteList(class="btn purple-gradient w-25 btn-rounded" data-badge-caption="delete") Delete
+      button(href="" class="btn peach-gradient w-25 btn-rounded" data-toggle="modal" data-target="#editListModalForm") Edit List
+        
+  div(class="text-center card container p-4 mt-3")
+    h1 Songs
+    if list.songs > 0
+      p List of songs 
+    
+    p No songs are in this list yet. 
+    
+  //- Modal - confirm delete 
+  div(class="modal fade" id="modalConfirmDelete" tabindex="-1" role="dialog" aria-labelledby="modalConfirmDelete" aria-hidden="true")
+    div(class="modal-dialog modal-sm modal-notify modal-danger" role="document")
+      div(class="modal-content text-center")
+        div(class="modal-header d-flex justify-content-center")
+          p(class="heading") Are you sure?
+        div(class="modal-body")
+          i(class="fas fa-times fa-4x animated rotateIn")
+        div(class="modal-footer flex-center")
+          p#deleteid #{list._id}
+          a#deletelist(type="button" class="btn btn-outline-danger") Yes
+          a(type="button" class="btn btn-danger waves-effect" data-dismiss="modal") No
+                
+  //- Modal - edit list
+  div(class="modal fade hidden" id="editListModalForm" tabindex="-1" role="dialog" aria-labelledby="editListModalLabel" aria-hidden="true")
+      div(class="modal-dialog" role="document")
+        div(class="modal-content form-elegant")
+          div(class="modal-header text-center")
+            h3(class="modal-title w-100 dark-grey-text font-weight-bold my-3" id="editListModalLabel") #[strong Update a List] #[br] #[small.cyan-text #{list.name} : #{diff}]
+            button(type="button" class="close" data-dismiss="modal" aria-label="Close") #[span(aria-hidden="true") &times;]        
+          div(class="modal-body mx-4")       
+            form(id="editlist" method='post', action='/list/update/' + list._id) 
+              div(class="md-form")
+                input(type="text" name="listname" id="listname" class="form-control" placeholder=list.name value=list.name)
+                label(data-error="wrong" data-success="" for="listname") List Name           
+              div(class="md-form")
+                select(id="listdifficulty" name="listdifficulty" class="browser-default custom-select")
+                  option(value="0" disabled selected) Choose a difficulty
+                  option(value="1") Easy
+                  option(value="2") Moderate
+                  option(value="3") Hard
+                label(data-error="wrong" data-success="right" for="listdifficulty") List Difficulty 
+              div(class="text-center mb-3")
+                button(type="submit" class="btn peach-gradient btn-block btn-rounded z-depth-1a") Update! 
+
+        
+        

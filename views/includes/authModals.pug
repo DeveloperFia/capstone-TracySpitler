@@ -1,0 +1,64 @@
+mixin authModals
+  //- Modal - sign up
+  div(class="modal fade hidden" id="signupModalForm" tabindex="-1" role="dialog" aria-labelledby="signupModalLabel" aria-hidden="true")
+    div(class="modal-dialog" role="document")
+      div(class="modal-content form-elegant")
+        form(id="signupForm" method='post', action='/auth/signup') 
+          div(class="modal-header text-center")
+            h3(class="modal-title w-100 dark-grey-text font-weight-bold my-3" id="signupModalLabel") #[strong Sign Up]
+            button(type="button" class="close" data-dismiss="modal" aria-label="Close") #[span(aria-hidden="true") &times;]        
+          div(class="modal-body mx-4")
+            div(class="md-form mb-5")
+              input(name="username" type="text" id="signupEmail" class="form-control" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="Please enter a valid email address")
+              label(data-error="wrong" data-success="right" for="signupEmail") Your email            
+            div(class="md-form pb-3")
+              input(name="password" type="password" id="signupPass" class="form-control" required pattern=".{4,}" title="Please enter at least 4 characters")
+              label(data-error="wrong" data-success="right" for="signupPass") Your password 
+            div(class="text-center mb-3")
+              button(type="submit" for="signupForm" class="btn blue-gradient btn-block btn-rounded z-depth-1a") Sign Up          
+            p(class="font-small dark-grey-text text-right d-flex justify-content-center mb-3 pt-2") or sign up with:
+            div(class="row my-3 d-flex justify-content-center")            
+              a(class="spotify-btn btn btn-white btn-rounded mr-md-3 z-depth-1a" href="/auth/spotify") #[i(class="fab fa-spotify mr-2")] Spotify    
+        div(class="modal-footer mx-5 pt-3 mb-1")
+          p(class="font-small grey-text d-flex justify-content-end") Already a member? #[a(href="" class="blue-text ml-1" data-toggle="modal" data-target="#loginModalForm" data-dismiss="modal") Log In]
+
+  //- Modal - login
+  div(class="modal fade hidden" id="loginModalForm" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true")
+    div(class="modal-dialog" role="document")
+      div(class="modal-content form-elegant")
+        form(id="loginForm" method='post', action='/auth/login')
+          div(class="modal-header text-center")
+            h3(class="modal-title w-100 dark-grey-text font-weight-bold my-3" id="loginModalLabel") #[strong Log In]
+            button(type="button" class="close" data-dismiss="modal" aria-label="Close") #[span(aria-hidden="true") &times;]        
+          div(class="modal-body mx-4")        
+            div(class="md-form mb-5")
+              input(name="username" type="text" id="loginEmail" class="form-control" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="Please enter a valid email address")
+              label(data-error="wrong" data-success="right" for="loginEmail") Your email            
+            div(class="md-form pb-3")
+              input(name="password" type="password" id="loginPass" class="form-control" required pattern=".{4,}" title="Please enter at least 4 characters")
+              label(data-error="wrong" data-success="right" for="loginPass") Your password
+              p(class="font-small blue-text d-flex justify-content-end") #[a(href="" class="blue-text ml-1" data-toggle="modal" data-target="#forgotModalForm" data-dismiss="modal") Forgot Password?]        
+            div(class="text-center mb-3")
+              button(type="submit" class="btn blue-gradient btn-block btn-rounded z-depth-1a") Log In          
+            p(class="font-small dark-grey-text text-right d-flex justify-content-center mb-3 pt-2") or login with:
+            div(class="row my-3 d-flex justify-content-center")  
+              a(class="spotify-btn btn btn-white btn-rounded mr-md-3 z-depth-1a" href="/auth/spotify") #[i(class="fab fa-spotify mr-2")] Spotify
+        div(class="modal-footer mx-5 pt-3 mb-1")
+          p(class="font-small grey-text d-flex justify-content-end") Not a member? #[a(href="#" class="blue-text ml-1" data-toggle="modal" data-target="#signupModalForm" data-dismiss="modal") Sign Up]
+          
+  //- Modal - forgot password
+  div(class="modal fade hidden" id="forgotModalForm" tabindex="-1" role="dialog" aria-labelledby="forgotModalLabel" aria-hidden="true")
+    div(class="modal-dialog" role="document")
+      div(class="modal-content form-elegant")
+        form(id="forgotForm" method='post', action='/auth/forgot')
+          div(class="modal-header text-center")
+            h3(class="modal-title w-100 dark-grey-text font-weight-bold my-3" id="loginModalLabel") #[strong Request Password Reset]
+            button(type="button" class="close" data-dismiss="modal" aria-label="Close") #[span(aria-hidden="true") &times;]        
+          div(class="modal-body mx-4")        
+            div(class="md-form mb-5")
+              input(name="email" type="email" id="forgotEmail" class="form-control" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="Please enter a valid email address")
+              label(data-error="wrong" data-success="right" for="forgotEmail") Your email                  
+            div(class="text-center mb-3")
+              button(type="submit" class="btn blue-gradient btn-block btn-rounded z-depth-1a") Submit         
+
+  
