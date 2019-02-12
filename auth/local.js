@@ -2,7 +2,7 @@ const passport = require('passport');
 const Strategy = require('passport-local').Strategy;
 const User = require('../models/User');
 const bcrypt = require('bcrypt');
-
+ 
 // use this auth strategy
 passport.use(new Strategy((username, password, next) => {
     // check if user exists
