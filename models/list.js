@@ -13,7 +13,7 @@ var listSchema = mongoose.Schema({
     // relationship
     // an array of song ids that are in the list
     songs: [{type: mongoose.Schema.Types.ObjectId, ref: 'song'}],
-    user: {type: String, required: true, unique: true}
+    user: {type: String, required: true}
 });
 
 listSchema.pre('save', function(next) {
