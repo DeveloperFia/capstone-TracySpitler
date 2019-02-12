@@ -10,10 +10,11 @@ const protect = require('connect-ensure-login').ensureLoggedIn('/');
 // models
 const List = require('../models/list');
 const Song = require('../models/song');
+const User = require('../models/user');
 
 // function - get all lists from db
 let getLists = (req, res, next) => {
-  List.find({}, function(err, lists) {
+  List.find({ user: req.user._id }, function(err, lists) {
     if (err) {
       // send errors
       res.send({err});
@@ -64,22 +65,35 @@ router.post('/create', protect, (req, res) => {
     res.send({err});
   }
   else {
-    // create a new list object
-    var newList = List({
-      name: req.body.listname,
-      difficulty: req.body.listdifficulty,
-    });
-
-    // save the list
-    newList.save(function(err) {
-      if (err) {
-        // send errors
-        res.send({err});
-      }
-      else {
-        // redirect
-        res.redirect('/list');
-      }
+    User.findOne({ _id: req.user._id }, function(err, user) {
+      // create a new list object
+      var newList = List({
+        name: req.body.listname,
+        difficulty: req.body.listdifficulty,
+        user: user._id
+      });
+      // push the list to user
+      user.lists.push(newList._id);
+      // save the user
+      user.save(function(err) {
+        if (err) {
+          // send errors
+          res.send({err});
+        }
+        else {
+          // save the list
+          newList.save(function(err) {
+            if (err) {
+              // send errors
+              res.send({err});
+            }
+            else {
+              // redirect
+              res.redirect('/list');
+            }
+          });
+        }
+      });
     });
   }
 });
