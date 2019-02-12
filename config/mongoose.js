@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 // EXAMPLE STRING: mongodb://username:password@hostname:port/database
-mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true });
+mongoose.connect('mongodb://'+process.env.MONGO_HOST+'/'+process.env.MONGO_DATABASE, { useNewUrlParser: true });
 
 // Get the default connection
 var db = mongoose.connection;
