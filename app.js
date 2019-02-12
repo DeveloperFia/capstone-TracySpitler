@@ -20,10 +20,6 @@ app.use(expressSession({
     saveUninitialized: false,
     // store to mongo (no need to login after every save)
     store: new MongoStore({mongooseConnection: db}),
-    cookie: {
-      maxAge: 60 * 60 * 1000,
-      secure: true
-    }
 }))
 
 // passport middleware
