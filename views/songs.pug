@@ -1,0 +1,25 @@
+extends __layout
+block content
+  div(class="text-center card container p-4 mt-3")
+    h1 Songs
+    p #{msg}
+    
+    div(class="text-center")
+      a(href="" class="btn blue-gradient btn-rounded" data-toggle="modal" data-target="#songModalForm") Create a Song
+
+      //- modal - create a song
+      div(class="modal fade hidden" id="songModalForm" tabindex="-1" role="dialog" aria-labelledby="songModalLabel" aria-hidden="true")
+          div(class="modal-dialog" role="document")
+            div(class="modal-content form-elegant")
+              div(class="modal-header text-center")
+                h3(class="modal-title w-100 dark-grey-text font-weight-bold my-3" id="songModalLabel") #[strong Create a Song]
+                button(type="button" class="close" data-dismiss="modal" aria-label="Close") #[span(aria-hidden="true") &times;]        
+              div(class="modal-body mx-4")       
+                form(method='post', action='/song/create') 
+                  div(class="md-form")
+                    input(type="text" name="songname" id="songname" class="form-control")
+                    label(data-error="wrong" data-success="" for="songname") Song Name            
+                  div(class="text-center mb-3")
+                    button(type="submit" class="btn blue-gradient btn-block btn-rounded z-depth-1a") Create! 
+                  
+  
