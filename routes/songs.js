@@ -13,7 +13,7 @@ const Song = require('../models/song');
 
 // function - get all lists from db
 let getLists = (req, res, next) => {
-  List.find({}, function(err, lists) {
+  List.find({ user: req.user._id }, function(err, lists) {
     if (err) {
       // send errors
       res.send({err});
@@ -45,10 +45,11 @@ let getSongs = (req, res, next) => {
 }
 
 // all songs - GET
-router.get('/', protect, getSongs, (req, res) => {
+router.get('/', protect, getSongs, getLists, (req, res) => {
   res.render('songs', {
     msg:'All of the users songs will be here.',
     songs: req.songs,
+    lists: req.lists
   });
 });
 
@@ -59,7 +60,121 @@ router.get('/new', protect, (req, res) => {
 
 // add song to a list - POST
 router.post('/create', protect, (req, res) => {
-    res.send("Added song to a list.");
+  // check for empty values
+  req.checkBody('songtitle', 'Please give the song a title.').notEmpty();
+  req.checkBody('artist', 'Please give the song an artist.').notEmpty();
+
+  // if there are errors..
+  var err = req.validationErrors();
+  if (err){
+    // send errors
+    res.send({err});
+  }
+  // otherwise save the song to the db
+  else {
+    var newSong = Song({
+      title: req.body.songtitle,
+      artist: req.body.artist,
+      capo: req.body.capo,
+      bpm: req.body.bpm,
+      duration: req.body.duration,
+      key: req.body.key,
+      lists: [],
+    });
+
+    //save the song
+    newSong.save(function(err) {
+      if (err){
+        // send errors
+        res.send({err});
+      }
+    });
+
+    // if a list was selected..
+    if (req.body.listchoice) {
+      // make sure it's an array
+      var listchoice = Array.isArray(req.body.listchoice) ? req.body.listchoice : [req.body.listchoice];
+      // for each selected list
+      for (var i = 0; i < listchoice.length; i++) {
+        // find it in the database
+        List.findOne({name: listchoice[i]}, function(err, list) {
+          if (err){
+            // send errors
+            res.send({err});
+          }
+          // push the song id into the list
+          list.songs.push(newSong._id);
+          // save the list
+          list.save(function(err) {
+            if (err){
+              // send errors
+              res.send({err});
+            }
+          });
+          // find song to update the lists
+          Song.findOne({_id: newSong._id}, function(err, song) {
+            // push the list id into the song's lists
+            song.lists.push(list._id);
+            // save the song
+            song.save(function(err) {
+              if (err){
+                // send errors
+                res.send({err});
+              }
+            });
+          });
+        });
+      }
+    }
+
+    // if custom list has a value..
+    if (req.body.newlist) {
+      // check for empty values
+      req.checkBody('newlist', 'Please give the list a name.').notEmpty();
+
+      // if there are errors..
+      var err = req.validationErrors();
+      if (err){
+        // send errors
+        res.send({err});
+      }
+      // otherwise save the list to the db
+      else {
+        // create a custom list object
+        var customList = List({
+          name: req.body.newlist,
+          user: req.user._id
+        });
+
+        // push the song id into the list
+        customList.songs.push(newSong._id);
+
+        // save list to the database
+        customList.save(function(err) {
+          if (err){
+            // send errors
+            res.send({err});
+          }
+          else {
+            // find song to update the lists
+            Song.findOne({_id: newSong._id}, function(err, song) {
+              // push the list id into the song's lists
+              song.lists.push(customList._id);
+              //save the song
+              song.save(function(err) {
+                if (err){
+                  // send errors
+                  res.send({err});
+                }
+              });
+            });
+          }
+        });
+      }
+    }
+    // go back to the song page
+    return res.redirect('/song');
+  }
 });
 
 // specific song - GET
