@@ -25,6 +25,10 @@ small {
   color: white;
 }
 
+.same-width, .spotify-btn {
+  min-width: 12rem !important;
+}
+
 /******************* authorization modals *******************/
 
 .form-elegant .font-small {

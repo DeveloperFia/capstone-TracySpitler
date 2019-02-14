@@ -16,15 +16,18 @@ block content
     small(class="cyan-text") #{diff}
     hr
     div(class="text-center")
-      button#deleteList(class="btn purple-gradient w-25 btn-rounded" data-badge-caption="delete") Delete
-      button(href="" class="btn peach-gradient w-25 btn-rounded" data-toggle="modal" data-target="#editListModalForm") Edit List
+      button#deleteList(class="same-width btn purple-gradient w-25 btn-rounded" data-badge-caption="delete") Delete
+      button(href="" class="same-width btn peach-gradient w-25 btn-rounded" data-toggle="modal" data-target="#editListModalForm") Edit List
         
   div(class="text-center card container p-4 mt-3")
     h1 Songs
-    if list.songs > 0
-      p List of songs 
-    
-    p No songs are in this list yet. 
+    if list.songs.length > 0
+      
+      for song in songs 
+        p Title: #{song.title} 
+        p Artist: #{song.artist}
+    else
+      p No songs are in this list yet. 
     
   //- Modal - confirm delete 
   div(class="modal fade" id="modalConfirmDelete" tabindex="-1" role="dialog" aria-labelledby="modalConfirmDelete" aria-hidden="true")
