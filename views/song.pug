@@ -3,7 +3,8 @@ block content
   if song
     div(class="text-center card container p-4 mt-3")
       h1 #{song.title}
-      small(class="cyan-text") #{song.artist}
+      small(class="cyan-text") by #{song.artist}
+      hr
       div(class="text-center")
         button#songid(class="btn purple-gradient btn-rounded same-width" value=song._id data-badge-caption="delete" data-toggle="modal" data-target="#modalSongDelete") Delete
         button(href="" class="btn peach-gradient btn-rounded same-width" data-toggle="modal" data-target="#editSongModalForm") Edit Song
