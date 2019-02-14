@@ -19,6 +19,7 @@ var songSchema = mongoose.Schema({
     // relationship
     // an array of list ids that the song is in
     lists: [{type: mongoose.Schema.Types.ObjectId, ref: 'list'}],
+    user: {type: String, required: true}
 });
 
 songSchema.pre('save', function(next) {
