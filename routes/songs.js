@@ -190,16 +190,12 @@ router.put('/update/:id', protect, (req, res) => {
 
 // delete song from list - DELETE
 router.delete('/delete/:id', protect, (req, res) => {
-  console.log("deleting.." + req.params.id);
   // find the list by {id}
   Song.findByIdAndDelete(req.params.id, function(err) {
     if (err) {
       // send errors
-      console.log(err);
       res.send({err});
     }
-    // the list has been deleted
-    console.log('Song deleted!');
   });
 
   // render songs
