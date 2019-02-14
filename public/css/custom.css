@@ -72,3 +72,9 @@ select {
   color: white !important;
   background-color: rgba(29, 185, 84, 1) !important;
 }
+
+/******************* data table *******************/
+
+.highlight {
+  transition: all .2s ease-in;
+}
