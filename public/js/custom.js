@@ -70,9 +70,10 @@ $("#deletesong").click(function() {
 // delete song by {id}
 $("#confirmSongDelete").click(function(){
   var parent_id = $(".highlight").find('td:eq(0)').text();
-  alert("id: " + parent_id);
+  var btn_id = $('#songid').val();
+  var url = (parent_id) ? parent_id : btn_id;
   $.ajax({
-    url: "/song/delete/" + parent_id,
+    url: '/song/delete/' + url,
     method: 'delete'
   }).done(function() {
     // redirect
