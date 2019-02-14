@@ -46,7 +46,7 @@ let getSongs = (req, res, next) => {
 
 // all songs - GET
 router.get('/', protect, getSongs, getLists, (req, res) => {
-  res.render('songs', {
+  res.render('library', {
     msg:'All of the users songs will be here.',
     songs: req.songs,
     lists: req.lists
@@ -179,8 +179,28 @@ router.post('/create', protect, (req, res) => {
 });
 
 // specific song - GET
-router.get('/get/:id', protect, (req, res) => {
-    res.send("Get a specific song {by id}.");
+router.get('/get/:id', protect, getSongs, getLists, (req, res) => {
+  // get the list by the params id
+  Song.find({ _id: req.params.id }, function(err, song) {
+    if (err) {
+      // send errors
+      res.send({err});
+    }
+    // find lists this song belongs to
+    List.find({songs: req.params.id }, function(err, lists) {
+      if (err) {
+        // send errors
+        res.send({err});
+      }
+      else {
+        // redirect
+        res.render('song', {
+          song: song[0],
+          lists: lists,
+        });
+      }
+    });
+  });
 });
 
 // update song - PUT
@@ -199,7 +219,7 @@ router.delete('/delete/:id', protect, (req, res) => {
   });
 
   // render songs
-  res.render('songs', {
+  res.render('library', {
     msg:'All of the users songs will be here.',
     songs: req.songs,
     lists: req.lists
