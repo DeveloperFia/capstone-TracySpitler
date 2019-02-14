@@ -1,5 +1,8 @@
 extends __layout
+include ./includes/createSong
 block content
+  +createSong
+          
   div(class="text-center card container p-4 mt-3")
     h1 Songs
     p #{msg}
@@ -8,78 +11,83 @@ block content
       a(href="" class="btn spotify-btn btn-rounded" data-toggle="modal" data-target="#") Search Spotify
       a(href="" class="btn blue-gradient btn-rounded" data-toggle="modal" data-target="#songModalForm") Create a Song
       
-      //- modal - create a song
-      div(class="modal fade hidden" id="songModalForm" tabindex="-1" role="dialog" aria-labelledby="songModalLabel" aria-hidden="true")
-          div(class="modal-dialog" role="document")
-            div(class="modal-content form-elegant")
-              div(class="modal-header text-center")
-                h3(class="modal-title w-100 dark-grey-text font-weight-bold my-3" id="songModalLabel") #[strong Create a Song]
-                button(type="button" class="close" data-dismiss="modal" aria-label="Close") #[span(aria-hidden="true") &times;]        
-              small Created songs are automatically added to your library
-              hr
-              div(class="modal-body mx-4")       
-                form(method='post', action='/song/create') 
-                  div(class="form-row")
-                    div(class="col")
-                      div(class="md-form")
-                        input(type="text" name="songtitle" id="songtitle" class="form-control" required)
-                        label(data-error="wrong" data-success="" for="songtitle") Song Title            
-                    div(class="col")
-                      div(class="md-form")
-                        input(type="text" name="artist" id="artist" class="form-control" required)
-                        label(data-error="wrong" data-success="" for="artist") Artist           
-                  
-                  div(class="form-row")
-                    div(class="col")
-                      div(class="md-form")
-                        select(id="key" name="key" class="browser-default custom-select m-0 p-0")
-                          option(value="-1", selected, disabled) Key
-                          option(value="0") C
-                          option(value="1") C♯/D♭
-                          option(value="2") D
-                          option(value="3") D♯/E♭
-                          option(value="4") E
-                          option(value="5") F
-                          option(value="6") F♯/G♭
-                          option(value="7") G
-                          option(value="8") G♯/A♭
-                          option(value="9") A
-                          option(value="10") A♯/B♭
-                          option(value="11") B
-                                  
-                    div(class="col")
-                      div(class="md-form")
-                        input(type="number" step='0.001' min="0" max="500" name="bpm" id="bpm" class="form-control")
-                        label(data-error="wrong" data-success="" for="bpm") BPM           
-                    div(class="col")
-                      div(class="md-form")
-                        input(type="number" name="capo" step='1' min="0" max="12" id="capo" class="form-control")
-                        label(data-error="wrong" data-success="" for="capo") Capo            
-                    div(class="col")
-                      div(class="md-form")
-                        input(type="number" name="duration" min="0" id="duration" class="form-control")
-                        label(data-error="wrong" data-success="" for="duration") Duration           
-                  br
-                  div(class="md-form")
-                    a(class="btn btn-sm peach-gradient" data-toggle="collapse" href="#selectlist" role="button" aria-expanded="false"
-    aria-controls="selectlist") Select a List
-                    a(class="btn btn-sm peach-gradient" data-toggle="collapse" href="#createlist" role="button" aria-expanded="false"
-    aria-controls="createlist") Create a List
-                    div(class="collapse multi-collapse" id="selectlist")
-                      div(class="card-body pt-0 pb-3")
-                        div(class="md-form")
-                          select(id="listchoice" name="listchoice" class="browser-default custom-select mdb-select")
-                            option(value="Library", selected, disabled) Library
-                            for list in lists
-                              option(value=list.name) #{list.name}
-                          label(data-error="wrong" data-success="right" for="listchoice") Choose a list
-                    div(class="collapse multi-collapse" id="createlist")
-                      div(class="card-body")
-                        div(class="md-form")
-                          input(type="text" name="newlist" id="newlist" class="form-control")
-                          label(data-error="wrong" data-success="" for="newlist") New list name           
+  div(class="text-center card container p-4 my-4")
+    if songs 
+      div(class="card")
 
-                  div(class="text-center mb-3")
-                    button(type="submit" class="btn blue-gradient btn-block btn-rounded z-depth-1a") Create! 
-                  
-  
+        div(class="view card-header elegant-color-dark p-2 mb-3 d-flex justify-content-between align-items-center")
+
+          p(class="white-text mx-3 mt-3") Your Song Library
+
+          div(class="mr-2")
+            button#editsong(type="button" class="btn btn-outline-white btn-rounded btn-sm px-2") #[i(class="fas fa-pencil-alt mt-0")]
+            button#deletesong(type="button" class="btn btn-outline-white btn-rounded btn-sm px-2") #[i(class="far fa-trash-alt mt-0")]
+            button#aboutsong(type="button" class="btn btn-outline-white btn-rounded btn-sm px-2") #[i(class="fas fa-info-circle mt-0")]
+
+        div(class="px-4  d-flex justify-content-center")
+          div(class="table-wrapper wrapper-modal-editor")
+            table#dtSongs(class="table mb-4 table-responsive table-hover")
+
+              thead
+                tr
+                  th(class="th-lg")
+                    a Title #[i(class="fas fa-sort mx-1")]
+                  th(class="th-lg")
+                    a Artist #[i(class="fas fa-sort mx-1")]
+                  th(class="th-lg text-center")
+                    a Key #[i(class="fas fa-sort mx-1")]
+                  th(class="th-sm text-center")
+                    a BPM #[i(class="fas fa-sort mx-1")]
+                  th(class="th-sm text-center")
+                    a Capo #[i(class="fas fa-sort mx-1")]
+                  th(class="text-center")
+                    a Duration #[i(class="fas fa-sort mx-1")]
+
+              tbody
+                for song in songs 
+                  if song.key == 0
+                    -var key = "C"
+                  else if song.key == 1
+                    -var key = "C♯/D♭"
+                  else if song.key == 2
+                    -var key = "D"
+                  else if song.key == 3
+                    -var key = "D♯/E♭"
+                  else if song.key == 4
+                    -var key = "E"
+                  else if song.key == 5
+                    -var key = "F"
+                  else if song.key == 6
+                    -var key = "F♯/G♭"
+                  else if song.key == 7
+                    -var key = "G"
+                  else if song.key == 8
+                    -var key = "G♯/A♭"
+                  else if song.key == 9
+                    -var key = "A"
+                  else if song.key == 10
+                    -var key = "A♯/B♭"
+                  else if song.key == 11
+                    -var key = "B"
+                  else 
+                    -var key = "-"
+                  tr(data-id="nope")
+                    td(hidden) #{song._id}
+                    td #{song.title}
+                    td #{song.artist}
+                    if key != "-"
+                      td(class="text-center") #{key}
+                    else 
+                      td(class="text-center blue-text") #{key}
+                    if song.tempo
+                      td(class="text-center") #{song.tempo}
+                    else 
+                      td(class="text-center blue-text") -
+                    if song.capo
+                      td(class="text-center") #{song.capo}
+                    else 
+                      td(class="text-center blue-text") -
+                    if song.duration
+                      td(class="text-center") #{song.duration}  
+                    else 
+                      td(class="text-center blue-text") -
