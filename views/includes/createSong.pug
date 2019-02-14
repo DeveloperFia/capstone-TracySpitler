@@ -1,0 +1,76 @@
+mixin createSong
+  //- modal - create a song
+  div(class="modal fade hidden" id="songModalForm" tabindex="-1" role="dialog" aria-labelledby="songModalLabel" aria-hidden="true")
+    div(class="text-center container p-4 mt-3")
+      div(class="modal-dialog" role="document")
+        div(class="modal-content form-elegant")
+          div(class="modal-header text-center")
+            h3(class="modal-title w-100 dark-grey-text font-weight-bold my-3" id="songModalLabel") #[strong Create a Song]
+            button(type="button" class="close" data-dismiss="modal" aria-label="Close") #[span(aria-hidden="true") &times;]        
+          small Created songs are automatically added to your library
+          hr
+          div(class="modal-body mx-4")       
+            form(method='post', action='/song/create') 
+              div(class="form-row")
+                div(class="col")
+                  div(class="md-form")
+                    input(type="text" name="songtitle" id="songtitle" class="form-control" required)
+                    label(data-error="wrong" data-success="" for="songtitle") Song Title            
+                div(class="col")
+                  div(class="md-form")
+                    input(type="text" name="artist" id="artist" class="form-control" required)
+                    label(data-error="wrong" data-success="" for="artist") Artist           
+              
+              div(class="form-row")
+                div(class="col")
+                  div(class="md-form")
+                    select(id="key" name="key" class="browser-default custom-select m-0 p-0")
+                      option(value="-1", selected, disabled) Key
+                      option(value="0") C
+                      option(value="1") C♯/D♭
+                      option(value="2") D
+                      option(value="3") D♯/E♭
+                      option(value="4") E
+                      option(value="5") F
+                      option(value="6") F♯/G♭
+                      option(value="7") G
+                      option(value="8") G♯/A♭
+                      option(value="9") A
+                      option(value="10") A♯/B♭
+                      option(value="11") B
+                              
+                div(class="col")
+                  div(class="md-form")
+                    input(type="number" step='0.001' min="0" max="500" name="bpm" id="bpm" class="form-control")
+                    label(data-error="wrong" data-success="" for="bpm") BPM           
+                div(class="col")
+                  div(class="md-form")
+                    input(type="number" name="capo" step='1' min="0" max="12" id="capo" class="form-control")
+                    label(data-error="wrong" data-success="" for="capo") Capo            
+                div(class="col")
+                  div(class="md-form")
+                    input(type="number" name="duration" min="0" id="duration" class="form-control")
+                    label(data-error="wrong" data-success="" for="duration") Duration           
+              br
+              div(class="md-form")
+                a(class="btn btn-sm peach-gradient" data-toggle="collapse" href="#selectlist" role="button" aria-expanded="false"
+  aria-controls="selectlist") Select a List
+                a(class="btn btn-sm peach-gradient" data-toggle="collapse" href="#createlist" role="button" aria-expanded="false"
+  aria-controls="createlist") Create a List
+                div(class="collapse multi-collapse" id="selectlist")
+                  div(class="card-body pt-0 pb-3")
+                    div(class="md-form")
+                      select(id="listchoice" name="listchoice" class="browser-default custom-select mdb-select")
+                        option(value="Library", selected, disabled) Library
+                        if lists
+                          for list in lists
+                            option(value=list.name) #{list.name}
+                      label(data-error="wrong" data-success="right" for="listchoice") Choose a list
+                div(class="collapse multi-collapse" id="createlist")
+                  div(class="card-body")
+                    div(class="md-form")
+                      input(type="text" name="newlist" id="newlist" class="form-control")
+                      label(data-error="wrong" data-success="" for="newlist") New list name           
+
+              div(class="text-center mb-3")
+                button(type="submit" class="btn blue-gradient btn-block btn-rounded z-depth-1a") Create! 
