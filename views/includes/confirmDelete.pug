@@ -1,0 +1,13 @@
+mixin confirmDelete 
+  //- Modal - confirm song delete 
+  div(class="modal fade" id="modalSongDelete" tabindex="-1" role="dialog" aria-labelledby="modalConfirmDelete" aria-hidden="true")
+    div(class="modal-dialog modal-sm modal-notify modal-danger" role="document")
+      div(class="modal-content text-center")
+        div(class="modal-header d-flex justify-content-center")
+          p(class="heading") Are you sure you want to delete this song?
+        div(class="modal-body")
+          i(class="fas fa-times fa-4x animated rotateIn")
+        div(class="modal-footer flex-center")
+          a#confirmSongDelete(type="button" class="btn btn-outline-danger") Yes
+          a(type="button" class="btn btn-danger waves-effect" data-dismiss="modal") No
+            
