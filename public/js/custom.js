@@ -27,3 +27,55 @@ window.setTimeout(function() {
     $(this).remove();
   });
 }, 8000);
+
+/******************* data table *******************/
+
+// highlight selected row
+$("#dtSongs tr").not("thead tr").click(function() {
+  var selected = $(this).hasClass("highlight");
+  $("#dtSongs tr").removeClass("highlight blue lighten-5");
+  if(!selected) {
+    $(this).addClass("highlight blue lighten-5");
+    $("#aboutsong").addClass("blue-gradient");
+  }
+  else {
+    $("#aboutsong").removeClass("blue-gradient");
+  }
+});
+
+// table buttons
+$('#editsong').hover(
+  function(){ $(this).addClass('peach-gradient') },
+  function(){ $(this).removeClass('peach-gradient') }
+);
+
+$('#deletesong').hover(
+  function(){ $(this).addClass('purple-gradient') },
+  function(){ $(this).removeClass('purple-gradient') }
+);
+
+$('#aboutsong').not("highlight").hover(
+  function(){ $(this).addClass('blue-gradient') },
+  function(){ $(this).removeClass('blue-gradient') }
+);
+
+// modal - confirm delete song
+$("#deletesong").click(function() {
+  var selected = $("#dtSongs tr").hasClass("highlight");
+  if (selected) {
+    $('#modalSongDelete').modal('show');
+  }
+});
+
+// delete song by {id}
+$("#confirmSongDelete").click(function(){
+  var parent_id = $(".highlight").find('td:eq(0)').text();
+  alert("id: " + parent_id);
+  $.ajax({
+    url: "/song/delete/" + parent_id,
+    method: 'delete'
+  }).done(function() {
+    // redirect
+    window.location.href = "/song";
+  })
+});
