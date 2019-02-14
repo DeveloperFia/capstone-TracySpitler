@@ -30,7 +30,7 @@ let getLists = (req, res, next) => {
 // function - gets all songs from db
 let getSongs = (req, res, next) => {
   // get all the songs
-  Song.find({}, function(err, songs) {
+  Song.find({user: req.user._id}, function(err, songs) {
     if (err) {
       // send errors
       res.send({err});
@@ -76,10 +76,11 @@ router.post('/create', protect, (req, res) => {
       title: req.body.songtitle,
       artist: req.body.artist,
       capo: req.body.capo,
-      bpm: req.body.bpm,
+      tempo: req.body.bpm,
       duration: req.body.duration,
       key: req.body.key,
       lists: [],
+      user: req.user._id,
     });
 
     //save the song
@@ -189,7 +190,24 @@ router.put('/update/:id', protect, (req, res) => {
 
 // delete song from list - DELETE
 router.delete('/delete/:id', protect, (req, res) => {
-    res.send("Delete a song from list {by id}.");
+  console.log("deleting.." + req.params.id);
+  // find the list by {id}
+  Song.findByIdAndDelete(req.params.id, function(err) {
+    if (err) {
+      // send errors
+      console.log(err);
+      res.send({err});
+    }
+    // the list has been deleted
+    console.log('Song deleted!');
+  });
+
+  // render songs
+  res.render('songs', {
+    msg:'All of the users songs will be here.',
+    songs: req.songs,
+    lists: req.lists
+  });
 });
 
 // set up router
