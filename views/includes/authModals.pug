@@ -5,7 +5,7 @@ mixin authModals
       div(class="modal-content form-elegant")
         form(id="signupForm" method='post', action='/auth/signup') 
           div(class="modal-header text-center")
-            h3(class="modal-title w-100 dark-grey-text font-weight-bold my-3" id="signupModalLabel") #[strong Sign Up]
+            h3(class="modal-title w-100 dark-grey-text font-weight-bold my-3 ml-4" id="signupModalLabel") #[strong Sign Up]
             button(type="button" class="close" data-dismiss="modal" aria-label="Close") #[span(aria-hidden="true") &times;]        
           div(class="modal-body mx-4")
             div(class="md-form mb-5")
@@ -28,7 +28,7 @@ mixin authModals
       div(class="modal-content form-elegant")
         form(id="loginForm" method='post', action='/auth/login')
           div(class="modal-header text-center")
-            h3(class="modal-title w-100 dark-grey-text font-weight-bold my-3" id="loginModalLabel") #[strong Log In]
+            h3(class="modal-title w-100 dark-grey-text font-weight-bold my-3 ml-4" id="loginModalLabel") #[strong Log In]
             button(type="button" class="close" data-dismiss="modal" aria-label="Close") #[span(aria-hidden="true") &times;]        
           div(class="modal-body mx-4")        
             div(class="md-form mb-5")
@@ -52,7 +52,7 @@ mixin authModals
       div(class="modal-content form-elegant")
         form(id="forgotForm" method='post', action='/auth/forgot')
           div(class="modal-header text-center")
-            h3(class="modal-title w-100 dark-grey-text font-weight-bold my-3" id="loginModalLabel") #[strong Request Password Reset]
+            h3(class="modal-title w-100 dark-grey-text font-weight-bold my-3 ml-4" id="loginModalLabel") #[strong Request Password Reset]
             button(type="button" class="close" data-dismiss="modal" aria-label="Close") #[span(aria-hidden="true") &times;]        
           div(class="modal-body mx-4")        
             div(class="md-form mb-5")
