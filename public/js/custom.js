@@ -79,3 +79,12 @@ $("#confirmSongDelete").click(function(){
     window.location.href = "/song";
   })
 });
+
+// single song info
+$("#aboutsong").click(function() {
+  var selected = $("#dtSongs tr").hasClass("highlight");
+  if (selected) {
+    var parent_id = $(".highlight").find('td:eq(0)').text();
+    window.location.href = "/song/get/" + parent_id;
+  }
+});
