@@ -148,7 +148,6 @@ router.post('/update/:id', protect, (req, res) => {
           // send errors
           res.send({err});
         }
-        console.log('List successfully updated!');
       });
     });
     // redirect
@@ -157,16 +156,12 @@ router.post('/update/:id', protect, (req, res) => {
 
 // delete list - DELETE
 router.delete('/:id', protect, getLists, (req, res) => {
-  console.log("deleting");
   // find the list by {id}
   List.findByIdAndDelete(req.params.id, function(err) {
     if (err) {
       // send errors
-      console.log(err);
       res.send({err});
     }
-    // the list has been deleted
-    console.log('List deleted!');
   });
 
   // render lists
