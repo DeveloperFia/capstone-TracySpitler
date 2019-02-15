@@ -142,9 +142,12 @@ mixin songModals
                           option(value="Library", selected, disabled) Library
                           if allLists
                             for list in allLists
-                              for oldlist in song.lists
-                                if (list._id != "" + oldlist + "") 
-                                  option(value=list.name) #{list.name}
+                              if song.lists.length > 0
+                                for oldlist in song.lists
+                                  if (list._id != "" + oldlist + "") 
+                                    option(value=list.name) #{list.name}
+                              else 
+                                option(value=list.name) #{list.name}
                         label(data-error="wrong" data-success="right" for="listchoice") Choose a list
                   div(class="collapse multi-collapse" id="createlist")
                     div(class="card-body")
