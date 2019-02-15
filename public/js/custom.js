@@ -89,3 +89,53 @@ $("#aboutsong").click(function() {
     window.location.href = "/song/get/" + parent_id;
   }
 });
+
+// search lists
+$('#searchlists').keyup(function() {
+  // Declare variables
+  var input = document.getElementById("searchlists");
+  var str = input.value.toUpperCase();
+  // send data to filterLists function
+  filterLists("allLists", "h4", "search", str);
+});
+
+function filterLists(id, eTag, filter, str) {
+  // get all lists
+  var ul = document.getElementById(id);
+  var li = ul.getElementsByClassName("filter-list");
+
+  // Loop through all ul rows, and hide those who don't match the search query
+  for (i = 0; i < li.length; i++) {
+    // if value is 0 or undefined then clear the filter
+    if (parseInt(str) === 0) {
+      li[i].style.display = "";
+    }
+    else {
+      element = li[i].getElementsByTagName(eTag)[0];
+      // filter lists
+      if (element) {
+        var txtValue = element.textContent || element.innerText;
+        // filter by difficulty
+        if (filter === "difficulty") {
+          if (parseInt(txtValue) == parseInt(str)){
+            li[i].style.display = "";
+          }
+          else {
+            li[i].style.display = "none";
+          }
+        }
+        // filter by search query
+        if (filter === "search") {
+          if (txtValue.toUpperCase().indexOf(str) > -1) {
+            li[i].style.display = "";
+          } else {
+            li[i].style.display = "none";
+          }
+        }
+      }
+      else {
+        li[i].style.display = "none";
+      }
+    }
+  }
+}
