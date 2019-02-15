@@ -3,7 +3,7 @@ var mongoose = require('mongoose');
 var listSchema = mongoose.Schema({
     // set the name of a property and the datatype, requirement, and force each record to have a unique list name
     // and custom error message if missing
-    name: {type: String, required: [true, 'a list needs a name'], unique: true},
+    name: {type: String, required: [true, 'please name the list']},
     difficulty: {type: Number, default: 0, enum: [0, 1, 2, 3]},
     play_date: Date,
     created_at: Date,
@@ -12,7 +12,8 @@ var listSchema = mongoose.Schema({
     deletable: {type: Boolean, default: true},
     // relationship
     // an array of song ids that are in the list
-    songs: [{type: mongoose.Schema.Types.ObjectId, ref: 'Song'}],
+    songs: [{type: mongoose.Schema.Types.ObjectId, ref: 'song'}],
+    user: {type: String, required: true}
 });
 
 listSchema.pre('save', function(next) {
@@ -29,4 +30,4 @@ listSchema.pre('save', function(next) {
   next();
 })
 
-module.exports = mongoose.model('List', listSchema);
+module.exports = mongoose.model('list', listSchema);

@@ -1,14 +1,12 @@
+> Replace the template content below with your own project documentation. 
+
 <!-- TOC -->
 
 - [1. Application Definition Statement](#1-application-definition-statement)
     - [1.1. Audience](#11-audience)
-        - [1.1.1. Primary](#111-primary)
-        - [1.1.2. Secondary](#112-secondary)
-        - [1.1.3. Demographics](#113-demographics)
+        - [1.1.1. Demographics](#111-demographics)
     - [1.2. Problem](#12-problem)
     - [1.3. Solution](#13-solution)
-        - [1.3.1. Competition](#131-competition)
-        - [1.3.2. SetList](#132-setlist)
     - [1.4. Unique Value Proposition](#14-unique-value-proposition)
     - [1.5. User Stories](#15-user-stories)
         - [1.5.1. Functional Requirements (Features)](#151-functional-requirements-features)
@@ -22,82 +20,80 @@
 
 # 1. Application Definition Statement
 
-SetList is a web app that provides guitar players, novice and experienced alike, with the ability to look up chords on the fly, save songs to specific lists of their creation, play along with a metronome to perfect their timing, and hone their skills to play the songs they love with practice sessions based on customized goals.
+The Application Definition Statement is a clear and concise explanation of how your solution proposes to solve the problem that your audience is having. The audience, their demographics, their problem and your solution will be explore in their respective sections in more detail.
 
 ## 1.1. Audience
 
-### 1.1.1. Primary
-Those who know how to play guitar.
+Define the primary as well as any secondary audiences. The more specific the better. Identify any defining characteristics that will influence design considerations. 
 
-Musicians can effortlessly add songs to a setlist for a gig or to a practice list for rehearsal. The list will display some convenient and helpful details about each song at a glance, and with greater detail in a click.
+When selecting a Primary Audience consider that yes, *anyone* could use your service, but who is your ideal user and why. If you are running a convenience store are you targeting *everyone* as a customer, or have you researched the products that a specific age and income bracket are interested in.
 
-### 1.1.2. Secondary
-Those who want to learn how to play guitar.
+### 1.1.1. Demographics
 
-Anyone who's interested in picking up the guitar and learning something new can use this web app. Between chord references and practice sessions, they can get better at what they've picked up in no time!
-
-### 1.1.3. Demographics
-
-Music really resonates with all demographics, but a recent study from Fender shows that half of all guitar beginners are now women. Most guitar players learn from apps or online tutors. The biggest interest in learning an instrument is to discover a life skill or to play in social settings for small groups. 
-
-[Source](https://www.digitalmusicnews.com/2018/10/17/new-guitar-female/)
+The defining characteristics of the audiences chosen should be explore with research. Demographics are not overly broad as to encompass people of any age, gender, income, or educational background. Research was done to provide relevant information for the demographic such as, but not limited to, gender, age, education, employment, and income. Secondary demographics are considered and include the same level of detail.
 
 ## 1.2. Problem
 
-Paper song-books and set lists just don't cut it. They get ruined, you can't search through them to quickly find what you're looking for, it becomes tedious to keep diagrams of the chords needed. Musicians and students need an app that keeps all their lists in one organized place, with the most pertinent information about a song at hand. No one wants to find themselves wasting valuable time hunting for the answer to questions like, "What fret is the capo on?", "How do I play an Am chord?", "How does this song go again?", or even "What key is this song in, and what chords are in that key?".
+Clearly and succinctly define the problem your audience is having, for which you intend to develop a web-based solution.
+
+> Cite research or feedback from interviews with your audience. 
 
 ## 1.3. Solution
 
-### 1.3.1. Competition
+Identify any competition operating in this market space and summarize how they are addressing the problem, as defined.
 
-* [UberChord](https://www.uberchord.com/) is a great app (only for iOS) for learning how to play guitar. It has lessons and gives you real-time feedback on what you play. You can also look up guitar chords, and use their tuner.
-* [All Guitar Chords](http://www.all-guitar-chords.com/ ) is a site that shows you chords on a fretboard on the screen. They also have a metronome and tuner.
-* [SmartChord](https://play.google.com/store/apps/details?id=de.smartchord.droid) has what seems to be all the things: metronome, tuner, songbook, the circle of 5ths, transposer, multiple instruments, ear trainer. I wouldn't know what they don't include.
-* [SongBook](https://play.google.com/store/apps/details?id=com.linkesoft.songbook&hl=en_US) is an application that saves songbooks, displays chords and lyrics, and has multiple instruments.
+Define your solution and how it will directly address the problem your audience is having.
 
-### 1.3.2. SetList
-
-The SetList app enables users to create and edit lists of songs depending on their needs. To add a song, the user will search, select, and save it to any list they choose. Along with the title and artist, respectively, selecting a list will show the user a few key details such as the key, if there is a capo and if so, what fret it's on, and also the BPM. Upon further selection of the song, there will be additional details such as the chords that make up the key with diagrams.
-
-Added features to help anyone who plays include a metronome for timing, and practice sessions. The user can set goals in order to practice for a set period of time, to learn a chord or chord progression, for deliberate practice of a single song, or even a list of songs. Songs can be arranged by difficulty or a customized set.
+> Define your the competition operating within this market.
 
 ## 1.4. Unique Value Proposition
 
-The UberChord, All Guitar Chords, and SmartChord apps, while very thorough and extensive, are too hard to navigate on the fly. They work great while you're at home learning something and you have the time to do the research, but when you're at practice with your bandmates, or at a gig, or even practicing at home to make sure you can play something fast enough or back to back, you need an app that can provide the important material without slowing you down.
-
-SongBook appears the closest to what this project is, however, SetList will also have a song playback feature, a metronome, particular song details such as the key and BPM, and also practice sessions. A feature that SongBook has that I would like to incorporate into SetList is the display of lyrics with the corresponding chords, and integrating the appropriate data for various instruments.
+What separates you from the competition? How are you able to better solve this defined problem for your audience than your competition? Why is your idea smarter, more efficient, or better? This is the key to make your solution marketable.
 
 ## 1.5. User Stories
 
-[https://github.com/fullsail/capstone-TracySpitler/labels/user%20story](https://github.com/fullsail/capstone-TracySpitler/labels/user%20story)
+All application requirements are captured as user stories. The application may contain for several kinds of different users or personas. Each persona has several stories that follow the correct format:
+
+> * As a `Persona`, I want to `need`, so that `purpose`.
+
+Each story should correctly and clearly demonstrates a user's needs to achieve a goal which is relevant to the application definition statement.
 
 ### 1.5.1. Functional Requirements (Features)
 
-[https://github.com/fullsail/capstone-TracySpitler/labels/func.%20req.](https://github.com/fullsail/capstone-TracySpitler/labels/func.%20req.)
+Functional Requirements match the expected feature set and user stories for the application definition. Each feature is thoroughly defined in clear detail and has a clear purpose in the application. The level of detail provided leaves little or no questions in each features intentions and how it will satisfy the application definition statement and user stories.
+
+> Format Example:
+> * As a `Persona`, I want to `need`, so that `purpose`.
+>   * The System `...`
+>   * The System `...`
+
+> Completed Example:
+> **User Stories with Functional Requirements**
+> * As a new dog owner, I want to make sure that I'm giving my dog the correct amount of food and water, so that I can make sure that I'm taking care of my dog in the healthiest way possible.
+>   * System must allow the user to track their dog's daily water and caloric intake.
+>   * System must allow the user to input the amount of calories burned by their dog so they can make sure their caloric intake and burn off is at a healthy balance.
+>   * System must display all this information in an easy to understand way so the user can have a quick overview of their dog's daily water and caloric intake.
+> * As a long term dog owner, I want to be able to have past logs of my dog's daily nutritional intake, so that I can have them for veterinary visits.
+>   * System must save the amount of calories the dog has consumed in a day and store it so the user can access it later.
+>   * System must display the past daily caloric intake so the user can look at past nutritional intake.
 
 # 2. Spec
 
 ## 2.1. Sitemap
 
-* [Sitemap](https://drive.google.com/open?id=1m-mAcjsawdyQIvkvYifbdZdD9dpalCuD) - The purple boxes are the landing pages based on if a user is logged in or not
-* [Ongoing XD Prototype](https://xd.adobe.com/view/0080287f-3f2c-4143-4b0a-b2b20c0f9f20-76b1/)
+Create and label a hierarchical diagram that identifies all user facing screens. This will be the road map for you and your instructors will use to converse about various screens and to examine user flows between screens.
 
 ## 2.2. Programming Languages
 
 Identify what programming languages you are using. Provide links to their respective documentation sites.
-* [JavaScript](https://www.javascript.com/)
-* [JQuery](https://jquery.com/)
-* [CSS](https://devdocs.io/css/)
 
 ## 2.3. Technical Requirements
 
-* [Express.js](https://expressjs.com/) (Node) - framework
-* [MongoDB](https://www.mongodb.com/) - database
-* [PUG](https://pugjs.org/api/getting-started.html) - templating engine
-* [Bootstrap](https://getbootstrap.com/) - styling
-* [JQuery](https://jquery.com/) - javascript library
+Define the server software and hardware, virtualized or not, that your application requires to run. These should be in a format of Title: Brief description of my usage. If a feature as defined in the issues requires a specific technology, that issue should cite this as well. 
+
+> Example: Technical Requirement - FFMPEG
+> Server side service to handle video. Needed to extract single frames to turn into thumbnails.
 
 ## 2.4. Integrations
 
-* [Spotify API](https://developer.spotify.com/documentation/web-api/) - This is used to gather data about a song. Data is used to filtering songs, display pertinent information to the user, extract chord information from UberChords, and power the metronome for individual songs in a list.
-* [UberChord API](https://api.uberchord.com/) - This is used to retrieve data on guitar chords. The data is used to render SVG images of the chords to the user with the correct finger placement and also to display the notes in a key.
+Identify what 3rd party APIs, datasets, or external integrations you are using. Provide links to their respective documentation.

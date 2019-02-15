@@ -1,11 +1,6 @@
-extends _layout
-
+extends __layout
 block content
-    main
-        .container
-            h1 Chord Search
-            div
-                strong Enter a Chord Name
-                input(type="search" id="search-chords" placeholder="Search for a chord..")
-                    
-                div#Chords
+  div(class="text-center card container p-4 mt-3")
+    h1 Chords
+    p #{msg}
+    

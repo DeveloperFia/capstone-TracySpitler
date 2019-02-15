@@ -1,0 +1,59 @@
+extends __layout
+block content
+  -var keys = ['C', 'C♯/D♭', 'D', 'D♯/E♭', 'E', 'F', 'F♯/G♭', 'G', 'G♯/A♭', 'A', 'A♯/B♭', 'B']
+          
+  div(class="text-center card container p-4 mt-3")
+    h1 Songs
+    
+    div(class="text-center mt-2")
+      a(href="" class="btn spotify-btn btn-rounded same-width" data-toggle="modal" data-target="#") Search Spotify
+      a(href="" class="btn blue-gradient btn-rounded same-width" data-toggle="modal" data-target="#songModalForm") Create a Song
+      
+  div(class="text-center card container p-4 my-4")
+    if songs
+      if songs.length > 0
+        
+        div(class="card")
+          div(class="view card-header elegant-color-dark p-2 mb-3 d-flex justify-content-between align-items-center")
+            p(class="white-text mx-3 mt-3") Your Song Library
+            div(class="form-inline ml-auto mr-4")
+              div(class="md-form m-0 pt-3")
+                input#searchsongs(class="form-control" type="text" placeholder="Search for a song" aria-label="Search")
+            div(class="mr-2")
+              button#editsong(type="button" class="btn btn-outline-white btn-rounded btn-sm px-2") #[i(class="fas fa-pencil-alt mt-0")]
+              button#deletesong(type="button" class="btn btn-outline-white btn-rounded btn-sm px-2") #[i(class="far fa-trash-alt mt-0")]
+              button#aboutsong(type="button" class="btn btn-outline-white btn-rounded btn-sm px-2") #[i(class="fas fa-info-circle mt-0")]
+
+          div(class="px-4  d-flex justify-content-center")
+            div(class="table-wrapper table-responsive")
+              table#dtSongs(class="table mb-4 table-hover")
+
+                thead
+                  tr
+                    th(class="th-lg")
+                      a Title #[i(class="fas fa-sort mx-1")]
+                    th(class="th-lg")
+                      a Artist #[i(class="fas fa-sort mx-1")]
+                    th(class="th-lg text-center")
+                      a Key #[i(class="fas fa-sort mx-1")]
+                    th(class="th-sm text-center")
+                      a BPM #[i(class="fas fa-sort mx-1")]
+                    th(class="th-sm text-center")
+                      a Capo #[i(class="fas fa-sort mx-1")]
+                    th(class="text-center")
+                      a Duration #[i(class="fas fa-sort mx-1")]
+
+                tbody#allSongs
+                  for song in songs 
+                    tr(class='filter-list')
+                      td(hidden) #{song._id}
+                      td #[strong #{song.title}]
+                      td #{song.artist}
+                      td(class="text-center") #{(keys[song.key]) ? keys[song.key] : "-"}
+                      td(class="text-center") #{(song.tempo) ? song.tempo : "-"}
+                      td(class="text-center") #{(song.capo) ? song.capo : "-"}
+                      td(class="text-center") #{(song.duration) ? song.duration : "-"}
+    
+      else 
+        p There are currently no songs in your library. Wanna change that?
+        p Start by clicking a button above.

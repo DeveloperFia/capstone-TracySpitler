@@ -1,0 +1,66 @@
+include ./includes/authModals
+include ./includes/confirmDelete
+include ./includes/songModals
+<!-- DOCTYPE html -->
+html(lang="en")
+  head 
+    meta(charset="utf-8")
+    title SetList
+    //- MDBootstrap CSS
+    link(rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" )
+    link(href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.2.1/css/bootstrap.min.css" rel="stylesheet" )
+    link(href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.7.1/css/mdb.min.css" rel="stylesheet")
+    //- Custom CSS
+    link(rel='stylesheet', href='/css/custom.css', type='text/css')
+
+  body#landing
+    //- includes
+    +authModals
+    +confirmDelete
+    +songModals
+    
+    //- navigation
+    header
+      nav(class="mb-1 navbar navbar-expand-lg navbar-dark elegant-color-dark")
+        a(class="navbar-brand col-md-2" href="/") SetList
+        button(class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-drop"
+            aria-controls="navbar-drop" aria-expanded="false" aria-label="Toggle navigation") #[span(class="navbar-toggler-icon")]
+        div(class="collapse navbar-collapse" id="navbar-drop")
+          ul(class="navbar-nav ml-auto")
+            li(class="nav-item active")
+              a(class="nav-link" href="/") Home
+                span(class="sr-only") (current)
+            li(class="nav-item")
+              a(class="nav-link" href="/chords") Chords
+            li(class="nav-item") 
+              a(class="nav-link" href="/metronome") Metronome
+            if user 
+              li(class="nav-item") 
+                  a(class="nav-link" href="/song") Songs
+              li(class="nav-item") 
+                a(class="nav-link" href="/list") Lists
+              li(class="nav-item") 
+                a(class="nav-link" href="/auth/logout") Logout
+              li(class="nav-item") 
+                a(class="nav-link" href="/auth/profile") Profile
+            else
+              li(class="nav-item dropdown")
+                a(class="nav-link dropdown-toggle" id="navbar-drop-auth" data-toggle="dropdown" aria-haspopup="true"
+                    aria-expanded="false") Join the Fun
+                div(class="dropdown-menu dropdown-menu-right dropdown-secondary" aria-labelledby="navbar-drop-auth")
+                  a(class="dropdown-item" href="/#loginModalForm" data-toggle="modal" data-target="#loginModalForm") Login
+                  a(class="dropdown-item" href="/#signupModalForm" data-toggle="modal" data-target="#signupModalForm") Sign Up
+      
+    //- main content
+    block content
+
+    //- footer
+    footer
+    
+  //- MDBootstrap JavasScript
+  script(type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js")
+  script(type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js")
+  script(type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.2.1/js/bootstrap.min.js")
+  script(type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.7.1/js/mdb.min.js")
+  //- Custom JavaScript/JQuery 
+  script(type="text/javascript" src="/js/custom.js")

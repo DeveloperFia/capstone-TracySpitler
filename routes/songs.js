@@ -1,182 +1,279 @@
-// include
+// @desc song routes
+// @routes /song
+
+// require
 const express = require('express');
-const router = express.Router()
-const path = require('path');
+const router = express.Router();
+var path = require('path');
+const protect = require('connect-ensure-login').ensureLoggedIn('/');
 
 // models
-const List = require('../models/List');
-const Song = require('../models/Song');
+const List = require('../models/list');
+const Song = require('../models/song');
 
-// function that gets all of the lists from the database
+// function - get all lists from db
 let getLists = (req, res, next) => {
-    // get all the lists
-    List.find({}, function(err, lists) {
-        // if there is an error, throw it
-        if (err)
-            console.log('err', err);
-        // add a list of lists to the request object to be used in different routes
-        req.lists = lists;
-        // run the next function
-        next()
-    });
-}
-
-// function that gets all of the songs from the database
-let getSongs = (req, res, next) => {
-    // get all the songs
-    Song.find({}, function(err, songs) {
-        // if there is an error, throw it
-        if (err)
-            console.log('err', err);
-        // add a list of songs to the request object to be used in different routes
-        req.songs = songs;
-        // run the next function
-        next()
-    });
-}
-
-// POST ** route to save a new song - a POST request to /songs
-router.post('/songs', getLists, getSongs, (req, res, next) => {
-
-    // check for empty values
-    req.checkBody('title', 'Please give the song a title.').notEmpty();
-    req.checkBody('artist', 'Please give the song an artist.').notEmpty();
-
-    // if there are errors..
-    var errors = req.validationErrors();
-    if (errors){
-        // render the form with errors
-        res.render(path.join(__dirname, '/../views/expand-library.pug'), {
-            song_errors: errors,
-            github: "https://github.com/TracySpitler",
-            user: req.user,
-        });
+  List.find({ user: req.user._id }, function(err, lists) {
+    if (err) {
+      // send errors
+      res.send({err});
     }
-    // otherwise save the song to the db
     else {
-        // get the library and save the song to it
-        List.findOne({ name: "Library" }, function(err, library) {
-            if (err) throw err;
-
-            //create a new Song object
-            var newSong = Song({
-                title: req.body.title,
-                artist: req.body.artist,
-                chords: req.body.chords,
-                capo: req.body.capo,
-                tempo: req.body.tempo,
-                duration: req.body.duration,
-                key: req.body.key,
-                mode: req.body.mode,
-                time_signature: req.body.time_sig,
-                lists: [],
-            });
-
-            // push the song id into the library
-            library.songs.push(newSong._id);
-            // push the library id into the song's lists
-            newSong.lists.push(library._id);
-
-            // save the library
-            library.save(function(err) {
-                if (err) throw err;
-                console.log('Library successfully updated!');
-            });
-
-            //save the song
-            newSong.save(function(err) {
-                if (err) throw err;
-                console.log('Song successfully saved!');
-            });
-
-            // save song to other lists
-            // if a list was selected..
-            if (req.body.inList) {
-                // make sure it's an array
-                var inList = Array.isArray(req.body.inList) ? req.body.inList : [req.body.inList];
-                // for each selected list
-                for (var i = 0; i < inList.length; i++) {
-                    // find it in the database
-                    List.findOne({name: inList[i]}, function(err, list) {
-                        if (err) throw err;
-                        // push the song id into the list
-                        list.songs.push(newSong._id);
-                        // save the list
-                        list.save(function(err) {
-                            if (err) throw err;
-                            console.log('Pushed song into list!');
-                        });
-                        // find song to update the lists
-                        Song.findOne({_id: newSong._id}, function(err, song) {
-                            // push the list id into the song's lists
-                            song.lists.push(list._id);
-                            //save the song
-                            song.save(function(err) {
-                                if (err) throw err;
-                                console.log('Lists in this song have been updated!');
-                            });
-                        });
-                    });
-                }
-            }
-            // if custom list has a value..
-            if (req.body.customList) {
-                // check for empty values
-                req.checkBody('customList', 'Please give the list a name.').notEmpty();
-
-                // if there are errors..
-                var errors = req.validationErrors();
-                if (errors){
-                    // render the form with errors
-                    res.render(path.join(__dirname, '/../views/expand-library.pug'), {
-                        list_errors: errors,
-                        github: "https://github.com/TracySpitler",
-                        user: req.user,
-                    });
-                }
-                // otherwise save the list to the db
-                else {
-                    // create a custom list object
-                    var customList = List({
-                        name: req.body.customList,
-                    });
-
-                    // push the song id into the list
-                    customList.songs.push(newSong._id);
-
-                    // save list to the database
-                    customList.save(function(err) {
-                        if (err) {
-                            // render the form with errors
-                            res.render(path.join(__dirname, '/../views/expand-library.pug'), {
-                                list_errors: err,
-                                db_error: "The list \'" + customList.name + "\' already exists! Please rename it.",
-                                github: "https://github.com/TracySpitler",
-                                user: req.user,
-                            });
-                        }
-                        else {
-                            console.log('Custom list saved successfully!')
-                            // find song to update the lists
-                            Song.findOne({_id: newSong._id}, function(err, song) {
-                                // push the list id into the song's lists
-                                song.lists.push(customList._id);
-                                //save the song
-                                song.save(function(err) {
-                                    if (err) throw err;
-                                    console.log('Lists in this song have been updated!');
-                                });
-                            });
-                        }
-                    });
-                }
-            }
-
-            // go back to the home page
-            return res.redirect('/lists');
-        });
+      // add lists to req
+      req.lists = lists;
+      // run the next function
+      next();
     }
-})
+  });
+}
+
+// function - gets all songs from db
+let getSongs = (req, res, next) => {
+  // get all the songs
+  Song.find({user: req.user._id}, function(err, songs) {
+    if (err) {
+      // send errors
+      res.send({err});
+    }
+    else {
+      // add songs to req
+      req.songs = songs;
+      // run the next function
+      next();
+    }
+  });
+}
+
+// all songs - GET
+router.get('/', protect, getSongs, getLists, (req, res) => {
+  res.render('library', {
+    msg:'All of the users songs will be here.',
+    songs: req.songs,
+    lists: req.lists
+  });
+});
+
+// add song to a list - POST
+router.post('/create', protect, (req, res) => {
+  // check for empty values
+  req.checkBody('songtitle', 'Please give the song a title.').notEmpty();
+  req.checkBody('artist', 'Please give the song an artist.').notEmpty();
+
+  // if there are errors..
+  var err = req.validationErrors();
+  if (err){
+    // send errors
+    res.send({err});
+  }
+  // otherwise create a song object
+  else {
+    var newSong = Song({
+      title: req.body.songtitle,
+      artist: req.body.artist,
+      capo: req.body.capo,
+      tempo: req.body.bpm,
+      duration: req.body.duration,
+      key: req.body.key,
+      lists: [],
+      user: req.user._id,
+    });
+
+    //save the song
+    newSong.save(function(err) {
+      if (err){
+        // send errors
+        res.send({err});
+      }
+    });
+
+    // if a list was selected..
+    if (req.body.listchoice) {
+      // make sure it's an array
+      var listchoice = Array.isArray(req.body.listchoice) ? req.body.listchoice : [req.body.listchoice];
+      // for each selected list
+      for (var i = 0; i < listchoice.length; i++) {
+        // find it in the database
+        List.findOne({name: listchoice[i]}, function(err, list) {
+          if (err){
+            // send errors
+            res.send({err});
+          }
+          // push the song id into the list
+          list.songs.push(newSong._id);
+          // save the list
+          list.save(function(err) {
+            if (err){
+              // send errors
+              res.send({err});
+            }
+          });
+          // find song to update the lists
+          Song.findOne({_id: newSong._id}, function(err, song) {
+            // push the list id into the song's lists
+            song.lists.push(list._id);
+            // save the song
+            song.save(function(err) {
+              if (err){
+                // send errors
+                res.send({err});
+              }
+            });
+          });
+        });
+      }
+    }
+
+    // if custom list has a value..
+    if (req.body.newlist) {
+      // check for empty values
+      req.checkBody('newlist', 'Please give the list a name.').notEmpty();
+
+      // if there are errors..
+      var err = req.validationErrors();
+      if (err){
+        // send errors
+        res.send({err});
+      }
+      // otherwise save the list to the db
+      else {
+        // create a custom list object
+        var customList = List({
+          name: req.body.newlist,
+          user: req.user._id
+        });
+
+        // push the song id into the list
+        customList.songs.push(newSong._id);
+
+        // save list to the database
+        customList.save(function(err) {
+          if (err){
+            // send errors
+            res.send({err});
+          }
+          else {
+            // find song to update the lists
+            Song.findOne({_id: newSong._id}, function(err, song) {
+              // push the list id into the song's lists
+              song.lists.push(customList._id);
+              //save the song
+              song.save(function(err) {
+                if (err){
+                  // send errors
+                  res.send({err});
+                }
+              });
+            });
+          }
+        });
+      }
+    }
+    // go back to the song page
+    return res.redirect('/song');
+  }
+});
+
+// specific song - GET
+router.get('/get/:id', protect, getSongs, getLists, (req, res) => {
+  // get the list by the params id
+  Song.find({ _id: req.params.id }, function(err, song) {
+    if (err) {
+      // send errors
+      res.send({err});
+    }
+    // find lists this song belongs to
+    List.find({songs: req.params.id }, function(err, lists) {
+      if (err) {
+        // send errors
+        res.send({err});
+      }
+      else {
+        // redirect
+        res.render('song', {
+          song: song[0],
+          lists: lists,
+          allLists: req.lists
+        });
+      }
+    });
+  });
+});
+
+// update song - POST
+router.post('/update/:id', protect, getSongs, getLists, (req, res) => {
+  // find the list by {id}
+  Song.findById(req.params.id, function(err, song) {
+    if (err) {
+      // send errors
+      res.send({err});
+    }
+    //console.log(req.body);
+    // update the song
+    song.title = req.body.songtitle;
+    song.artist = req.body.artist;
+    song.key = req.body.key;
+    song.tempo = req.body.bpm;
+    song.capo = req.body.capo;
+    song.duration = req.body.duration;
+    song.lists = [];
+    user: req.user._id;
+
+    // save the song
+    song.save(function(err) {
+      if (err) {
+        // send errors
+        console.log(err);
+      }
+    });
+
+    // check old lists
+    if (req.body.oldlist) {
+      // push song to list and list to song
+    }
+
+    // check selected lists
+    if (req.body.listchoice) {
+      // push song to list and list to song
+    }
+
+    // check created list
+    if (req.body.newlist) {
+      // create a custom list object
+      var newlist = List({
+        name: req.body.newlist,
+        user: req.user._id
+      });
+      // push song to list and list to song
+    }
+  });
+  // redirect
+  res.redirect('/song/get/' + req.params.id);
+});
+
+// delete song from list - DELETE
+router.delete('/delete/:id', protect, (req, res) => {
+  // find the list by {id}
+  Song.findByIdAndDelete(req.params.id, function(err) {
+    if (err) {
+      // send errors
+      res.send({err});
+    }
+  });
+
+  List.updateMany({songs: req.params.id }, {$pull: { songs: req.params.id }},
+  { multi: true }, function(err, list) {
+    if (err) {
+      // send errors
+      res.send({err});
+    }
+  });
+  // render songs
+  res.render('library', {
+    msg:'All of the users songs will be here.',
+    songs: req.songs,
+    lists: req.lists
+  });
+});
 
 // set up router
 module.exports = router;
