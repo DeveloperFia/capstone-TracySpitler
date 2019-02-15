@@ -19,17 +19,20 @@ block content
             small(class="card-text cyan-text") This song is in:
             br 
             ul
-            if lists.length > 0
-              for list in lists 
-                a(href="/list/" + list._id) #{list.name}
+            if song.lists.length > 0
+              for songlist in song.lists 
+                for list in lists
+                  if (list._id == "" + songlist + "")
+                    a(href="/list/" + list._id) #{list.name}
+                    br
             else
               p No list. Wanna change that?
               a(href="" data-toggle="modal" data-target="#editSongModalForm") Add to a list
           div(class="card-footer") 
-            if lists.length == 1
-              small(class="text-muted") Belongs to #{lists.length} list
+            if song.lists.length == 1
+              small(class="text-muted") Belongs to #{song.lists.length} list
             else 
-              small(class="text-muted") Belongs to #{lists.length} lists
+              small(class="text-muted") Belongs to #{song.lists.length} lists
             
         
         div(class="card") 
