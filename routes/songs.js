@@ -53,11 +53,6 @@ router.get('/', protect, getSongs, getLists, (req, res) => {
   });
 });
 
-// new song - GET
-router.get('/new', protect, (req, res) => {
-    res.send("Search or fill out form to add a song to a list.");
-});
-
 // add song to a list - POST
 router.post('/create', protect, (req, res) => {
   // check for empty values
@@ -70,7 +65,7 @@ router.post('/create', protect, (req, res) => {
     // send errors
     res.send({err});
   }
-  // otherwise save the song to the db
+  // otherwise create a song object
   else {
     var newSong = Song({
       title: req.body.songtitle,
@@ -197,15 +192,62 @@ router.get('/get/:id', protect, getSongs, getLists, (req, res) => {
         res.render('song', {
           song: song[0],
           lists: lists,
+          allLists: req.lists
         });
       }
     });
   });
 });
 
-// update song - PUT
-router.put('/update/:id', protect, (req, res) => {
-    res.send("Update a song {by id}.");
+// update song - POST
+router.post('/update/:id', protect, getSongs, getLists, (req, res) => {
+  // find the list by {id}
+  Song.findById(req.params.id, function(err, song) {
+    if (err) {
+      // send errors
+      res.send({err});
+    }
+    //console.log(req.body);
+    // update the song
+    song.title = req.body.songtitle;
+    song.artist = req.body.artist;
+    song.key = req.body.key;
+    song.tempo = req.body.bpm;
+    song.capo = req.body.capo;
+    song.duration = req.body.duration;
+    song.lists = [];
+    user: req.user._id;
+
+    // save the song
+    song.save(function(err) {
+      if (err) {
+        // send errors
+        console.log(err);
+      }
+    });
+
+    // check old lists
+    if (req.body.oldlist) {
+      // push song to list and list to song
+    }
+
+    // check selected lists
+    if (req.body.listchoice) {
+      // push song to list and list to song
+    }
+
+    // check created list
+    if (req.body.newlist) {
+      // create a custom list object
+      var newlist = List({
+        name: req.body.newlist,
+        user: req.user._id
+      });
+      // push song to list and list to song
+    }
+  });
+  // redirect
+  res.redirect('/song/get/' + req.params.id);
 });
 
 // delete song from list - DELETE
@@ -218,6 +260,13 @@ router.delete('/delete/:id', protect, (req, res) => {
     }
   });
 
+  List.updateMany({songs: req.params.id }, {$pull: { songs: req.params.id }},
+  { multi: true }, function(err, list) {
+    if (err) {
+      // send errors
+      res.send({err});
+    }
+  });
   // render songs
   res.render('library', {
     msg:'All of the users songs will be here.',
