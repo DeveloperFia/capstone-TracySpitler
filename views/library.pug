@@ -17,7 +17,9 @@ block content
         div(class="card")
           div(class="view card-header elegant-color-dark p-2 mb-3 d-flex justify-content-between align-items-center")
             p(class="white-text mx-3 mt-3") Your Song Library
-
+            div(class="form-inline ml-auto mr-4")
+              div(class="md-form m-0 pt-3")
+                input#searchsongs(class="form-control" type="text" placeholder="Search for a song" aria-label="Search")
             div(class="mr-2")
               button#editsong(type="button" class="btn btn-outline-white btn-rounded btn-sm px-2") #[i(class="fas fa-pencil-alt mt-0")]
               button#deletesong(type="button" class="btn btn-outline-white btn-rounded btn-sm px-2") #[i(class="far fa-trash-alt mt-0")]
@@ -42,11 +44,11 @@ block content
                     th(class="text-center")
                       a Duration #[i(class="fas fa-sort mx-1")]
 
-                tbody
+                tbody#allSongs
                   for song in songs 
-                    tr
+                    tr(class='filter-list')
                       td(hidden) #{song._id}
-                      td #{song.title}
+                      td #[strong #{song.title}]
                       td #{song.artist}
                       td(class="text-center") #{(keys[song.key]) ? keys[song.key] : "-"}
                       td(class="text-center") #{(song.tempo) ? song.tempo : "-"}

@@ -99,6 +99,16 @@ $('#searchlists').keyup(function() {
   filterLists("allLists", "h4", "search", str);
 });
 
+// search songs
+$('#searchsongs').keyup(function() {
+  // Declare variables
+  var input = document.getElementById("searchsongs");
+  var str = input.value.toUpperCase();
+  // send data to filterLists function
+  filterLists("allSongs", "strong", "search", str);
+});
+
+// filter function
 function filterLists(id, eTag, filter, str) {
   // get all lists
   var ul = document.getElementById(id);
