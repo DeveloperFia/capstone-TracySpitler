@@ -82,3 +82,73 @@ select {
 .highlight {
   transition: all .2s ease-in;
 }
+
+table.dataTable thead.sorting:after,
+table.dataTable thead.sorting:before,
+table.dataTable thead.sorting_asc:after,
+table.dataTable thead.sorting_asc:before,
+table.dataTable thead.sorting_asc_disabled:after,
+table.dataTable thead.sorting_asc_disabled:before,
+table.dataTable thead.sorting_desc:after,
+table.dataTable thead.sorting_desc:before,
+table.dataTable thead.sorting_desc_disabled:after,
+table.dataTable thead.sorting_desc_disabled:before {
+  bottom: 1em;
+  right: .5rem;
+}
+
+.dataTables_length label, .dataTables_filter label {
+  display: flex;
+}
+
+#dtSongs_length select {
+  margin: -.2rem .5rem 0 .5rem;
+}
+
+#dtSongs_filter input {
+  margin: -.2rem 0 0 .5rem;
+}
+
+#dtSongs_filter, #dtSongs_length {
+  padding: 0 .5rem 0 1rem;
+  margin: 0;
+  color: white;
+}
+
+#dtSongs_info {
+  text-align: left !important;
+  padding: 0 1.5rem;
+  margin: 0;
+}
+
+.row {
+  justify-content: center;
+  padding: auto;
+}
+
+ul.pagination {
+  margin: 1rem 1.5rem;
+}
+
+.pagination li {
+  padding: 0 .38rem;
+}
+
+.pagination li a {
+  padding: .3rem .6rem;
+  border: 2px solid transparent !important;
+  background-color: transparent !important;
+}
+
+.pagination li:not(.disabled) a {
+  color: white !important;
+}
+
+.pagination li.active a {
+  background-image: linear-gradient(40deg, #45cafc, #303f9f) !important;
+  border: 2px solid white !important;
+}
+
+.pagination li:hover:not(.active) a {
+  border: 2px solid white !important;
+}
