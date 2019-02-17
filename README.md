@@ -4,8 +4,8 @@ SetList is a web app that provides guitar players, novice and experienced alike,
 
 ## Quick Links
 
-* [Staging Server Link](https://ts-capstone-setlist-staging.herokuapp.com/start)
-* [Live Server Link](https://ts-capstone-setlist-live.herokuapp.com/start)
+* [Staging Server Link](https://ts-capstone-setlist-staging.herokuapp.com/)
+* [Live Server Link](https://ts-capstone-setlist-live.herokuapp.com/)
 * [Full Project Spec](./docs/readme.md)
 
 ## Installing
@@ -68,11 +68,23 @@ $ npm install
 
 Set up the environment variables
 
-_.env_
+_**.env** more info under deployment setup below_
+
+_(localhost will look something like this:)_
 
 ```
-MONGO_HOST=localhost
-MONGO_DATABASE=setlist
+# Database
+MONGO_URI=mongodb://localhost/setlist
+SECRET
+
+# Spotify API
+SPOTIFY_CLIENT_ID
+SPOTIFY_CLIENT_SECRET
+SPOTIFY_REDIRECT_URI
+
+# Email for communication with clients (reset password)
+GMAIL_EMAIL
+GMAIL_PASSWORD
 ```
 
 Start the server
@@ -120,25 +132,39 @@ Log in or sign up with [Heroku](https://www.heroku.com/)
 Create an app for the both the staging (release) and master branches.
 
 Under the ```Settings``` tab, set the necessary config vars:
+
+* Database:
+Set up a MongoDB database or use a service like [mLab](https://mlab.com/)
+The Mongo URI will look something like this:
+
 ```
-MONGO_HOST
-MONGO_DATABASE
+mongodb://<dbuser>:<dbpassword>@ds151814.mlab.com:51814/setlist-staging
+```
+
+```
+MONGO_URI
 SECRET
 ```
-
-### Connecting a Database
-
-Set up a MongoDB database or use a service like [mLab](https://mlab.com/)
-
-*__Using mLab:__*
-
-The Mongo URI will look like this: mongodb://<dbuser>:<dbpassword>@ds151814.mlab.com:51814/setlist-staging
-
-_Examples:_
-
-* ```MONGO_HOST``` would equal ```<dbuser>:<dbpassword>@ds151814.mlab.com:51814```
-* ``` MONGO_DATABASE``` would equal ```setlist-staging```
 * ```SECRET``` needs to be a secure and randomized string.
+
+* Spotify API:
+If you don't already have one, create an account here: https://developer.spotify.com/dashboard/login
+
+Once you create an app with Spotify, they will provide you with the client ID and secret. You will have to add the redirect URI based on the respective live routing.
+
+```
+SPOTIFY_CLIENT_ID
+SPOTIFY_CLIENT_SECRET
+SPOTIFY_REDIRECT_URI
+```
+
+* Email (for sending confirmations):
+Using [Nodemailer](https://nodemailer.com/about/) and a basic [Gmail](https://www.google.com/gmail/) account. No oAuth yet.
+
+```
+GMAIL_EMAIL
+GMAIL_PASSWORD
+```
 
 ### Pipelines and Automated Deployment
 
