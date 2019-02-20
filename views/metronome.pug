@@ -1,15 +1,6 @@
-extends _layout
-
+extends __layout
 block content
-    main
-        .container
-            h1 Metronome
-            div
-                strong Enter the BPM (beats per minute)
-                input(type="number" id="bpm" placeholder="90" value="90" min="30" max="300")
-                button(class="metronome modify btn new badge purple-bg") Start
-                    
-                div#Metronome
-                    span#dot
-                    
-                
+  div(class="text-center card container p-4 mt-3")
+    h1 Metronome
+    p #{msg}
+    

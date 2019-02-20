@@ -1,0 +1,84 @@
+/******************* main sections *******************/
+
+body {
+  background-color: #f1f3f5;
+  font-family: 'Montserrat';
+}
+
+#landing {
+  background-image: url("https://images.unsplash.com/photo-1521335751419-603f61523713?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=900&q=60");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+}
+
+#main {
+  background-color: white;
+}
+
+small {
+  font-size: 1rem;
+}
+
+.blue-gradient.btn:hover, .peach-gradient.btn:hover, .purple-gradient.btn:hover {
+  color: white;
+}
+
+.same-width, .spotify-btn {
+  min-width: 12rem !important;
+}
+
+/******************* authorization modals *******************/
+
+.form-elegant .font-small {
+  font-size: 0.8rem;
+}
+
+.form-elegant .modal-header {
+  border-bottom: none;
+}
+
+.form-elegant .modal-body, .form-elegant .modal-footer {
+  font-weight: 400;
+}
+
+select {
+  margin-top: 3rem;
+}
+
+/******************* 404 page *******************/
+
+#notFound {
+  background-image: url("https://images.unsplash.com/photo-1454789548928-9efd52dc4031?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=900&q=60");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100%;
+}
+
+.notFound {
+  position: relative;
+  top: 45%;
+}
+
+.notFound h1 {
+  font-size: 5rem;
+}
+
+/******************* spotify *******************/
+
+.fa-spotify {
+  color: white !important;
+}
+
+.spotify-btn {
+  color: white !important;
+  background-color: rgba(29, 185, 84, 1) !important;
+}
+
+/******************* data table *******************/
+
+.highlight {
+  transition: all .2s ease-in;
+}

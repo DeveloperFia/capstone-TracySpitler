@@ -1,0 +1,65 @@
+extends __layout
+block content
+  div(class="text-center card container p-4 mt-3")
+    h1 Lists
+    if lists.length > 0
+      form(class="mt-3 form-inline active-cyan-3 active-cyan-4 justify-content-center")
+        i(class="fas fa-search" aria-hidden="true")
+        input#searchlists(class="form-control form-control-sm ml-3 w-75" type="text" placeholder="Search for a list" aria-label="Search")
+  
+    div(class="text-center")
+      a(href="" class="btn blue-gradient btn-rounded same-width" data-toggle="modal" data-target="#listModalForm") Create a List
+
+      //- modal - create a list
+      div(class="modal fade hidden" id="listModalForm" tabindex="-1" role="dialog" aria-labelledby="listModalLabel" aria-hidden="true")
+          div(class="modal-dialog" role="document")
+            div(class="modal-content form-elegant")
+              div(class="modal-header text-center")
+                h3(class="modal-title w-100 dark-grey-text font-weight-bold my-3" id="listModalLabel") #[strong Create a List]
+                button(type="button" class="close" data-dismiss="modal" aria-label="Close") #[span(aria-hidden="true") &times;]        
+              div(class="modal-body mx-4")       
+                form(method='post', action='/list/create') 
+                  div(class="md-form")
+                    input(type="text" name="listname" id="listname" class="form-control")
+                    label(data-error="wrong" data-success="" for="listname") List Name            
+                  div(class="md-form")
+                    select(id="listdifficulty" name="listdifficulty" class="browser-default custom-select")
+                      option(value="0" disabled selected) Choose a difficulty
+                      option(value="1") Easy
+                      option(value="2") Moderate
+                      option(value="3") Hard
+                    label(data-error="wrong" data-success="right" for="listdifficulty") List Difficulty (optional)
+                  div(class="text-center mb-3")
+                    button(type="submit" class="btn blue-gradient btn-block btn-rounded z-depth-1a") Create! 
+                  
+  div(class="container my-4")
+    div#allLists(class="row")
+      if lists 
+        for list in lists 
+          
+          if list.difficulty == 0
+              -var diff = "Not Set"
+          if list.difficulty == 1
+              -var diff = "Easy"
+          if list.difficulty == 2
+              -var diff = "Moderate"
+          if list.difficulty == 3
+              -var diff = "Hard"
+              
+          div(class="filter-list col-lg-3 col-md-6 mb-lg-0 mb-4")
+            div(class="card booking-card my-3")
+              div(class="card-body")
+                h4(class="card-title font-weight-bold") #[a #{list.name}]
+                ul(class="list-unstyled list-inline rating mb-0")
+                  li(class="list-inline-item") #[p(class="text-muted") #{diff}]
+                  - for (var i = 0; i < list.difficulty; ++i) {
+                      li(class="list-inline-item mr-0") #[i(class="fas fa-star amber-text")]
+                  - }
+                if list.songs.length > 0
+                  p(class="mb-2") #[i(class="fas fa-guitar")] #{list.songs.length} songs
+                else 
+                  p(class="mb-2") #[i(class="fas fa-guitar")] no songs
+                hr(class="my-2")
+                a(href="/list/" + list._id class="btn btn-md w-100 blue-gradient") View List
+
+                

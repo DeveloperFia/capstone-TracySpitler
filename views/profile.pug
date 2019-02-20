@@ -1,10 +1,5 @@
-extends _layout
+extends __layout
 block content
+  div(class="text-center card container p-4 mt-3")
     h1 Profile
-    ul.collection
-        li.collection-item
-            strong ID: #{user._id }
-        li.collection-item
-            strong Username: #{user.username}
-        li.collection-item
-            strong Name: #{user.name}
+    p user: #{user.username}

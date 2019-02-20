@@ -1,7 +1,3 @@
-> **Capstone Node Base Repo**
-> Below are various sections of content that will need to be filled for various milestones. Fill out what you can now, and enhance this content later.
-
-
 # [SetList]
 
 SetList is a web app that provides guitar players, novice and experienced alike, with the ability to look up chords on the fly, save songs to specific lists of their creation, play along with a metronome to perfect their timing, and hone their skills to play the songs they love with practice sessions based on customized goals.
@@ -51,6 +47,7 @@ $ npm install -g nodemon
 ```
 
 _Database (For Mac: you must have Homebrew installed first. For Windows: download MongoDB from the link.)_
+
 * [Mac Install Tutorial](https://treehouse.github.io/installation-guides/mac/mongo-mac.html)
 * [Homebrew](https://brew.sh/) (1.8.0)
 * __[MongoDB](https://www.mongodb.com/)__
@@ -95,7 +92,7 @@ your@computer:~$ nodemon bin/www
 [nodemon] watching: *.*
 [nodemon] starting `node bin/www`
 Server running on: 3000
-DATABASE CONNECTED SUCCESSFULLY
+Database connected successfully!
 ```
 
 **_with NPM:_**
@@ -109,7 +106,7 @@ _Terminal output:_
 ```
 your@computer:~$ npm start
 Server running on: 3000
-DATABASE CONNECTED SUCCESSFULLY
+Database connected successfully!
 ```
 
 __The site is now available in your browser at localhost:3000__
