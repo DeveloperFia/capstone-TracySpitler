@@ -1,0 +1,159 @@
+mixin songModals
+  -var keys = ['C', 'C♯/D♭', 'D', 'D♯/E♭', 'E', 'F', 'F♯/G♭', 'G', 'G♯/A♭', 'A', 'A♯/B♭', 'B']
+  
+  //- modal - create a song
+  div(class="modal fade hidden" id="songModalForm" tabindex="-1" role="dialog" aria-labelledby="songModalLabel" aria-hidden="true")
+    div(class="text-center container p-4 mt-3")
+      div(class="modal-dialog" role="document")
+        div(class="modal-content form-elegant")
+          div(class="modal-header text-center")
+            h3(class="modal-title w-100 dark-grey-text font-weight-bold my-3 ml-4" id="songModalLabel") #[strong Create a Song]
+            button(type="button" class="close" data-dismiss="modal" aria-label="Close") #[span(aria-hidden="true") &times;]        
+          small Created songs are automatically added to your library
+          hr
+          div(class="modal-body mx-4")       
+            form(method='post', action='/song/create') 
+              div(class="form-row")
+                div(class="col")
+                  div(class="md-form")
+                    input(type="text" name="songtitle" id="songtitle" class="form-control" required)
+                    label(data-error="wrong" data-success="" for="songtitle") Song Title            
+                div(class="col")
+                  div(class="md-form")
+                    input(type="text" name="artist" id="artist" class="form-control" required)
+                    label(data-error="wrong" data-success="" for="artist") Artist           
+              
+              div(class="form-row")
+                div(class="col")
+                  div(class="md-form")
+                    select(id="key" name="key" class="browser-default custom-select m-0 p-0")
+                      option(value="-1", selected, disabled) Key
+                      each val, index in keys
+                        option(value=index) #{val}
+                              
+                div(class="col")
+                  div(class="md-form")
+                    input(type="number" step='0.001' min="0" max="500" name="bpm" id="bpm" class="form-control")
+                    label(data-error="wrong" data-success="" for="bpm") BPM           
+                div(class="col")
+                  div(class="md-form")
+                    input(type="number" name="capo" step='1' min="0" max="12" id="capo" class="form-control")
+                    label(data-error="wrong" data-success="" for="capo") Capo            
+                div(class="col")
+                  div(class="md-form")
+                    input(type="number" name="duration" min="0" id="duration" class="form-control")
+                    label(data-error="wrong" data-success="" for="duration") Duration           
+              br
+              div(class="md-form")
+                a(class="btn btn-sm peach-gradient" data-toggle="collapse" href="#selectlist" role="button" aria-expanded="false"
+  aria-controls="selectlist") Select a List
+                a(class="btn btn-sm peach-gradient" data-toggle="collapse" href="#createlist" role="button" aria-expanded="false"
+  aria-controls="createlist") Create a List
+                div(class="collapse multi-collapse" id="selectlist")
+                  div(class="card-body pt-0 pb-3")
+                    div(class="md-form")
+                      select(id="listchoice" name="listchoice" class="browser-default custom-select mdb-select")
+                        option(value="Library", selected, disabled) Library
+                        if lists
+                          for list in lists
+                            option(value=list.name) #{list.name}
+                      label(data-error="wrong" data-success="right" for="listchoice") Choose a list
+                div(class="collapse multi-collapse" id="createlist")
+                  div(class="card-body")
+                    div(class="md-form")
+                      input(type="text" name="newlist" id="newlist" class="form-control")
+                      label(data-error="wrong" data-success="" for="newlist") New list name           
+
+              div(class="text-center mb-3")
+                button(type="submit" class="btn blue-gradient btn-block btn-rounded z-depth-1a") Create! 
+
+  //- Modal - edit song
+  if song 
+    div(class="modal fade hidden" id="editSongModalForm" tabindex="-1" role="dialog" aria-labelledby="editSongModalLabel" aria-hidden="true")
+      div(class="modal-dialog" role="document")
+        div(class="text-center container p-4 mt-3")
+          div(class="modal-content form-elegant")
+            div(class="modal-header text-center")
+              h3(class="modal-title w-100 dark-grey-text font-weight-bold my-3 ml-4" id="songModalLabel") #[strong Update a Song]
+              button(type="button" class="close" data-dismiss="modal" aria-label="Close") #[span(aria-hidden="true") &times;]        
+            small(class="cyan-text") #{song.title} by #{song.artist}
+            hr
+            div(class="modal-body mx-4")       
+              form(method='post', action='/song/update/' + song._id) 
+                div(class="form-row")
+                  div(class="col")
+                    div(class="md-form")
+                      input(type="text" name="songtitle" id="songtitle" class="form-control" required placeholder=song.title value=song.title)
+                      label(data-error="wrong" data-success="" for="songtitle") Song Title            
+                  div(class="col")
+                    div(class="md-form")
+                      input(type="text" name="artist" id="artist" class="form-control" required placeholder=song.artist value=song.artist)
+                      label(data-error="wrong" data-success="" for="artist") Artist           
+                
+                div(class="form-row")
+                  div(class="col")
+                    div(class="md-form")
+                      select(id="key" name="key" class="browser-default custom-select m-0 p-0")
+                        if song.key >= 0 && song.key < 12
+                          each val, index in keys
+                            if song.key == index
+                              option(value=index selected) #{val}
+                            else
+                              option(value=index) #{val}
+                          option(value=index) none
+                        else
+                          option(value=index selected) none
+                          each val, index in keys
+                            option(value=index) #{val}
+                                
+                  div(class="col")
+                    div(class="md-form")
+                      input(type="number" step='0.001' min="0" max="500" name="bpm" id="bpm" class="form-control" placeholder=song.tempo value=song.tempo)
+                      label(data-error="wrong" data-success="" for="bpm") BPM           
+                  div(class="col")
+                    div(class="md-form")
+                      input(type="number" name="capo" step='1' min="0" max="12" id="capo" class="form-control" placeholder=song.capo value=song.capo)
+                      label(data-error="wrong" data-success="" for="capo") Capo            
+                  div(class="col")
+                    div(class="md-form")
+                      input(type="number" name="duration" min="0" id="duration" class="form-control" placeholder=song.duration value=song.duration)
+                      label(data-error="wrong" data-success="" for="duration") Duration           
+                br
+                if song.lists.length > 0
+                  p(class="cyan-text") This song belongs to:
+                  for oldlist in song.lists
+                    for list in lists 
+                      if (list._id == "" + oldlist + "") 
+                        div(class="custom-control custom-checkbox custom-control-inline")
+                          input(name='oldlist' type="checkbox" class="custom-control-input" id=list.name value=list.name checked=true)
+                          label(class="custom-control-label" for=list.name) #{list.name}
+              
+                else 
+                  p(class="cyan-text") This song is not in a list yet. Change that by choosing an option below:
+                div(class="md-form")
+                  a(class="btn btn-sm peach-gradient" data-toggle="collapse" href="#selectlist" role="button" aria-expanded="false"
+    aria-controls="selectlist") Select a List
+                  a(class="btn btn-sm peach-gradient" data-toggle="collapse" href="#createlist" role="button" aria-expanded="false"
+    aria-controls="createlist") Create a List
+                  div(class="collapse multi-collapse" id="selectlist")
+                    div(class="card-body pt-0 pb-3")
+                      div(class="md-form")
+                        select(id="listchoice" name="listchoice" class="browser-default custom-select mdb-select")
+                          option(value="Library", selected, disabled) Library
+                          if allLists
+                            for list in allLists
+                              if song.lists.length > 0
+                                for oldlist in song.lists
+                                  if (list._id != "" + oldlist + "") 
+                                    option(value=list.name) #{list.name}
+                              else 
+                                option(value=list.name) #{list.name}
+                        label(data-error="wrong" data-success="right" for="listchoice") Choose a list
+                  div(class="collapse multi-collapse" id="createlist")
+                    div(class="card-body")
+                      div(class="md-form")
+                        input(type="text" name="newlist" id="newlist" class="form-control")
+                        label(data-error="wrong" data-success="" for="newlist") New list name           
+
+                div(class="text-center mb-3")
+                  button(type="submit" class="btn blue-gradient btn-block btn-rounded z-depth-1a") Update! 

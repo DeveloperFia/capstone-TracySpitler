@@ -1,19 +1,16 @@
 // include the express dependency then instantiate it
 const express = require('express');
 const app = express();
-const mongoose = require('mongoose');
-const db = require('./config/mongoose');
 const path = require('path');
-
-// turns data into js object
+const db = require('./config/mongoose');
 const bodyParser = require('body-parser');
-// mount express validator (this goes after bodyParser)
-var validator = require('express-validator');
+const validator = require('express-validator');
 
 // auth packages
 const passport = require('./config/passport');
 const expressSession = require('express-session');
 const MongoStore = require('connect-mongo')(expressSession);
+var flash = require('connect-flash');
 
 // express-session setup
 app.use(expressSession({
@@ -22,47 +19,54 @@ app.use(expressSession({
     resave: false,
     saveUninitialized: false,
     // store to mongo (no need to login after every save)
-    store: new MongoStore({mongooseConnection: db})
+    store: new MongoStore({mongooseConnection: db}),
 }))
 
 // passport middleware
 app.use(passport.initialize())
 app.use(passport.session());
+app.use(flash());
 
-// JSON data and converted and added to req.body
+// middleware
 app.use(bodyParser.json());
-// convert GET url
 app.use(bodyParser.urlencoded({extended: false}));
-//use express validator
 app.use(validator());
 
 // pug - template engine
 app.set('views', __dirname + '/views');
 app.set('view engine', 'pug');
 
-// include public folder for js and css files
+// public folder for js and css files
 app.use(express.static(path.join(__dirname, "public")));
 
+// save in locals for access elsewhere
+app.use(function(req, res, next){
+  res.locals.user = req.user;
+  res.locals.messages = require('express-messages')(req, res);
+  next();
+});
+
 // routes
-const index = require('./routes/index');
-app.use('/', index);
-
-const lists = require('./routes/lists');
-app.use('/', lists);
-
-const songs = require('./routes/songs');
-app.use('/', songs);
+const public = require('./routes/public');
+app.use('/', public);
 
 const auth = require('./routes/auth');
 app.use('/auth', auth);
 
+const lists = require('./routes/lists');
+app.use('/list', lists);
+
+const songs = require('./routes/songs');
+app.use('/song', songs);
+
+const learn = require('./routes/learn');
+app.use('/learn', learn);
+
 // 404 error handling
 app.use(function(req, res, next) {
-    // if the route doesn't exist..
-    if (!req.route)
-        // let the user know
-        res.status(404).send('<h1>Uh oh! 404 error: page not found</h1><br><a href="/">Go Home</a>');
-    next();
+  if (!req.route)
+    res.status(404).render('notFound');
+  next();
 });
 
 // export the app

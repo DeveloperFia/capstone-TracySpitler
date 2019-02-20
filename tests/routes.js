@@ -15,8 +15,8 @@ describe('Routes', function() {
         });
     });
 
-    // index.js
-    describe('index.js', function() {
+    // public.js
+    describe('public.js', function() {
         // '/'
         describe('\'/\'', function() {
             // test for 200
@@ -25,24 +25,8 @@ describe('Routes', function() {
                     .get('/')
                     .expect(302, done)
             });
-            // test redirect
-            it('no user - should redirect to /start', function(done) {
-                request(app)
-                    .get('/')
-                    .expect('Location', '/start')
-                    .expect(302, done)
-            });
         });
-        // '/start'
-        describe('\'/start\'', function() {
-            // test
-            it('should return a 200 response', function(done) {
-                request(app)
-                    .get('/start')
-                    .expect(200, done)
-            });
-        });
-    }); // end index.js
+    }); // end public.js
 
 });
 

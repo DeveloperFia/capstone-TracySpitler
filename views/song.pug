@@ -1,0 +1,89 @@
+extends __layout
+block content
+  if song
+    div(class="text-center card container p-4 mt-3")
+      h1 #{song.title}
+      small(class="cyan-text") by #{song.artist}
+      hr
+      div(class="text-center")
+        button#songid(class="btn purple-gradient btn-rounded same-width" value=song._id data-badge-caption="delete" data-toggle="modal" data-target="#modalSongDelete") Delete
+        button(href="" class="btn peach-gradient btn-rounded same-width" data-toggle="modal" data-target="#editSongModalForm") Edit Song
+        
+    div(class="text-center card container p-4 my-3 d-flex")
+      h1 Song Info
+      
+      div(class="text-left card-deck mt-4")
+        div(class="card")
+          div(class="card-body")
+            h5(class="card-title") Lists
+            small(class="card-text cyan-text") This song is in:
+            br 
+            ul
+            if song.lists.length > 0
+              for songlist in song.lists 
+                for list in lists
+                  if (list._id == "" + songlist + "")
+                    a(href="/list/" + list._id) #{list.name}
+                    br
+            else
+              p No list. Wanna change that?
+              a(href="" data-toggle="modal" data-target="#editSongModalForm") Add to a list
+          div(class="card-footer") 
+            if song.lists.length == 1
+              small(class="text-muted") Belongs to #{song.lists.length} list
+            else 
+              small(class="text-muted") Belongs to #{song.lists.length} lists
+            
+        
+        div(class="card") 
+          div(class="card-body") 
+            h5(class="card-title") Chords
+            p(class="card-text") Chords that have been added to this song will go here.
+          div(class="card-footer") 
+            small(class="text-muted") Chord patterns below:
+          
+        div(class="card") 
+          div(class="card-body") 
+            h5(class="card-title") Info
+            p(class="card-text cyan-text") #{song.title} by #{song.artist}
+            if song.key
+              p(class="card-text") Key: #{song.key}
+            if song.tempo
+              p(class="card-text") BPM: #{song.tempo}
+            if song.capo
+              p(class="card-text") Capo: #{song.capo}
+            if song.duration
+              p(class="card-text") Duration: #{song.duration}
+          div(class="card-footer") 
+            -function prettyDate(dateString){
+              -var date = new Date(dateString);
+              -var d = date.getDate();
+              -var monthNames = [ "Jan", "Feb", "Mar", "Apr", "May", "Jun","Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ];
+              -var m = monthNames[date.getMonth()];
+              -var y = date.getFullYear();
+              -var hours = [ "12", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11" ];
+              -var hour = hours[date.getHours()];
+              if date.getHours() < 12
+                -var sun = ' am';
+              else 
+                -var sun = ' pm';
+              -var min = date.getMinutes();
+              -return m + ' ' + d + ' @ ' + hour + ':' + min + sun;
+            -}
+            small(class="text-muted") Added #{prettyDate(song.date_added)}
+  
+    div(class="text-center card container p-4 my-3")
+      h1 Chords
+      if song.chords.length > 0
+        p Yay, chords!
+      else
+        p No chords exist for this song yet.   
+        
+  else 
+    div(class="text-center card container p-4 mt-3")
+      h1 Somehow, this song doesn't exist.
+      sm(class="cyan-text") Try selecting a different song
+      hr
+      a(class="blue-gradient btn" href="/song") Go back
+      
+    

@@ -1,229 +1,175 @@
-// include
+// @desc list routes
+// @routes /list
+
+// require
 const express = require('express');
-const router = express.Router()
-const path = require('path');
-const protect = require('connect-ensure-login').ensureLoggedIn;
+const router = express.Router();
+var path = require('path');
+const protect = require('connect-ensure-login').ensureLoggedIn('/');
 
 // models
-const List = require('../models/List');
-const Song = require('../models/Song');
+const List = require('../models/list');
+const Song = require('../models/song');
+const User = require('../models/user');
 
-// function that gets all of the lists from the database
+// function - get all lists from db
 let getLists = (req, res, next) => {
-    List.find({ name: "Library"}, function(err, library) {
+  List.find({ user: req.user._id }, function(err, lists) {
+    if (err) {
+      // send errors
+      res.send({err});
+    }
+    else {
+      // add lists to req
+      req.lists = lists;
+      // run the next function
+      next();
+    }
+  });
+}
+
+// function - gets all songs from db
+let getSongs = (req, res, next) => {
+  // get all the songs
+  Song.find({}, function(err, songs) {
+    if (err) {
+      // send errors
+      res.send({err});
+    }
+    else {
+      // add songs to req
+      req.songs = songs;
+      // run the next function
+      next();
+    }
+  });
+}
+
+// all lists - GET
+router.get('/', protect, getLists, (req, res) => {
+  res.render('setlists', {
+    msg:'All of the users lists will be here.',
+    lists: req.lists,
+  });
+});
+
+// create list - POST
+router.post('/create', protect, (req, res) => {
+  // validate
+  req.checkBody('listname', 'Please name the list.').notEmpty();
+
+  // if errors
+  var err = req.validationErrors();
+  if (err){
+    // send errors
+    res.send({err});
+  }
+  else {
+    User.findOne({ _id: req.user._id }, function(err, user) {
+      // create a new list object
+      var newList = List({
+        name: req.body.listname,
+        difficulty: req.body.listdifficulty,
+        user: user._id
+      });
+      // push the list to user
+      user.lists.push(newList._id);
+      // save the user
+      user.save(function(err) {
         if (err) {
-            console.log('err', err);
-        }
-        else if (!library[0]) {
-            console.log("library is empty");
-            // create the library
-            var library = List({
-                name: "Library",
-            });
-            // save list to the database
-            library.save(function(err) {
-                if (err) {
-                    console.log('err', err);
-                }
-                else {
-                    console.log('Library saved successfully!')
-                    next();
-                }
-            });
+          // send errors
+          res.send({err});
         }
         else {
-            console.log("library exists!");
-            // get all the lists
-            List.find({}, function(err, lists) {
-                // if there is an error, throw it
-                if (err)
-                    console.log('err', err);
-                // add a list of lists to the request object to be used in different routes
-                req.lists = lists;
-                // run the next function
-                next()
-            });
-        }
-    });
-}
-
-// function that gets all of the songs from the database
-let getSongs = (req, res, next) => {
-    // get all the songs
-    Song.find({}, function(err, songs) {
-        // if there is an error, throw it
-        if (err)
-            console.log('err', err);
-        // add a list of songs to the request object to be used in different routes
-        req.songs = songs;
-        // run the next function
-        next()
-    });
-}
-
-// GET ** get /lists route and send lists as data
-router.get('/lists', protect(), getLists, (req, res, next) => {
-// render the page with the lists passed as data
-    res.render(path.join(__dirname, '/../views/all-lists.pug'), {
-        github: "https://github.com/TracySpitler",
-        lists: req.lists,
-        user: req.user
-    });
-})
-
-// GET ** get /expand route
-router.get('/expand', protect(), getLists, (req, res, next) => {
-
-    // render the page with the lists passed as data
-    res.render(path.join(__dirname, '/../views/expand-library.pug'), {
-        github: "https://github.com/TracySpitler",
-        lists: req.lists,
-        user: req.user
-    });
-})
-
-// POST ** route to save a new list - a POST request to /lists
-router.post('/lists', getLists, (req, res, next) => {
-
-    // check for empty values
-    req.checkBody('list_name', 'Please give the list a name.').notEmpty();
-
-    // if there are errors..
-    var errors = req.validationErrors();
-    if (errors){
-        // render the form with errors
-        res.render(path.join(__dirname, '/../views/expand-library.pug'), {
-            list_errors: errors,
-            github: "https://github.com/TracySpitler",
-            user: req.user,
-        });
-    }
-    // otherwise save the list to the db
-    else {
-        // create a new list object
-        var newList = List({
-            name: req.body.list_name,
-            difficulty: req.body.list_difficulty,
-        });
-
-        // save list to the database
-        newList.save(function(err) {
+          // save the list
+          newList.save(function(err) {
             if (err) {
-                // render the form with errors
-                res.render(path.join(__dirname, '/../views/expand-library.pug'), {
-                    list_errors: err,
-                    db_error: "The list \'" + newList.name + "\' already exists! Please rename it.",
-                    github: "https://github.com/TracySpitler",
-                    user: req.user,
-                });
+              // send errors
+              res.send({err});
             }
             else {
-                console.log('List saved successfully!')
-                // go back to the home page
-                res.redirect('/lists');
+              // redirect
+              res.redirect('/list');
             }
-        });
-    }
-})
+          });
+        }
+      });
+    });
+  }
+});
 
-// GET ** get single list details
-router.get('/lists/:id', protect(), getLists, getSongs, (req, res, next) => {
+// specific list - GET
+router.get('/:id', protect, getLists, getSongs, (req, res) => {
     // get the list by the params id
     List.find({ _id: req.params.id }, function(err, list) {
+      if (err) {
+        // send errors
+        res.send({err});
+      }
+      // find songs in this list
+      Song.find({lists: req.params.id }, function(err, songs) {
         if (err) {
-            // render the lists page with errors
-            res.render(path.join(__dirname, '/../views/all-lists.pug'), {
-                errors: err,
-                github: "https://github.com/TracySpitler",
-                user: req.user,
-            });
-        }
-
-        // find songs in this list
-        Song.find({lists: req.params.id }, function(err, songs) {
-            if (err) {
-                // render the lists page with errors
-                res.render(path.join(__dirname, '/../views/all-lists.pug'), {
-                    errors: err,
-                    github: "https://github.com/TracySpitler",
-                    user: req.user,
-                });
-            }
-
-            // render the page with both lists and songs passed as data
-            res.render(path.join(__dirname, '/../views/list.pug'), {
-                github: "https://github.com/TracySpitler",
-                list: req.params.id,
-                songs: songs,
-                lists: req.lists,
-                user: req.user,
-            });
-        });
-    });
-})
-
-// POST ** update a list
-router.post('/lists/:id', getLists, (req, res, next) => {
-
-    // get a list with ID parameter
-    List.findById(req.params.id, function(err, list) {
-        if (err) throw err;
-
-        // update the list
-        list.name = req.body.list_name;
-        // if the difficulty was changed
-        if (req.body.list_difficulty >= 0) {
-            list.difficulty = req.body.list_difficulty;
+          // send errors
+          res.send({err});
         }
         else {
-            list.difficulty = list.difficulty;
+          // redirect
+          res.render('list', {
+            list: list[0],
+            lists: req.lists,
+            songs: songs,
+          });
         }
+      });
+    });
+});
 
-        // save the list
-        list.save(function(err) {
-            if (err) throw err;
-            console.log('List successfully updated!');
-        });
+// update list - POST
+router.post('/update/:id', protect, (req, res) => {
+    // find the list by {id}
+    List.findById(req.params.id, function(err, list) {
+      if (err) {
+        // send errors
+        res.send({err});
+      }
+      // update the list
+      list.name = req.body.listname;
+      // if the difficulty was changed
+      if (req.body.listdifficulty >= 0) {
+          list.difficulty = req.body.listdifficulty;
+      }
+      else {
+          list.difficulty = list.difficulty;
+      }
+
+      // save the list
+      list.save(function(err) {
+        if (err) {
+          // send errors
+          res.send({err});
+        }
+      });
     });
     // redirect
-    res.redirect('/lists/' + req.params.id);
-})
+    res.redirect('/list/' + req.params.id);
+});
 
-// DELETE ** delete a list
-router.delete('/lists/:id', getLists, (req, res, next) => {
-    // get the library
-    List.find({ name: "Library" }, function(err, library) {
-        if (err) {
-            // render the lists page with errors
-            res.render(path.join(__dirname, '/../views/all-lists.pug'), {
-                errors: err,
-                github: "https://github.com/TracySpitler",
-                user: req.user,
-            });
-        }
-        else {
-            // as long as the list is not the Library
-            if (req.params.id != library[0]._id) {
-                // find the list with id
-                List.findByIdAndDelete(req.params.id, function(err) {
-                    if (err) throw err;
-                    // the list has been deleted
-                    console.log('List deleted!');
-                });
+// delete list - DELETE
+router.delete('/:id', protect, getLists, (req, res) => {
+  // find the list by {id}
+  List.findByIdAndDelete(req.params.id, function(err) {
+    if (err) {
+      // send errors
+      res.send({err});
+    }
+  });
 
-                // render the page with the lists passed as data
-                res.render(path.join(__dirname, '/../views/all-lists.pug'), {
-                    github: "https://github.com/TracySpitler",
-                    lists: req.lists,
-                    user: req.user,
-                });
-            }
-            else {
-                console.log("The Library cannot be deleted.");
-            }
-        }
-    })
-})
+  // render lists
+  res.render('setlists', {
+    msg:'All of the users lists will be here.',
+    lists: req.lists,
+  });
+});
 
 // set up router
 module.exports = router;

@@ -18,7 +18,8 @@ var songSchema = mongoose.Schema({
     spotify_id: {type: String, unique: [true, 'spotify id already exists'], sparse: true},
     // relationship
     // an array of list ids that the song is in
-    lists: [{type: mongoose.Schema.Types.ObjectId, ref: 'List'}],
+    lists: [{type: mongoose.Schema.Types.ObjectId, ref: 'list'}],
+    user: {type: String, required: true}
 });
 
 songSchema.pre('save', function(next) {
@@ -31,4 +32,4 @@ songSchema.pre('save', function(next) {
   next();
 })
 
-module.exports = mongoose.model('Song', songSchema)
+module.exports = mongoose.model('song', songSchema)
