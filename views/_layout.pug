@@ -7,6 +7,9 @@ head
     link(href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet")
     link(rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.1/css/materialize.min.css")
     link(rel='stylesheet', href='/stylesheets/style.css', type='text/css')
+    link(rel="stylesheet" href="/stylesheets/chordictionary.min.css")
+    link(type="text/css" rel="stylesheet" href="http://jtab.tardate.com/css/jtab-helper.css")
+    
 
 body
     header
@@ -17,9 +20,17 @@ body
                     if !user
                         li
                             a(href="/start") Start Here
+                        li
+                            a(href="/chords") Chords
+                        li
+                            a(href="/metronome") Metronome
                     else
                         li
                             a(href="/lists") Lists
+                        li
+                            a(href="/chords") Chords
+                        li
+                            a(href="/metronome") Metronome
                         li
                             a(href="/profile") Profile
                         li
@@ -38,8 +49,11 @@ body
         .page-footer.center-align.dark-bg
             p a project by Tracy Spitler
             a(href='#') GitHub
-
+    
+    script(src="https://jtab.tardate.com/javascripts/jquery.js" type="text/javascript")
+    script(src="https://jtab.tardate.com/javascripts/raphael.js" type="text/javascript")
+    script(src="https://jtab.tardate.com/javascripts/jtab.js" type="text/javascript")
     script(type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.js")
     script(src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.1/js/materialize.min.js")
     script(type="text/javascript" src="/js/javascript.js")
-        
+    script(type="text/javascript" src="/js/pendulum.min.js")

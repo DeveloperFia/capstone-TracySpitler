@@ -1,4 +1,8 @@
 $(document).ready(function() {
+
+    // create a metronome
+    var metronome = new Pendulum();
+
     $('select').material_select();
 
     // update list
@@ -20,19 +24,9 @@ $(document).ready(function() {
         }
     });
 
-    // list choice
-    $("#lchoicebtn").click(function() {
-        $("#inList").toggle();
-    });
-
-    // custom list
-    $("#lcustombtn").click(function() {
-        $("#customList").toggle();
-    });
-
-    // expand options
-    $("#soptionsbtn").click(function() {
-        $("#extraOptions").toggle();
+    // add song - popout form
+    $('.popout').click(function(){
+        $('#pop').toggle();
     });
 
     // search lists
@@ -80,6 +74,74 @@ $(document).ready(function() {
         // send data to filterLists function
         filterLists("allSongs", "em", "search", str);
     });
+
+    // search for chords
+    $('#search-chords').keyup(function() {
+        // get user input
+        var input = document.getElementById("search-chords");
+        // capitalize the first letter (root note) after a space
+        var chord = capitalize(input.value);
+        // render svg chords
+        jtab.render($('#Chords'), chord);
+    });
+
+    // start/stop metronome based on input
+    $('.metronome').click(function(){
+        var $this = $(this);
+        $this.toggleClass('metronome');
+        // get user input
+        var input = document.getElementById("bpm");
+        var bpm = input.value;
+        // set the bpm
+        metronome.set(bpm);
+
+        if($this.hasClass('metronome')){
+            metronome.stop();
+            $this.text('Start');
+        } else {
+            metronome.start();
+            $this.text('Stop');
+        }
+
+        metronome.on('tick', function() {
+            // get dot
+            var dot = document.getElementById("dot");
+            $(dot).toggleClass('purple');
+        });
+    });
+
+    $("#spotSearchInput").change(function () {
+      // variables
+      var token = document.getElementById("token").innerText;
+      var input = $('#spotSearchInput').val();
+      if (input) {
+        var query = input.split(' ').join('%20');
+        var url = 'https://api.spotify.com/v1/search?q=' + query + '&type=track';
+
+        // ajax call to spotify
+        $.ajax({
+            url: url,
+            type: 'GET',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'Authorization': 'Bearer ' + token
+            },
+            success: function (result) {
+               var name = result.tracks.items[0].name;
+               var artist = result.tracks.items[0].artists[0].name
+               var tracks = result.tracks.items;
+               $('#spotifyData').html('');
+               // render the top 5 results
+               for (var i = 0; i < 10; i++) {
+                 $('#spotifyData').append("<li><strong>Name: "+ tracks[i].name +"</strong><br>Artist: "+ tracks[i].artists[0].name +"</li><br>");
+               }
+            },
+            error: function (error) {
+              console.log('error: ' + error);
+            }
+        });
+      }
+    })
 });
 
 function filterLists(id, eTag, filter, str) {
@@ -121,4 +183,14 @@ function filterLists(id, eTag, filter, str) {
             }
         }
     }
+}
+
+function capitalize(str) {
+   var splitStr = str.toLowerCase().split(' ');
+   for (var i = 0; i < splitStr.length; i++) {
+       // assign it to the array
+       splitStr[i] = splitStr[i].charAt(0).toUpperCase() + splitStr[i].substring(1);
+   }
+   // return the string
+   return splitStr.join(' ');
 }
