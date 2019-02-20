@@ -104,6 +104,51 @@ $(document).ready(function () {
     }
   });
 
+  /******************* metronome *******************/
+
+  // create a metronome
+  var metronome = new Pendulum();
+
+  // on tempo change
+  function bpmVal(e){
+    var input = $(this);
+    var str = input.val();
+    metronome.set(str);
+    $( ".circle-content" ).html( str );
+  }
+  jQuery('.bpm-change').change(bpmVal).keyup(bpmVal);
+
+  // start/stop metronome based on input
+  $('.metronome').click(function(){
+
+    var $this = $(this);
+    $this.toggleClass('metronome');
+    // get user input
+    var input = $('.bpm-change');
+    var bpm = input.val();
+    // set the bpm
+    metronome.set(bpm);
+
+    // toggle the metronome blink
+    if($this.hasClass('metronome')){
+      metronome.stop();
+      $this.text('Start');
+      $this.toggleClass('blue-gradient peach-gradient');
+    } else {
+      metronome.start();
+      $this.text('Stop');
+      $this.toggleClass('blue-gradient peach-gradient');
+    }
+
+    // toggle bigger circle on ticks
+    metronome.on('tick', function() {
+      $(bigdot).toggleClass('dusty-grass-gradient');
+      var sound = document.getElementById("audio");
+      sound.play();
+    });
+  });
+
+  // end
 });
 
 /******************* flash alerts *******************/
