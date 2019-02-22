@@ -211,7 +211,7 @@ router.post('/update/:id', protect, getSongs, getLists, (req, res) => {
     // update the song
     song.title = req.body.songtitle;
     song.artist = req.body.artist;
-    song.key = req.body.key;
+    song.key = (req.body.key == 'none') ? -1 : req.body.key;
     song.tempo = req.body.bpm;
     song.capo = req.body.capo;
     song.duration = req.body.duration;
