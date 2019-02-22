@@ -145,11 +145,13 @@ $(document).ready(function () {
       $this.toggleClass('blue-gradient peach-gradient');
     }
 
-    // toggle bigger circle on ticks
+    // toggle bigger circle & sound
     metronome.on('tick', function() {
       $(bigdot).toggleClass('dusty-grass-gradient');
-      var sound = document.getElementById("audio");
-      sound.play();
+      if ($('#mute i').hasClass('fa-volume-up')) {
+        var sound = document.getElementById("audio");
+        sound.play();
+      }
     });
   });
 
