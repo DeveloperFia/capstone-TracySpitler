@@ -1,6 +1,11 @@
 extends __layout
 block content
   div(class="text-center card container p-4 mt-3")
-    h1 Chords
-    p #{msg}
-    
+    h1 Chord Search
+    p Enter a Chord Name:
+    br
+    form(class="form-inline md-form form-sm mt-0 justify-content-center")
+      i(class="fas fa-search" aria-hidden="true")
+      input(class="search-chords form-control form-control-sm ml-3 w-75" type="text" placeholder="Search for a chord" aria-label="Search")
+  
+    div#chords(class="row")

@@ -2,5 +2,19 @@ extends __layout
 block content
   div(class="text-center card container p-4 mt-3")
     h1 Metronome
-    p #{msg}
+    p Slide to change the BPM (beats per minute)
+    
+    div(class="mx-auto align-items-center")
+      audio(id="audio" src="https://www.soundjay.com/button/button-16.wav" autostart="false")
+      div(class='d-flex')
+        small 40 
+        input(class='bpm-change' type="range" placeholder="90" value="90" min="40" max="218")
+        small 218
+      div#bigdot(class='mt-4')
+        div#dot(class='elegant-color-dark white-text')
+          h3(class='circle-content py-3 my-3 mx-auto') 90
+      br
+      button(class="same-width metronome modify btn new badge purple-bg blue-gradient") Start
+          
+        
     
