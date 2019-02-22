@@ -1,5 +1,6 @@
 extends __layout
 block content
+  -var keys = ['C', 'C♯/D♭', 'D', 'D♯/E♭', 'E', 'F', 'F♯/G♭', 'G', 'G♯/A♭', 'A', 'A♯/B♭', 'B']
   
   -var url = '/list/update/' + list._id
   if list.difficulty == 0
@@ -20,14 +21,50 @@ block content
       button(href="" class="same-width btn peach-gradient w-25 btn-rounded" data-toggle="modal" data-target="#editListModalForm") Edit List
         
   div(class="text-center card container p-4 mt-3")
-    h1 Songs
     if list.songs.length > 0
-      
-      for song in songs 
-        p Title: #{song.title} 
-        p Artist: #{song.artist}
+      div(class="card")
+        div(class="view card-header elegant-color-dark p-2 mb-0")
+          div(class='d-flex justify-content-between align-items-center')
+            h3(class="white-text mx-3 mt-3") #[Strong Songs in #{list.name}]
+            div(class="mr-2")
+              button#aboutsong(type="button" class="btn btn-outline-white btn-rounded btn-sm px-2") #[i(class="fas fa-info-circle mt-0")]
+          div#songfilters(class='d-flex mt-2 px-1 justify-content-between ')
+            
+        div(class="d-flex justify-content-center")
+          div(class="table-wrapper table-responsive mx-4 my-2 px-2")
+            table#dtSongs(class="table table-hover" cellspacing='0')
+              thead
+                tr
+                  th(hidden)
+                  th
+                    | Title
+                  th
+                    | Artist
+                  th(class="text-center")
+                    | Key
+                  th(class="text-center")
+                    | BPM
+                  th(class="text-center")
+                    | Capo
+                  th(class="text-center")
+                    | Duration
+              tbody
+                for song in songs
+                  tr(class='filter-list')
+                    td(hidden) #{song._id}
+                    td #[strong #{song.title}]
+                    td #{song.artist}
+                    td(class="text-center") #{(keys[song.key]) ? keys[song.key] : "-"}
+                    td(class="text-center") #{(song.tempo) ? song.tempo : "-"}
+                    td(class="text-center") #{(song.capo) ? song.capo : "-"}
+                    td(class="text-center") #{(song.duration) ? song.duration : "-"}
+        
+        div#songfooter(class="view card-header elegant-color-dark p-0 mb-0 d-flex justify-content-between align-items-center white-text")        
+    
     else
-      p No songs are in this list yet. 
+      div(class="text-center")
+        p There are currently no songs in this list. Wanna change that?
+        a(href="" class="btn blue-gradient btn-rounded same-width" data-toggle="modal" data-target="#songModalForm") Create a Song
     
   //- Modal - confirm delete 
   div(class="modal fade" id="modalConfirmDelete" tabindex="-1" role="dialog" aria-labelledby="modalConfirmDelete" aria-hidden="true")
