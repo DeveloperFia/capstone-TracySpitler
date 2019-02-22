@@ -175,3 +175,10 @@ ul.pagination {
   display: inline-block;
   margin: .75rem 0;
 }
+
+/******************* chords *******************/
+
+.jtab {
+  width: 180px;
+  height: 150px;
+}
