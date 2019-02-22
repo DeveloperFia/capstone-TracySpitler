@@ -106,6 +106,11 @@ $(document).ready(function () {
 
   /******************* metronome *******************/
 
+  // volume button
+  $('#mute').click(function() {
+    $(this).find('i').toggleClass('fa-volume-mute fa-volume-up');
+  });
+
   // create a metronome
   var metronome = new Pendulum();
 
@@ -129,7 +134,7 @@ $(document).ready(function () {
     // set the bpm
     metronome.set(bpm);
 
-    // toggle the metronome blink
+    // toggle the metronome & buttons
     if($this.hasClass('metronome')){
       metronome.stop();
       $this.text('Start');
@@ -146,6 +151,17 @@ $(document).ready(function () {
       var sound = document.getElementById("audio");
       sound.play();
     });
+  });
+
+  /******************* chords *******************/
+
+  $('.search-chords').keyup(function() {
+    // get user input
+    var input = $('.search-chords').val();
+    // capitalize the first letter (root note) after a space
+    var chord = capitalize(input);
+    // render svg chords
+    jtab.render($('#chords'), chord);
   });
 
   // end
@@ -209,4 +225,15 @@ function filterLists(id, eTag, filter, str) {
       }
     }
   }
+}
+
+// capitalize string
+function capitalize(str) {
+  var splitStr = str.toLowerCase().split(' ');
+  for (var i = 0; i < splitStr.length; i++) {
+    // assign it to the array
+    splitStr[i] = splitStr[i].charAt(0).toUpperCase() + splitStr[i].substring(1);
+  }
+  // return the string
+  return splitStr.join(' ');
 }
