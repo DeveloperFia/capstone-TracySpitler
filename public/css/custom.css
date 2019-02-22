@@ -176,6 +176,10 @@ ul.pagination {
   margin: .75rem 0;
 }
 
+#mute {
+  width: 5.5rem;
+}
+
 /******************* chords *******************/
 
 .jtab {
