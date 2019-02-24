@@ -6,7 +6,7 @@ block content
     h1 Songs
     
     div(class="text-center mt-2")
-      a(href="" class="btn spotify-btn btn-rounded same-width" data-toggle="modal" data-target="#") Search Spotify
+      a(href="" class="btn spotify-btn btn-rounded same-width" data-toggle="modal" data-target="#spotifyModalForm") Search Spotify
       a(href="" class="btn blue-gradient btn-rounded same-width" data-toggle="modal" data-target="#songModalForm") Create a Song
       
   div(class="text-center card container p-4 my-4")
@@ -50,7 +50,7 @@ block content
                       td(class="text-center") #{(keys[song.key]) ? keys[song.key] : "-"}
                       td(class="text-center") #{(song.tempo) ? song.tempo : "-"}
                       td(class="text-center") #{(song.capo) ? song.capo : "-"}
-                      td(class="text-center") #{(song.duration) ? song.duration : "-"}
+                      td(class="text-center") #{(getDuration(song.duration) != '0:00') ? getDuration(song.duration) : "-"}
           
           div#songfooter(class="view card-header elegant-color-dark p-0 mb-0 d-flex justify-content-between align-items-center white-text")        
       else 
