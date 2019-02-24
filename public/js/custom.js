@@ -79,6 +79,56 @@ $(document).ready(function () {
     })
   });
 
+  /******************* spotify *******************/
+
+  // search spotify for song
+  $("#searchspotify").keyup(function(){
+    var query = ($(this).val() == '') ? 0 : $(this).val();
+    var beginning = '<div class="list-group-item list-group-item-action d-flex"><p class="mb-0">';
+    var middle = '</p><div class="flex-column"><p><strong class="spotify-title">';
+    var end = '</span></div></div>';
+
+    $.getJSON('/spotify/' + query, function(data) {
+      var songs = data.results;
+      $('#spotifyresults div:first').replaceWith('<div>');
+      if (!query) {
+        $('#spotifyresults div:first').append(beginning + '<i class="fab fa-spotify fa-2x mr-4 success-color p-3 white-text rounded " aria-hidden="true" />' + middle + 'Search Results</strong></p><span class="spotify-artist"> from Spotify' + end);
+      }
+      else {
+        for (var i = 0; i < songs.length; i++) {
+          $('#spotifyresults div:first').append(beginning + '<img id="' + songs[i].id + '" class="mr-4 z-depth-1 img-thumbnail" src="' + songs[i].album.images[1].url + '" alt="Album Image" height="64" width="64">' + middle + songs[i].name + '</strong></p><span class="spotify-artist"> by ' + songs[i].artists[0].name + end);
+        }
+      }
+    });
+  });
+
+  // on song select, fill fields
+  $('#spotifyresults').on('click', function(e) {
+    var el = $(e.target).closest('.list-group-item');
+    var songid = el.find('p').find('.img-thumbnail').attr("id");
+    var title = el.find('p:last').text();
+    var art = el.find('span').text();
+
+    if (songid) {
+      // remove labels
+      $('label').text('');
+
+      $.getJSON('/spotify/features/' + songid, function(data) {
+        var features = data.results;
+        var artist = art.split('by ');
+        var duration = toTime(features.duration_ms);
+
+        // set form values
+        $('.songtitle').val(title);
+        $('.artist').val(artist[1]);
+        $('.key').val(features.key);
+        $('.capo').val(0);
+        $('.tempo').val(features.tempo);
+        $('.duration').val(((duration.hour > 0) ? duration.hour + ':' : '') + duration.minute + ':' + duration.seconds);
+      });
+    }
+  });
+
   /******************* lists *******************/
 
   // search lists
@@ -238,4 +288,14 @@ function capitalize(str) {
   }
   // return the string
   return splitStr.join(' ');
+}
+
+// convert milliseconds to time
+function toTime(ms) {
+  var minutes = Math.floor(ms / 60000);
+  var seconds = ((ms % 60000) / 1000).toFixed(0);
+  return {
+    minute: minutes,
+    seconds: (seconds < 10 ? '0' : '') + seconds
+  }
 }
