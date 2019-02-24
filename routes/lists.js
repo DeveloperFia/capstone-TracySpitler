@@ -45,6 +45,16 @@ let getSongs = (req, res, next) => {
   });
 }
 
+// function to convert milliseconds to time
+function toTime(ms) {
+  var minutes = Math.floor(ms / 60000);
+  var seconds = ((ms % 60000) / 1000).toFixed(0);
+  return {
+    minute: minutes,
+    seconds: (seconds < 10 ? '0' : '') + seconds
+  }
+}
+
 // all lists - GET
 router.get('/', protect, getLists, (req, res) => {
   res.render('setlists', {
@@ -118,6 +128,11 @@ router.get('/:id', protect, getLists, getSongs, (req, res) => {
             list: list[0],
             lists: req.lists,
             songs: songs,
+            getDuration: function(ms) {
+              var timeObj = toTime(ms);
+              var time = timeObj.minute + ':' + timeObj.seconds;
+              return time;
+            }
           });
         }
       });
