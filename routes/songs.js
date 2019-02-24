@@ -44,12 +44,32 @@ let getSongs = (req, res, next) => {
   });
 }
 
+// function to convert milliseconds to time
+function toTime(ms) {
+  var minutes = Math.floor(ms / 60000);
+  var seconds = ((ms % 60000) / 1000).toFixed(0);
+  return {
+    minute: minutes,
+    seconds: (seconds < 10 ? '0' : '') + seconds
+  }
+}
+
+// function to convert time to milliseconds
+function toMilliseconds(hours, min, sec) {
+  return hours * 3600000 + min * 60000 + sec * 1000;
+}
+
 // all songs - GET
 router.get('/', protect, getSongs, getLists, (req, res) => {
   res.render('library', {
     msg:'All of the users songs will be here.',
     songs: req.songs,
-    lists: req.lists
+    lists: req.lists,
+    getDuration: function(ms) {
+      var timeObj = toTime(ms);
+      var time = timeObj.minute + ':' + timeObj.seconds;
+      return time;
+    }
   });
 });
 
@@ -59,11 +79,18 @@ router.post('/create', protect, (req, res) => {
   req.checkBody('songtitle', 'Please give the song a title.').notEmpty();
   req.checkBody('artist', 'Please give the song an artist.').notEmpty();
 
+  // convert duration to ms
+  var duration = req.body.duration.split(":");
+  if (duration.length != 3) {
+    duration.unshift(0);
+  }
+  var ms = toMilliseconds(duration[0], duration[1], duration[2]);
+
   // if there are errors..
   var err = req.validationErrors();
   if (err){
     // send errors
-    res.send({err});
+    console.log(err);
   }
   // otherwise create a song object
   else {
@@ -72,7 +99,7 @@ router.post('/create', protect, (req, res) => {
       artist: req.body.artist,
       capo: req.body.capo,
       tempo: req.body.bpm,
-      duration: req.body.duration,
+      duration: ms,
       key: req.body.key,
       lists: [],
       user: req.user._id,
@@ -82,7 +109,7 @@ router.post('/create', protect, (req, res) => {
     newSong.save(function(err) {
       if (err){
         // send errors
-        res.send({err});
+        console.log(err);
       }
     });
 
@@ -192,7 +219,8 @@ router.get('/get/:id', protect, getSongs, getLists, (req, res) => {
         res.render('song', {
           song: song[0],
           lists: lists,
-          allLists: req.lists
+          allLists: req.lists,
+          duration: toTime(song[0].duration)
         });
       }
     });
@@ -207,7 +235,7 @@ router.post('/update/:id', protect, getSongs, getLists, (req, res) => {
       // send errors
       res.send({err});
     }
-    //console.log(req.body);
+    
     // update the song
     song.title = req.body.songtitle;
     song.artist = req.body.artist;
