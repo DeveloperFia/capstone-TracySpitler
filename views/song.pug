@@ -1,5 +1,7 @@
 extends __layout
 block content
+  -var keys = ['C', 'C♯/D♭', 'D', 'D♯/E♭', 'E', 'F', 'F♯/G♭', 'G', 'G♯/A♭', 'A', 'A♯/B♭', 'B']
+  
   if song
     div(class="text-center card container p-4 mt-3")
       h1 #{song.title}
@@ -47,13 +49,13 @@ block content
             h5(class="card-title") Info
             p(class="card-text cyan-text") #{song.title} by #{song.artist}
             if song.key
-              p(class="card-text") Key: #{song.key}
+              p(class="card-text") Key: #{(keys[song.key]) ? keys[song.key] : "-"}
             if song.tempo
               p(class="card-text") BPM: #{song.tempo}
             if song.capo
               p(class="card-text") Capo: #{song.capo}
             if song.duration
-              p(class="card-text") Duration: #{song.duration}
+              p(class="card-text") Duration: #{duration.minute}min #{duration.seconds}sec
           div(class="card-footer") 
             -function prettyDate(dateString){
               -var date = new Date(dateString);
