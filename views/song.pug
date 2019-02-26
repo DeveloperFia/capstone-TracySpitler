@@ -13,6 +13,8 @@ block content
         
     div(class="text-center card container p-4 my-3 d-flex")
       h1 Song Info
+      if song.spotify_id
+        a(class="text-dark" href="spotify:track:" + song.spotify_id) #[i(class="fab fa-spotify mr-2")] Open in Spotify
       
       div(class="text-left card-deck mt-4")
         div(class="card")
@@ -35,7 +37,6 @@ block content
               small(class="text-muted") Belongs to #{song.lists.length} list
             else 
               small(class="text-muted") Belongs to #{song.lists.length} lists
-            
         
         div(class="card") 
           div(class="card-body") 
@@ -87,5 +88,3 @@ block content
       sm(class="cyan-text") Try selecting a different song
       hr
       a(class="blue-gradient btn" href="/song") Go back
-      
-    
