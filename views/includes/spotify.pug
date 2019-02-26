@@ -56,6 +56,12 @@ mixin spotify
                   div(class="md-form")
                     input(type="text" name="duration" min="0" id="duration" class="duration form-control")
                     label(data-error="wrong" data-success="" for="duration") Duration           
+              
+              div(class="hidden-form")
+                input(type="text" name="img" class="d-none img")
+                input(type="text" name="spotify_id" class="d-none spotify_id")
+                input(type="text" name="preview_url" class="d-none preview_url")
+              
               br
               div(class="md-form")
                 a(class="btn btn-sm peach-gradient" data-toggle="collapse" href="#selectlist" role="button" aria-expanded="false"
