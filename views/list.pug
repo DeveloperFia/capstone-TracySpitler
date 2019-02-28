@@ -60,7 +60,7 @@ block content
                     td(class="text-center") #{(song.tempo) ? song.tempo : "-"}
                     td(class="text-center") #{(song.capo) ? song.capo : "-"}
                     td(class="text-center") #{(getDuration(song.duration) != '0:00') ? getDuration(song.duration) : "-"}
-                    if song.preview_url
+                    if song.preview_url != 'null'
                       td(class="text-center") #[i(id=song.spotify_id class="far fa-play-circle text-black-50 p-0 mod" aria-hidden="true")]
                       audio(id="audio-" + song.spotify_id src=song.preview_url autostart="false")
                     else 
