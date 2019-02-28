@@ -68,7 +68,7 @@ select {
 
 /******************* spotify *******************/
 
-.fa-spotify {
+.btn.fa-spotify {
   color: white !important;
 }
 
@@ -151,6 +151,20 @@ ul.pagination {
 
 .pagination li:hover:not(.active) a {
   border: 2px solid white !important;
+}
+
+th .fa-spotify, a .fa-spotify {
+  transform: scale(1.2);
+  color: rgba(29, 185, 84, 1) !important;
+}
+
+.far.fa-play-circle:hover {
+  transform: scale(1.5);
+}
+
+.fas.fa-play-circle, .playing {
+  color: rgba(29, 185, 84, 1) !important;
+  transform: scale(1.5) !important;
 }
 
 /******************* metronome *******************/
