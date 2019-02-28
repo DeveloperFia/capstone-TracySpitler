@@ -25,7 +25,7 @@ block content
             ul
             if song.lists.length > 0
               for songlist in song.lists 
-                for list in lists
+                for list in old
                   if (list._id == "" + songlist + "")
                     a(href="/list/" + list._id) #{list.name}
                     br
