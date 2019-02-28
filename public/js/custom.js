@@ -96,7 +96,7 @@ $(document).ready(function () {
       }
       else {
         for (var i = 0; i < songs.length; i++) {
-          $('#spotifyresults div:first').append(beginning + '<img id="' + songs[i].id + '" class="mr-4 z-depth-1 img-thumbnail" src="' + songs[i].album.images[1].url + '" alt="Album Image" height="64" width="64">' + middle + songs[i].name + '</strong></p><span class="spotify-artist"> by ' + songs[i].artists[0].name + end);
+          $('#spotifyresults div:first').append(beginning + '<img data-options={"preview":"'+ songs[i].preview_url +'"} id="' + songs[i].id + '" class="mr-4 z-depth-1 img-thumbnail" src="' + songs[i].album.images[1].url + '" alt="Album Image" height="64" width="64">' + middle + songs[i].name + '</strong></p><span class="spotify-artist"> by ' + songs[i].artists[0].name + end);
         }
       }
     });
@@ -108,6 +108,7 @@ $(document).ready(function () {
     var songid = el.find('p').find('.img-thumbnail').attr("id");
     var title = el.find('p:last').text();
     var art = el.find('span').text();
+    var img = el.find('p').find('.img-thumbnail').attr("src");
 
     if (songid) {
       // remove labels
@@ -117,6 +118,7 @@ $(document).ready(function () {
         var features = data.results;
         var artist = art.split('by ');
         var duration = toTime(features.duration_ms);
+        var preview = $( "#"+ songid +"" ).data( "options" ).preview;
 
         // set form values
         $('.songtitle').val(title);
@@ -125,7 +127,38 @@ $(document).ready(function () {
         $('.capo').val(0);
         $('.tempo').val(features.tempo);
         $('.duration').val(((duration.hour > 0) ? duration.hour + ':' : '') + duration.minute + ':' + duration.seconds);
+
+        // set hidden values
+        $('.img').val(img);
+        $('.spotify_id').val(features.id);
+        $('.preview_url').val(preview);
       });
+    }
+  });
+
+  // play sample
+  $(".fa-play-circle").click(function() {
+    var songid = this.id;
+    var song = document.getElementById("audio-" + songid);
+    var sounds = document.getElementsByTagName('audio');
+
+    // pause all sounds & reset buttons
+    for (i=0; i<sounds.length; i++) sounds[i].pause();
+    if ($('i.mod').hasClass("fa-pause-circle")) {
+      $('i.mod').removeClass('playing fa-pause-circle');
+      $('i.mod').addClass('fa-play-circle');
+    }
+    else {
+      // play clicked sample
+      $(this).toggleClass('playing');
+      if($(this).hasClass('playing')){
+        song.play();
+        $(this).toggleClass('fa-play-circle fa-pause-circle');
+      }
+      else {
+        song.pause();
+        $(this).toggleClass('fa-play-circle fa-pause-circle');
+      }
     }
   });
 
