@@ -73,7 +73,7 @@ router.get('/', protect, getSongs, getLists, (req, res) => {
   });
 });
 
-// add song to a list - POST
+// create a song - POST
 router.post('/create', protect, (req, res) => {
   // check for empty values
   req.checkBody('songtitle', 'Please give the song a title.').notEmpty();
@@ -103,6 +103,9 @@ router.post('/create', protect, (req, res) => {
       key: req.body.key,
       lists: [],
       user: req.user._id,
+      img: req.body.img,
+      spotify_id: req.body.spotify_id,
+      preview_url: req.body.preview_url
     });
 
     //save the song
@@ -131,7 +134,7 @@ router.post('/create', protect, (req, res) => {
           list.save(function(err) {
             if (err){
               // send errors
-              res.send({err});
+              console.log(err);
             }
           });
           // find song to update the lists
@@ -142,7 +145,7 @@ router.post('/create', protect, (req, res) => {
             song.save(function(err) {
               if (err){
                 // send errors
-                res.send({err});
+                console.log(err);
               }
             });
           });
@@ -215,10 +218,21 @@ router.get('/get/:id', protect, getSongs, getLists, (req, res) => {
         res.send({err});
       }
       else {
+        // find lists not in
+        var therest = [];
+        lists.forEach(function(x) {
+          for (var i = 0; i < req.lists.length; i++) {
+            if (req.lists[i]._id.toString() != x._id.toString()) {
+              therest.push(req.lists[i]);
+            }
+          }
+        });
+
         // redirect
         res.render('song', {
           song: song[0],
-          lists: lists,
+          old: lists,
+          therest: therest,
           allLists: req.lists,
           duration: toTime(song[0].duration)
         });
@@ -235,7 +249,7 @@ router.post('/update/:id', protect, getSongs, getLists, (req, res) => {
       // send errors
       res.send({err});
     }
-    
+
     // update the song
     song.title = req.body.songtitle;
     song.artist = req.body.artist;
@@ -243,25 +257,70 @@ router.post('/update/:id', protect, getSongs, getLists, (req, res) => {
     song.tempo = req.body.bpm;
     song.capo = req.body.capo;
     song.duration = req.body.duration;
-    song.lists = [];
+    //song.lists = [];
     user: req.user._id;
-
-    // save the song
-    song.save(function(err) {
-      if (err) {
-        // send errors
-        console.log(err);
-      }
-    });
 
     // check old lists
     if (req.body.oldlist) {
+      for (var i = 0; i < song.lists.length; i++) {
+        if (!(req.body.oldlist[i] ? true : false)) {
+          console.log("fix me");
+          //song.lists = req.body.oldlist;
+          console.log(song.lists);
+        }
+        else {
+          console.log("all good. carry on my wayward son");
+        }
+      }
+      console.log(req.body);
       // push song to list and list to song
+    }
+    else {
+      song.lists = [];
+      List.updateMany({songs: song._id }, {$pull: { songs: song._id }},
+      { multi: true }, function(err, list) {
+        if (err) {
+          // send errors
+          res.send({err});
+        }
+      });
     }
 
     // check selected lists
     if (req.body.listchoice) {
-      // push song to list and list to song
+      // make sure it's an array
+      var listchoice = Array.isArray(req.body.listchoice) ? req.body.listchoice : [req.body.listchoice];
+      // for each selected list
+      for (var i = 0; i < listchoice.length; i++) {
+        // find it in the database
+        List.findOne({name: listchoice[i]}, function(err, list) {
+          if (err){
+            // send errors
+            res.send({err});
+          }
+          // push the song id into the list
+          list.songs.push(song._id);
+          // save the list
+          list.save(function(err) {
+            if (err){
+              // send errors
+              res.send({err});
+            }
+          });
+          // find song to update the lists
+          Song.findOne({_id: song._id}, function(err, song) {
+            // push the list id into the song's lists
+            song.lists.push(list._id);
+            // save the song
+            song.save(function(err) {
+              if (err){
+                // send errors
+                console.log(err);
+              }
+            });
+          });
+        });
+      }
     }
 
     // check created list
@@ -272,7 +331,24 @@ router.post('/update/:id', protect, getSongs, getLists, (req, res) => {
         user: req.user._id
       });
       // push song to list and list to song
+      newlist.songs.push(song._id);
+      song.lists.push(newlist._id);
+      // save the list
+      newlist.save(function(err) {
+        if (err){
+          // send errors
+          res.send({err});
+        }
+      });
     }
+
+    // save the song
+    song.save(function(err) {
+      if (err) {
+        // send errors
+        console.log(err);
+      }
+    });
   });
   // redirect
   res.redirect('/song/get/' + req.params.id);
