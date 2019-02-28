@@ -65,6 +65,9 @@ app.use('/learn', learn);
 const spotify = require('./routes/spotify');
 app.use('/spotify', spotify);
 
+const practice = require('./routes/practice');
+app.use('/practice', practice);
+
 // 404 error handling
 app.use(function(req, res, next) {
   if (!req.route)
