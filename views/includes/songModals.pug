@@ -122,7 +122,7 @@ mixin songModals
                 if song.lists.length > 0
                   p(class="cyan-text") This song belongs to:
                   for oldlist in song.lists
-                    for list in lists 
+                    for list in old 
                       if (list._id == "" + oldlist + "") 
                         div(class="custom-control custom-checkbox custom-control-inline")
                           input(name='oldlist' type="checkbox" class="custom-control-input" id=list.name value=list.name checked=true)
@@ -140,13 +140,12 @@ mixin songModals
                       div(class="md-form")
                         select(id="listchoice" name="listchoice" class="browser-default custom-select mdb-select")
                           option(value="Library", selected, disabled) Library
-                          if allLists
-                            for list in allLists
-                              if song.lists.length > 0
-                                for oldlist in song.lists
-                                  if (list._id != "" + oldlist + "") 
-                                    option(value=list.name) #{list.name}
-                              else 
+                          if therest
+                            if therest.length > 0 
+                              for list in therest
+                                option(value=list.name) #{list.name}
+                            else 
+                              for list in allLists
                                 option(value=list.name) #{list.name}
                         label(data-error="wrong" data-success="right" for="listchoice") Choose a list
                   div(class="collapse multi-collapse" id="createlist")
