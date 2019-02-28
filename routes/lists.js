@@ -179,6 +179,14 @@ router.delete('/:id', protect, getLists, (req, res) => {
     }
   });
 
+  Song.updateMany({lists: req.params.id }, {$pull: { lists: req.params.id }},
+  { multi: true }, function(err, song) {
+    if (err) {
+      // send errors
+      res.send({err});
+    }
+  });
+
   // render lists
   res.render('setlists', {
     msg:'All of the users lists will be here.',
