@@ -13,6 +13,68 @@ function randomChord() {
   return chords[Math.floor(Math.random()*chords.length)];
 }
 
+// chord progressions
+var majorProg = [
+  {
+    "majorkey":"A",
+    "progressions":"A D E",
+  },
+  {
+    "majorkey":"B",
+    "progressions":"B E F#",
+  },
+  {
+    "majorkey":"C",
+    "progressions":"C F G",
+  },
+  {
+    "majorkey":"D",
+    "progressions":"D G A",
+  },
+  {
+    "majorkey":"E",
+    "progressions":"E A B",
+  },
+  {
+    "majorkey":"F",
+    "progressions":"F Bb C",
+  },
+  {
+    "majorkey":"G",
+    "progressions":"G C D",
+  },
+];
+
+var minorProg = [
+  {
+    "minorkey":"A",
+    "progressions":"F#m Bm C#m",
+  },
+  {
+    "minorkey":"B",
+    "progressions":"G#m C#m D#m",
+  },
+  {
+    "minorkey":"C",
+    "progressions":"Am Dm Em",
+  },
+  {
+    "minorkey":"D",
+    "progressions":"Bm Em F#m",
+  },
+  {
+    "minorkey":"E",
+    "progressions":"C#m F#m G#m",
+  },
+  {
+    "minorkey":"F",
+    "progressions":"Dm Gm Am",
+  },
+  {
+    "minorkey":"G",
+    "progressions":"Em Am Bm",
+  },
+];
 // date
 function getDate() {
   var today = new Date();
@@ -35,6 +97,8 @@ router.get('/', protect, (req, res) => {
   res.render('practice', {
     date: getDate(),
     chord: randomChord(),
+    majorProg,
+    minorProg,
   });
 });
 
