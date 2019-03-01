@@ -1,5 +1,7 @@
 extends __layout
 block content
+  -var keys = ['C', 'C♯/D♭', 'D', 'D♯/E♭', 'E', 'F', 'F♯/G♭', 'G', 'G♯/A♭', 'A', 'A♯/B♭', 'B']
+  
   if song
     div(class="text-center card container p-4 mt-3")
       h1 #{song.title}
@@ -11,6 +13,8 @@ block content
         
     div(class="text-center card container p-4 my-3 d-flex")
       h1 Song Info
+      if song.spotify_id
+        a(class="text-dark" href="spotify:track:" + song.spotify_id) #[i(class="fab fa-spotify mr-2")] Open in Spotify
       
       div(class="text-left card-deck mt-4")
         div(class="card")
@@ -21,7 +25,7 @@ block content
             ul
             if song.lists.length > 0
               for songlist in song.lists 
-                for list in lists
+                for list in old
                   if (list._id == "" + songlist + "")
                     a(href="/list/" + list._id) #{list.name}
                     br
@@ -33,7 +37,6 @@ block content
               small(class="text-muted") Belongs to #{song.lists.length} list
             else 
               small(class="text-muted") Belongs to #{song.lists.length} lists
-            
         
         div(class="card") 
           div(class="card-body") 
@@ -47,13 +50,13 @@ block content
             h5(class="card-title") Info
             p(class="card-text cyan-text") #{song.title} by #{song.artist}
             if song.key
-              p(class="card-text") Key: #{song.key}
+              p(class="card-text") Key: #{(keys[song.key]) ? keys[song.key] : "-"}
             if song.tempo
               p(class="card-text") BPM: #{song.tempo}
             if song.capo
               p(class="card-text") Capo: #{song.capo}
             if song.duration
-              p(class="card-text") Duration: #{song.duration}
+              p(class="card-text") Duration: #{duration.minute}min #{duration.seconds}sec
           div(class="card-footer") 
             -function prettyDate(dateString){
               -var date = new Date(dateString);
@@ -85,5 +88,3 @@ block content
       sm(class="cyan-text") Try selecting a different song
       hr
       a(class="blue-gradient btn" href="/song") Go back
-      
-    

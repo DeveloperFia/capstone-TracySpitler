@@ -1,0 +1,87 @@
+mixin spotify 
+  -var keys = ['C', 'C♯/D♭', 'D', 'D♯/E♭', 'E', 'F', 'F♯/G♭', 'G', 'G♯/A♭', 'A', 'A♯/B♭', 'B']
+
+  //- modal - search spotify 
+  div(class="modal fade hidden" id="spotifyModalForm" tabindex="-1" role="dialog" aria-labelledby="spotifyModalLabel" aria-hidden="true")
+    div(class="text-center container p-4 mt-3")
+      div(class="modal-dialog" role="document")
+        div(class="modal-content form-elegant")
+          div(class="modal-header text-center")
+            h3(class="modal-title w-100 dark-grey-text font-weight-bold my-3 ml-4" id="spotifyModalLabel") #[strong Search Spotify]
+            button(type="button" class="close" data-dismiss="modal" aria-label="Close") #[span(aria-hidden="true") &times;]  
+          
+          form(class="form-inline md-form form-sm mt-0 justify-content-center")
+            i(class="fas fa-search" aria-hidden="true")
+            input#searchspotify(class="search-chords form-control form-control-sm ml-3 w-75" type="text" placeholder="Search for a chord" aria-label="Search")
+        
+          div#spotifyresults(class="list-group m-4 text-left")
+            div(class="list-group-item list-group-item-action d-flex")
+              p(class="mb-0") #[i(class="fab fa-spotify fa-2x mr-4 success-color p-3 white-text rounded " aria-hidden="true")] 
+              div(class='flex-column')
+                p #[strong(class='spotify-title') Search Results]
+                span(class='spotify-artist') from Spotify
+              
+          small Created songs are automatically added to your library
+          hr
+          div(class="modal-body mx-4")     
+            small(class='cyan-text') You can edit the preloaded details below:
+            form(method='post', action='/song/create') 
+              div(class="form-row")
+                div(class="col")
+                  div(class="md-form")
+                    input(type="text" name="songtitle" id="songtitle" class="form-control songtitle" required)
+                    label(class="titlelabel" data-error="wrong" data-success="" for="songtitle") Song Title            
+                div(class="col")
+                  div(class="md-form")
+                    input(type="text" name="artist" id="artist" class="form-control artist" required)
+                    label(class="artistlabel" data-error="wrong" data-success="" for="artist") Artist           
+              
+              div(class="form-row")
+                div(class="col")
+                  div(class="md-form")
+                    select(id="key" name="key" class="key browser-default custom-select m-0 p-0")
+                      option(value="-1", selected, disabled) Key
+                      each val, index in keys
+                        option(value=index) #{val}
+                              
+                div(class="col")
+                  div(class="md-form")
+                    input(type="number" step='0.001' min="0" max="500" name="bpm" id="bpm" class="tempo form-control")
+                    label(data-error="wrong" data-success="" for="bpm") BPM           
+                div(class="col")
+                  div(class="md-form")
+                    input(type="number" name="capo" step='1' min="0" max="12" id="capo" class="capo form-control")
+                    label(data-error="wrong" data-success="" for="capo") Capo            
+                div(class="col")
+                  div(class="md-form")
+                    input(type="text" name="duration" min="0" id="duration" class="duration form-control")
+                    label(data-error="wrong" data-success="" for="duration") Duration           
+              
+              div(class="hidden-form")
+                input(type="text" name="img" class="d-none img")
+                input(type="text" name="spotify_id" class="d-none spotify_id")
+                input(type="text" name="preview_url" class="d-none preview_url")
+              
+              br
+              div(class="md-form")
+                a(class="btn btn-sm peach-gradient" data-toggle="collapse" href="#selectlist" role="button" aria-expanded="false"
+  aria-controls="selectlist") Select a List
+                a(class="btn btn-sm peach-gradient" data-toggle="collapse" href="#createlist" role="button" aria-expanded="false"
+  aria-controls="createlist") Create a List
+                div(class="collapse multi-collapse" id="selectlist")
+                  div(class="card-body pt-0 pb-3")
+                    div(class="md-form")
+                      select(id="listchoice" name="listchoice" class="browser-default custom-select mdb-select")
+                        option(value="Library", selected, disabled) Library
+                        if lists
+                          for list in lists
+                            option(value=list.name) #{list.name}
+                      label(data-error="wrong" data-success="right" for="listchoice") Choose a list
+                div(class="collapse multi-collapse" id="createlist")
+                  div(class="card-body")
+                    div(class="md-form")
+                      input(type="text" name="newlist" id="newlist" class="form-control")
+                      label(data-error="wrong" data-success="" for="newlist") New list name           
+
+              div(class="text-center mb-3")
+                button(type="submit" class="btn spotify-btn btn-block btn-rounded z-depth-1a") Add Song! 

@@ -24,7 +24,8 @@
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
     "passport-spotify": "^1.0.1",
-    "pug": "^2.0.3"
+    "pug": "^2.0.3",
+    "spotify-web-api-node": "^4.0.0"
   },
   "devDependencies": {
     "chai": "^4.2.0",
