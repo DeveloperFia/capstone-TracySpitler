@@ -7,6 +7,45 @@ const router = express.Router();
 var path = require('path');
 const protect = require('connect-ensure-login').ensureLoggedIn('/');
 
+// models
+const List = require('../models/list');
+const Song = require('../models/song');
+
+var goal;
+
+// function - get all lists from db
+let getLists = (req, res, next) => {
+  List.find({ user: req.user._id }, function(err, lists) {
+    if (err) {
+      // send errors
+      res.send({err});
+    }
+    else {
+      // add lists to req
+      req.lists = lists;
+      // run the next function
+      next();
+    }
+  });
+}
+
+// function - gets all songs from db
+let getSongs = (req, res, next) => {
+  // get all the songs
+  Song.find({user: req.user._id}, function(err, songs) {
+    if (err) {
+      // send errors
+      res.send({err});
+    }
+    else {
+      // add songs to req
+      req.songs = songs;
+      // run the next function
+      next();
+    }
+  });
+}
+
 // random chord
 function randomChord() {
   var chords = ["A", "A7", "Am", "Am7", "Ab", "Ab7", "Abm", "Abm7", "B", "B7", "Bm", "Bm7", "Bb", "Bb7", "Bbm", "Bbm7", "C", "C7", "Cm", "Cm7", "C#", "C#7", "C#m", "C#m7", "D", "D7", "Dm", "Dm7", "D#", "D#7", "D#m", "D#m7", "E", "E7", "Em", "Em7", "Eb", "Eb7", "Ebm", "Ebm7", "F", "F7", "Fm", "Fm7", "F#", "F#7", "F#m", "F#m7", "G", "G7", "Gm", "Gm7", "G#", "G#7", "G#m", "G#m7"];
@@ -75,6 +114,17 @@ var minorProg = [
     "progressions":"Em Am Bm",
   },
 ];
+
+// random chord progression
+function randomProg(key) {
+  if (key == "minor") {
+    return minorProg[Math.floor(Math.random()*minorProg.length)];
+  }
+  else if (key == "major") {
+    return majorProg[Math.floor(Math.random()*majorProg.length)];
+  }
+}
+
 // date
 function getDate() {
   var today = new Date();
@@ -93,12 +143,35 @@ function getDate() {
 }
 
 // practice home - GET
-router.get('/', protect, (req, res) => {
+router.get('/', protect, getSongs, (req, res) => {
   res.render('practice', {
     date: getDate(),
     chord: randomChord(),
     majorProg,
     minorProg,
+    songs: req.songs,
+    goal: goal
+  });
+});
+
+// create daily goal - POST
+router.post('/goal', protect, getSongs, (req, res) => {
+  goal = {
+    time: req.body.time,
+    chordprog: randomProg(req.body.chordprog),
+    song: req.body.songs
+  };
+  res.render('practice', {
+    date: getDate(),
+    chord: randomChord(),
+    songs: req.songs,
+    majorProg,
+    minorProg,
+    goal: {
+      time: goal.time,
+      chordprog: goal.chordprog,
+      song: goal.song
+    }
   });
 });
 
