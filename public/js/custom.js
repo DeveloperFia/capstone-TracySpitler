@@ -238,6 +238,28 @@ $(document).ready(function () {
     });
   });
 
+  // song metronome
+  $('.fa-circle').click(function() {
+    $(this).toggleClass('blue-text');
+    var tempo = this.id;
+    metronome.set(tempo);
+
+    // toggle the metronome & buttons
+    if($(this).hasClass('blue-text')){
+      metronome.start();
+      $(this).toggleClass('fas fa-circle far fa-circle');
+    } else {
+      metronome.stop();
+      $(this).toggleClass('fas fa-circle far fa-circle');
+    }
+
+    // toggle sound
+    metronome.on('tick', function() {
+      var sound = document.getElementById("audiotable");
+      sound.play();
+    });
+  });
+
   /******************* chords *******************/
 
   $('.search-chords').keyup(function() {
