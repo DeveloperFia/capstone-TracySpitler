@@ -264,7 +264,7 @@ $(document).ready(function () {
 
   $('.search-chords').keyup(function() {
     // get user input
-    var input = $('.search-chords').val();
+    var input = $(this).val();
     // capitalize the first letter (root note) after a space
     var chord = capitalize(input);
     // render svg chords
