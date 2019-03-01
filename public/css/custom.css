@@ -206,3 +206,8 @@ th .fa-spotify, a .fa-spotify {
   margin: 3rem auto;
   border-bottom: 3px solid #1083ff;
 }
+
+.progressions svg {
+  right: 50%;
+  border-bottom: 3px solid #1083ff;
+}
