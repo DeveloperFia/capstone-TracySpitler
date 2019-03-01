@@ -262,18 +262,7 @@ router.post('/update/:id', protect, getSongs, getLists, (req, res) => {
 
     // check old lists
     if (req.body.oldlist) {
-      for (var i = 0; i < song.lists.length; i++) {
-        if (!(req.body.oldlist[i] ? true : false)) {
-          console.log("fix me");
-          //song.lists = req.body.oldlist;
-          console.log(song.lists);
-        }
-        else {
-          console.log("all good. carry on my wayward son");
-        }
-      }
-      console.log(req.body);
-      // push song to list and list to song
+      // update for removed list
     }
     else {
       song.lists = [];
