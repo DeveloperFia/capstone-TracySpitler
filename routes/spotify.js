@@ -23,13 +23,32 @@ spotifyApi.clientCredentialsGrant()
     console.log('Something went wrong when retrieving an access token', err.message);
 });
 
-router.get('/myendpoint', function (request, response) {
+// audio features for a track - GET
+router.get('/features/:id', function (req, res) {
+  spotifyApi.getAudioFeaturesForTrack(req.params.id)
+  .then(function(data) {
+    // send json
+    res.json({
+      results: data.body
+    });
+  }, function(err) {
+    done(err);
+  });
+});
+
+// search spotify api - GET
+router.get('/:search', function (req, res) {
   // Search for a track!
-  spotifyApi.searchTracks('track:Dancing Queen', {limit: 1})
+  spotifyApi.searchTracks('track:' + req.params.search, {limit: 3})
     .then(function(data) {
-      // Send the first (only) track object
-      response.send(data.body.tracks.items[0]);
+      // send json
+      res.json({
+        results: data.body.tracks.items
+      });
     }, function(err) {
       console.error(err);
     });
 });
+
+// set up router
+module.exports = router;

@@ -68,7 +68,7 @@ select {
 
 /******************* spotify *******************/
 
-.fa-spotify {
+.btn.fa-spotify {
   color: white !important;
 }
 
@@ -78,6 +78,10 @@ select {
 }
 
 /******************* data table *******************/
+
+td {
+  cursor: pointer;
+}
 
 .highlight {
   transition: all .2s ease-in;
@@ -153,6 +157,20 @@ ul.pagination {
   border: 2px solid white !important;
 }
 
+th .fa-spotify, a .fa-spotify {
+  transform: scale(1.2);
+  color: rgba(29, 185, 84, 1) !important;
+}
+
+.far.fa-play-circle:hover {
+  transform: scale(1.5);
+}
+
+.fas.fa-play-circle, .playing {
+  color: rgba(29, 185, 84, 1) !important;
+  transform: scale(1.5) !important;
+}
+
 /******************* metronome *******************/
 
 .bpm-change {
@@ -176,9 +194,43 @@ ul.pagination {
   margin: .75rem 0;
 }
 
+#mute {
+  width: 5.5rem;
+}
+
+@keyframes pulse {
+  0% {
+    -moz-box-shadow: 0 0 0 0 rgba(178, 215, 252, 0.4);
+    box-shadow: 0 0 0 0 rgba(178, 215, 252, 0.4);
+  }
+  40% {
+      -moz-box-shadow: 0 0 0 50px rgba(178, 215, 252, 0);
+      box-shadow: 0 0 0 50px rgba(178, 215, 252, 0);
+  }
+  80% {
+      -moz-box-shadow: 0 0 0 50px rgba(178, 215, 252, 0);
+      box-shadow: 0 0 0 50px rgba(178, 215, 252, 0);
+  }
+  100% {
+      -moz-box-shadow: 0 0 0 0 rgba(178, 215, 252, 0);
+      box-shadow: 0 0 0 0 rgba(178, 215, 252, 0);
+  }
+}
+
 /******************* chords *******************/
 
 .jtab {
   width: 180px;
   height: 150px;
+}
+
+#randomChord {
+  transform: scale(1.5);
+  margin: 3rem auto;
+  border-bottom: 3px solid #1083ff;
+}
+
+.progressions svg {
+  right: 50%;
+  border-bottom: 3px solid #1083ff;
 }

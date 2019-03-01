@@ -1,6 +1,7 @@
 include ./includes/authModals
 include ./includes/confirmDelete
 include ./includes/songModals
+include ./includes/spotify
 <!-- DOCTYPE html -->
 html(lang="en")
   head 
@@ -23,6 +24,7 @@ html(lang="en")
     +authModals
     +confirmDelete
     +songModals
+    +spotify
     
     //- navigation
     header
@@ -44,6 +46,8 @@ html(lang="en")
                 a(class="nav-link" href="/song") Songs
               li(class="nav-item") 
                 a(class="nav-link" href="/list") Lists
+              li(class="nav-item") 
+                a(class="nav-link" href="/practice") Practice
               li(class="nav-item") 
                 a(class="nav-link" href="/auth/logout") Logout
               li(class="nav-item") 
