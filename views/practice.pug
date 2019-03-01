@@ -1,7 +1,7 @@
 extends __layout
 block content
   div(class="text-center card container p-4 my-3 d-flex")
-    h1 Practice
+    h1 Hone Your Skills
     small(class="cyan-text") What would you like to do?
     
   div(class="text-center card container p-4 my-3 d-flex")
@@ -11,11 +11,21 @@ block content
           h5(class="card-title") Daily Practice
           small(class="card-text") Goal for #{date}
           br 
-          if goal 
-          else
+          hr
+          if goal
+            p(class="cyan-text") Your goal:
+            if goal.time
+              p Time: #{goal.time} minutes
+            if goal.song
+              p Song: #{goal.song}
+            if goal.chordprog
+              p Chord Progression: #{goal.chordprog.progressions}
             hr
+            a(class="blue-text" data-toggle="modal" data-target="#goalModalForm") Create a new goal
+            
+          else
             p Your daily goal has not been set up yet.
-            p #[a(href="" data-toggle="modal" data-target="#editSongModalForm") Click here] to do that now.
+            p #[a(class="blue-text" data-toggle="modal" data-target="#goalModalForm") Click here] to do that now.
         div(class="card-footer") 
           if progress
             small(class="text-muted") 26% completed
@@ -65,3 +75,39 @@ block content
           p #[strong #{val.minorkey} minor]: #{val.progressions}
           div(class="jtab progressions mx-auto") #{val.progressions}
           hr
+    
+    
+  div(class="modal fade hidden" id="goalModalForm" tabindex="-1" role="dialog" aria-labelledby="goalModalLabel" aria-hidden="true")
+    div(class="text-center container p-4 mt-3")
+      div(class="modal-dialog" role="document")
+        div(class="modal-content form-elegant")
+          div(class="modal-header text-center")
+            h3(class="modal-title w-100 dark-grey-text font-weight-bold my-3 ml-4" id="goalModalLabel") #[strong Practice Goal]
+            button(type="button" class="close" data-dismiss="modal" aria-label="Close") #[span(aria-hidden="true") &times;]        
+          small Goals are set daily
+          hr
+          div(class="modal-body mx-4")       
+            form(method='post', action='/practice/goal') 
+              div(class="form-row")
+                div(class="col")
+                  div(class="md-form")
+                    input(type="number" step="5" min="0" max="120" name="time" id="time" class="form-control")
+                    label(data-error="wrong" data-success="" for="time") Amount of Time            
+                div(class="col")
+                  div(class="md-form")
+                    select(id="chordprog" name="chordprog" class="browser-default custom-select m-0 p-0")
+                      option(value="0") Chord Progression
+                      option(value="major") Major
+                      option(value="minor") Minor
+                      
+              div(class="form-row")
+                div(class="col")
+                  div(class="md-form")
+                    select(id="songs" name="songs" class="browser-default custom-select m-0 p-0")
+                      option(value="-1", selected, disabled) Choose a Song
+                      if songs
+                        for song in songs
+                          option(value=song.title + " by " + song.artist) #{song.title} by #{song.artist}       
+
+              div(class="text-center mb-3")
+                button(type="submit" class="btn blue-gradient btn-block btn-rounded z-depth-1a") Create Goal! 
