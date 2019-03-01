@@ -24,6 +24,7 @@ block content
             div#songfilters(class='d-flex mt-2 px-1 justify-content-between ')
               
           div(class="d-flex justify-content-center")
+            audio(id="audiotable" src="https://www.soundjay.com/button/button-16.wav" autostart="false")
             div(class="table-wrapper table-responsive mx-4 my-2 px-2")
               table#dtSongs(class="table table-hover" cellspacing='0')
                 thead
@@ -38,6 +39,8 @@ block content
                     th(class="text-center")
                       | BPM
                     th(class="text-center")
+                      | #[i(class="fas fa-drum")]
+                    th(class="text-center")
                       | Capo
                     th(class="text-center")
                       | Duration
@@ -51,6 +54,7 @@ block content
                       td #{song.artist}
                       td(class="text-center") #{(keys[song.key]) ? keys[song.key] : "-"}
                       td(class="text-center") #{(song.tempo) ? song.tempo : "-"}
+                      td(class="text-center") #[i(id=song.tempo class="far fa-circle")]
                       td(class="text-center") #{(song.capo) ? song.capo : "-"}
                       td(class="text-center") #{(getDuration(song.duration) != '0:00') ? getDuration(song.duration) : "-"}
                       if song.preview_url != 'null'
